@@ -194,7 +194,7 @@ ul { list-style: none; }
 .location__addr { font-size: 15px; color: var(--muted); }
 .location__info .pill-btn { margin-top: 8px; }
 .location__map {
-  height: 200px; background: var(--sky);
+  height: 240px; background: #e6eef5;
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
   color: var(--deep); font-size: 13px;
 }
