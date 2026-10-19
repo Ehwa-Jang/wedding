@@ -1,0 +1,36 @@
+# 청첩장 자동 배포
+# - 코드가 올라오면 바로 배포하고,
+# - 혹시 자동으로 시작되지 않은 경우를 위해 30분마다 한 번 최신 코드로 다시 배포해요.
+# 사용하려면 Settings → Pages → Source를 "GitHub Actions"로 설정하세요.
+name: Deploy wedding invitation
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - id: deployment
+        uses: actions/deploy-pages@v4
