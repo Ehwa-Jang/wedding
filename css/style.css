@@ -165,12 +165,13 @@ ul { list-style: none; }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
 /* ===== 6. 달력 ===== */
-.calendar { position: relative; overflow: hidden; gap: 20px; padding-bottom: 72px; }
+.calendar { position: relative; overflow: hidden; gap: 20px; padding-top: 56px; padding-bottom: 0; }
 .calendar__date { font-size: 16px; position: relative; z-index: 1; }
 .calendar .sec__title { position: relative; z-index: 1; }
-.calendar__board { position: relative; width: 100%; display: flex; justify-content: center; padding-top: 20px; }
+/* 하트 꼭짓점이 섹션 맨 아래에 닿도록 보드 높이 = 하트 하단까지 (디자인: 하트 top 190 · 표 top 270 · 높이 470) */
+.calendar__board { position: relative; width: 100%; min-height: 494px; display: flex; justify-content: center; align-items: flex-start; padding-top: 104px; }
 .calendar__heart {
-  position: absolute; left: 50%; top: -24px; width: 410px; height: 470px;
+  position: absolute; left: 50%; top: 24px; width: 410px; height: 470px;
   transform: translateX(-50%);
   background: var(--sky-2);
   clip-path: polygon(50% 100%, 4% 46%, 0% 12%, 14% 4%, 34% 0%, 50% 12%, 66% 0%, 86% 4%, 100% 12%, 96% 46%);
