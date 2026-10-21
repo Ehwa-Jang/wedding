@@ -12,6 +12,7 @@
   --deep: #4f6f88;
   --font: 'Work Sans', 'IBM Plex Sans KR', -apple-system, 'Apple SD Gothic Neo', sans-serif;
   --heart: polygon(50% 100%, 4% 46%, 0% 20%, 14% 4%, 34% 0%, 50% 16%, 66% 0%, 86% 4%, 100% 20%, 96% 46%);
+  --heart-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 124 112'%3E%3Cpath d='M62 108C56 103 8 72 4 38 1 16 17 3 34 3c12 0 22 7 28 17 6-10 16-17 28-17 17 0 33 13 30 35-4 34-52 65-58 70z'/%3E%3C/svg%3E");
   color-scheme: light;
 }
 
@@ -169,13 +170,15 @@ ul { list-style: none; }
 .calendar__date { font-size: 16px; position: relative; z-index: 1; }
 .calendar .sec__title { position: relative; z-index: 1; }
 /* 하트 꼭짓점이 섹션 맨 아래에 닿도록 보드 높이 = 하트 하단까지 (디자인: 하트 top 190 · 표 top 270 · 높이 470) */
-.calendar__board { position: relative; width: 100%; min-height: 494px; display: flex; justify-content: center; align-items: flex-start; padding-top: 104px; }
+.calendar__board { position: relative; width: 100%; min-height: 434px; /* 하트 아래 끝 60px은 잘라서 보여줘요 */ display: flex; justify-content: center; align-items: flex-start; padding-top: 104px; }
 .calendar__heart {
   position: absolute; left: 50%; top: 24px; width: 410px; height: 470px;
   transform: translateX(-50%);
   background: var(--sky-2);
   clip-path: polygon(50% 100%, 4% 46%, 0% 12%, 14% 4%, 34% 0%, 50% 12%, 66% 0%, 86% 4%, 100% 12%, 96% 46%);
 }
+.calendar__wrap { position: relative; width: 290px; }
+.calendar__month { position: absolute; left: 6px; top: -38px; font-size: 15px; font-weight: 500; letter-spacing: 0.08em; color: var(--deep); }
 .calendar__table { position: relative; width: 290px; border-collapse: collapse; text-align: center; font-size: 13px; font-variant-numeric: tabular-nums; }
 .calendar__table th { font-size: 11px; font-weight: 500; letter-spacing: 0.06em; padding-bottom: 10px; }
 .calendar__table td { height: 40px; position: relative; }
@@ -208,7 +211,9 @@ ul { list-style: none; }
 .guide { display: flex; flex-direction: column; gap: 6px; font-size: 14px; color: var(--muted); }
 .guide__label { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 700; color: var(--ink); }
 .guide__label svg { stroke: var(--deep); stroke-width: 1.3; }
-.guide__strong { font-weight: 700; }
+.guide__sub { font-weight: 400; }
+.guide__label .dot { fill: var(--deep); stroke: none; }
+.guide__gap { margin-top: 4px; }
 
 /* ===== 8. Q&A ===== */
 .qna { padding-left: 20px; padding-right: 20px; }
@@ -227,16 +232,16 @@ ul { list-style: none; }
 .account .sec__title { align-self: center; }
 .account__intro { text-align: center; font-size: 14px; color: var(--muted); margin: -12px 0 12px; }
 .mini-heart { display: inline-block; width: 10px; height: 9px; background: var(--accent); clip-path: var(--heart); }
-.acc { border: 1px solid var(--sky-1); border-radius: 12px; overflow: hidden; background: var(--white); }
+.acc { border: 1px solid var(--sky-1); border-radius: 12px; overflow: hidden; background: var(--sky); }
 .acc__toggle {
   width: 100%; min-height: 54px; padding: 0 18px;
   display: flex; align-items: center; justify-content: space-between;
-  background: var(--white); border: 0; cursor: pointer;
+  background: var(--sky); border: 0; cursor: pointer;
 }
 .acc__title { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; }
 .acc__toggle svg { stroke: var(--deep); transition: transform .25s; }
 .acc__toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
-.person { border-top: 1px solid var(--sky); padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; }
+.person { border-top: 1px solid var(--sky-1); padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; }
 .person__name { font-size: 15px; font-weight: 600; display: flex; align-items: baseline; gap: 8px; }
 .person__role { font-size: 12px; font-weight: 500; color: var(--deep); }
 .person__row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
@@ -244,17 +249,17 @@ ul { list-style: none; }
 .person__info .ico { flex-shrink: 0; fill: none; stroke: var(--deep); stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; }
 .person__btns { display: flex; gap: 6px; flex-shrink: 0; }
 .icon-btn {
-  width: 34px; height: 34px; border-radius: 50%; background: var(--sky);
+  width: 34px; height: 34px; border-radius: 50%; background: var(--white);
   display: flex; align-items: center; justify-content: center; color: var(--ink);
 }
 .icon-btn svg { fill: none; stroke: currentColor; stroke-width: 1.2; stroke-linejoin: round; }
 .copy-btn {
   flex-shrink: 0; height: 34px; padding: 0 14px; border: 0; border-radius: 999px;
-  background: var(--sky); font-size: 12px; cursor: pointer;
+  background: var(--white); font-size: 12px; cursor: pointer;
 }
 .account__note {
-  margin-top: 12px; padding: 14px 16px; border-radius: 10px; background: var(--sky);
-  text-align: center; font-size: 13px; color: var(--deep);
+  margin-top: 12px; padding: 12px 10px; border-radius: 10px; background: var(--white); border: 1px solid var(--sky-1);
+  text-align: center; font-size: min(13px, 3.4vw); line-height: 1.5; color: var(--deep); white-space: nowrap;
 }
 
 /* ===== 10. 감사 인사 ===== */
@@ -262,6 +267,44 @@ ul { list-style: none; }
 .thanks__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; }
 .thanks__text { text-align: center; font-size: 15px; line-height: 1.8; }
 .thanks__sign { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--muted); margin-top: -14px; }
+
+/* ===== 10-1. 하트 보내기 ===== */
+.love { gap: 20px; padding-bottom: 24px; }
+.love__intro { text-align: center; font-size: 14px; color: var(--muted); }
+.love__stage {
+  position: relative; width: 100%; max-width: 342px; height: 260px;
+  display: flex; align-items: center; justify-content: center;
+  -webkit-user-select: none; user-select: none;
+}
+.love__btn {
+  position: relative; width: 124px; height: 112px; margin-top: 10px;
+  padding: 0; border: 0; background: none; cursor: pointer;
+  touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+  filter: drop-shadow(0 8px 14px rgba(79, 111, 136, 0.22));
+  animation: loveBeat 2.4s ease-in-out infinite;
+}
+.love__btn.is-tapped { animation: none; }
+.love__shape { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.love__btn:focus-visible { outline-offset: 6px; }
+.love__tap { position: absolute; left: 0; right: 0; bottom: 4px; text-align: center; font-size: 12px; color: var(--muted); letter-spacing: .04em; transition: opacity .4s; }
+.love__tap.is-hidden { opacity: 0; }
+@keyframes loveBeat { 0%, 70%, 100% { transform: scale(1); } 78% { transform: scale(1.07); } 86% { transform: scale(.98); } 92% { transform: scale(1.04); } }
+
+/* 터지는 작은 하트 · 반짝이 · 축하 문구 */
+.love__fx { position: absolute; left: 50%; top: 50%; pointer-events: none; will-change: transform, opacity; }
+.love__fx--heart {
+  -webkit-mask: var(--heart-svg) center / contain no-repeat; mask: var(--heart-svg) center / contain no-repeat;
+}
+.love__fx--star { clip-path: polygon(50% 0%, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0% 50%, 39% 39%); }
+.love__msg {
+  position: absolute; left: 50%; top: 22px; z-index: 2; pointer-events: none; white-space: nowrap;
+  padding: 8px 14px; border-radius: 999px; background: var(--white); border: 1px solid var(--sky-1);
+  box-shadow: 0 4px 12px rgba(79, 111, 136, 0.12);
+  font-size: 13px; font-weight: 500; color: var(--deep);
+}
+.love__count { display: flex; align-items: baseline; gap: 6px; font-size: 14px; color: var(--muted); }
+.love__heart { color: var(--accent); }
+.love__count b { font-size: 18px; font-weight: 600; color: var(--deep); font-variant-numeric: tabular-nums; display: inline-block; min-width: 1ch; }
 
 /* ===== 11. 공유하기 ===== */
 .share { gap: 20px; padding-bottom: calc(40px + env(safe-area-inset-bottom)); }
@@ -302,4 +345,5 @@ ul { list-style: none; }
 @media (prefers-reduced-motion: reduce) {
   .envelope__holder, .envelope__flap, .flap-inner, .toast, .acc__toggle svg { transition: none; }
   .gallery__grid li.is-extra { animation: none; }
+  .love__btn { animation: none; }
 }

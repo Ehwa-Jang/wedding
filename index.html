@@ -112,7 +112,10 @@
     <p class="calendar__date">2027년 3월 13일 토요일 오후 3시</p>
     <div class="calendar__board">
       <span class="calendar__heart" aria-hidden="true"></span>
-      <table class="calendar__table" id="calendarTable" aria-label="2027년 3월 달력, 13일 예식"></table>
+      <div class="calendar__wrap">
+        <p class="calendar__month" aria-hidden="true">March</p>
+        <table class="calendar__table" id="calendarTable" aria-label="2027년 3월 달력, 13일 예식"></table>
+      </div>
     </div>
   </section>
 
@@ -148,18 +151,25 @@
       <div class="guide">
         <h4 class="guide__label">
           <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><rect x="2.5" y="2.5" width="13" height="13" rx="3"></rect><path d="M7 13V5h3a2.2 2.2 0 0 1 0 4.4H7"></path></svg>
-          주차
+          주차 안내 <span class="guide__sub">(2시간 무료)</span>
         </h4>
         <p>제1주차장 · 웨딩시그니처 건물<br>제2주차장 · H스퀘어<br>제3주차장 · 서교빌딩 주차장</p>
-        <p>2시간 무료 주차</p>
-        <p class="guide__strong">차량으로 방문하시는 하객분들께서는<br>건물 정문에서 주차 안내를 받아주세요.</p>
+        <p class="guide__gap">건물 내 주차 공간이 다소 여유롭지 않은 점<br>너른 양해 부탁드립니다.</p>
+        <p class="guide__gap">건물 정문으로 오시면<br>주차 안내를 도와드리겠습니다.</p>
+      </div>
+      <div class="guide">
+        <h4 class="guide__label">
+          <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><rect x="3" y="2.5" width="12" height="11" rx="2"></rect><path d="M3 8h12M5.5 13.5v2M12.5 13.5v2"></path><circle cx="6" cy="11" r="0.8" class="dot"></circle><circle cx="12" cy="11" r="0.8" class="dot"></circle></svg>
+          광주 출발 버스 안내
+        </h4>
+        <p>광주에서 출발하는 전세버스를<br>이용하실 친척분들께는<br>탑승 장소와 시간 등 자세한 내용을<br>개별적으로 안내드리겠습니다.</p>
       </div>
     </div>
   </section>
 
   <!-- 8. Q&A -->
   <section class="sec sec--sky qna" id="qna">
-    <header class="sec__title"><h2>Q&amp;A</h2></header>
+    <header class="sec__title"><h2>OUR STORY</h2></header>
     <div class="chat">
       <p class="bubble bubble--q"><b>Q.</b> 두 사람은 어떻게 만났나요?</p>
       <p class="bubble bubble--a">저희는 민석이의 대학동기 성윤이와<br>이화의 소꿉친구 지수의 소개로 처음 만났어요!<br>좋은 연을 맺어준 두 친구들아 고마워 🫶</p>
@@ -175,7 +185,7 @@
       </div>
 
       <p class="bubble bubble--q"><b>Q.</b> 제일 중요한 신혼여행은 어디로 가나요?</p>
-      <p class="bubble bubble--a">낭만의 도시 파리부터<br>멋진 건축물과 성당이 많은 바르셀로나까지<br>알차게 즐기고 오겠습니다! ✈️</p>
+      <p class="bubble bubble--a">낭만의 도시 파리부터<br>멋진 건축물과 성당이 많은 바르셀로나까지<br>알차게 즐기고 오겠습니다 ✈️</p>
     </div>
   </section>
 
@@ -284,7 +294,7 @@
         </li>
       </ul>
     </div>
-    <p class="account__note">화환은 웨딩홀 규정으로 인해<br>마음으로만 받겠습니다 ♡</p>
+    <p class="account__note">화환은 웨딩홀 규정으로 인해 마음으로만 받겠습니다 ♡</p>
   </section>
 
   <!-- 10. 감사 인사 -->
@@ -295,6 +305,27 @@
     </figure>
     <p class="thanks__text">축하해 주시는 따뜻한 마음과<br>귀한 시간 내어 함께해 주시는 발걸음에<br>진심으로 감사드립니다.</p>
     <p class="thanks__sign">민석<span class="mini-heart" aria-hidden="true"></span>이화 드림</p>
+  </section>
+
+  <!-- 10-1. 하트 보내기 -->
+  <section class="sec sec--white love" id="love">
+    <header class="sec__title"><h2>SEND LOVE</h2></header>
+    <p class="love__intro">축하하는 마음을 담아<br>하트를 마음껏 눌러주세요 ♡</p>
+    <div class="love__stage" id="loveStage">
+      <button type="button" class="love__btn" id="loveBtn" aria-label="축하 하트 보내기">
+        <svg class="love__shape" viewBox="0 0 124 112" aria-hidden="true">
+          <defs><linearGradient id="loveGrad" x1="0" y1="0" x2="0.6" y2="1"><stop offset="0" stop-color="#cfe0ee"></stop><stop offset="1" stop-color="#9fbad0"></stop></linearGradient></defs>
+          <path d="M62 108C56 103 8 72 4 38 1 16 17 3 34 3c12 0 22 7 28 17 6-10 16-17 28-17 17 0 33 13 30 35-4 34-52 65-58 70z" fill="url(#loveGrad)"></path>
+          <ellipse cx="32" cy="26" rx="11" ry="6" transform="rotate(-32 32 26)" fill="#fff" opacity=".6"></ellipse>
+        </svg>
+      </button>
+      <p class="love__tap" aria-hidden="true">TAP!</p>
+    </div>
+    <p class="love__count" aria-live="polite">
+      <span>지금까지 받은 사랑</span>
+      <span class="love__heart" aria-hidden="true">♡</span>
+      <b id="loveCount">···</b><span>개</span>
+    </p>
   </section>
 
   <!-- 11. 공유하기 -->
@@ -333,5 +364,6 @@
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="js/main.js"></script>
+<script src="js/love.js"></script>
 </body>
 </html>

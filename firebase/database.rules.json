@@ -1,0 +1,11 @@
+{
+  "rules": {
+    "love": {
+      "count": {
+        ".read": true,
+        ".write": true,
+        ".validate": "newData.isNumber() && newData.val() >= (data.exists() ? data.val() : 0) && newData.val() <= (data.exists() ? data.val() : 0) + 100"
+      }
+    }
+  }
+}
