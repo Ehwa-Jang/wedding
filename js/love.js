@@ -5,7 +5,7 @@
   /* ---------- 설정 ---------- */
   // Firebase Realtime Database 주소 (README의 "하트 카운터 설정" 참고)
   // 비워 두면 이 기기에서 누른 수만 세요.
-  var FIREBASE_DB_URL = '';
+  var FIREBASE_DB_URL = 'https://wedding-invitation-20a99-default-rtdb.asia-southeast1.firebasedatabase.app';
   var COUNT_PATH = '/love/count.json';
 
   var MESSAGES = [
