@@ -269,7 +269,7 @@ ul { list-style: none; }
 .thanks__sign { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--muted); margin-top: -14px; }
 
 /* ===== 10-1. 하트 보내기 ===== */
-.love { gap: 20px; padding-bottom: 24px; }
+.love { gap: 20px; padding-bottom: 56px; }
 .love__intro { text-align: center; font-size: 14px; color: var(--muted); }
 .love__stage {
   position: relative; width: 100%; max-width: 342px; height: 260px;
