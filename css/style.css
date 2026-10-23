@@ -57,7 +57,7 @@ ul { list-style: none; }
 
 /* ===== 섹션 공통 ===== */
 .sec {
-  padding: 64px max(24px, env(safe-area-inset-right)) 64px max(24px, env(safe-area-inset-left));
+  padding: 56px max(24px, env(safe-area-inset-right)) 48px max(24px, env(safe-area-inset-left));
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -82,13 +82,13 @@ ul { list-style: none; }
   border: 1px solid var(--sky-3);
   border-radius: 999px;
   background: var(--white);
-  font-size: 13px; letter-spacing: 0.06em;
+  font-size: 13px; letter-spacing: 0.08em;
   cursor: pointer;
 }
 .pill-btn svg, .share__btn svg, .guide__label svg, .acc__toggle svg, .viewer svg {
   fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round;
 }
-.pill-btn--sm { padding: 9px 16px; gap: 6px; }
+.pill-btn--sm { padding: 9px 16px; gap: 6px; letter-spacing: 0; }
 
 /* ===== 1. 커버 ===== */
 .cover { padding-top: 56px; padding-bottom: 40px; gap: 32px; }
@@ -170,10 +170,10 @@ ul { list-style: none; }
 
 /* ===== 2. 인사말 ===== */
 .greeting__text { white-space: pre-line; text-align: center; font-size: 15px; line-height: 1.8; }
-.greeting__art { position: relative; width: 100%; display: flex; justify-content: center; padding-top: 40px; }
+.greeting__art { position: relative; width: 100%; display: flex; justify-content: center; padding-top: 54px; }
 .deco-heart { position: absolute; background: var(--accent); clip-path: var(--heart); }
-.deco-heart--lg { width: 48px; height: 44px; right: 6%; top: 0; transform: rotate(12deg); }
-.deco-heart--sm { width: 22px; height: 20px; left: 6%; top: 24px; transform: rotate(-17deg); }
+.deco-heart--lg { width: 48px; height: 44px; right: 24px; top: -4px; transform: rotate(12deg); }
+.deco-heart--sm { width: 22px; height: 20px; left: 24px; top: 18px; transform: rotate(-17deg); }
 .greeting__card {
   width: 256px; padding: 16px 16px 18px;
   background: var(--white);
@@ -194,7 +194,7 @@ ul { list-style: none; }
 .divider span { width: 12px; height: 11px; background: var(--accent); clip-path: var(--heart); }
 
 /* ===== 5. 갤러리 ===== */
-.gallery { padding-left: 0; padding-right: 0; padding-top: 88px; gap: 24px; }
+.gallery { padding-left: 0; padding-right: 0; padding-top: 80px; padding-bottom: 40px; gap: 24px; }
 .gallery__grid { width: 100%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2px; }
 .gallery__grid li { aspect-ratio: 1 / 1; overflow: hidden; background: var(--sky); }
 .gallery__grid button { width: 100%; height: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; }
@@ -209,9 +209,9 @@ ul { list-style: none; }
 .calendar__date { font-size: 16px; position: relative; z-index: 1; }
 .calendar .sec__title { position: relative; z-index: 1; }
 /* 하트 꼭짓점이 섹션 맨 아래에 닿도록 보드 높이 = 하트 하단까지 (디자인: 하트 top 190 · 표 top 270 · 높이 470) */
-.calendar__board { position: relative; width: 100%; min-height: 434px; /* 하트 아래 끝 60px은 잘라서 보여줘요 */ display: flex; justify-content: center; align-items: flex-start; padding-top: 104px; }
+.calendar__board { position: relative; width: 100%; min-height: 444px; /* 하트 아래 끝 60px은 잘라서 보여줘요 */ display: flex; justify-content: center; align-items: flex-start; padding-top: 114px; }
 .calendar__heart {
-  position: absolute; left: 50%; top: 24px; width: 410px; height: 470px;
+  position: absolute; left: 50%; top: 34px; width: 410px; height: 470px;
   transform: translateX(-50%);
   background: var(--sky-2);
   clip-path: polygon(50% 100%, 4% 46%, 0% 12%, 14% 4%, 34% 0%, 50% 12%, 66% 0%, 86% 4%, 100% 12%, 96% 46%);
@@ -229,7 +229,7 @@ ul { list-style: none; }
 .calendar__table td.is-day { font-weight: 600; }
 
 /* ===== 7. 오시는 길 ===== */
-.location { align-items: stretch; padding-left: 0; padding-right: 0; }
+.location { align-items: stretch; padding-left: 0; padding-right: 0; padding-bottom: 40px; }
 .location .sec__title { align-self: center; }
 .location__info, .location__guide { padding: 0 28px; display: flex; flex-direction: column; }
 .location__info { gap: 6px; align-items: flex-start; }
@@ -267,7 +267,7 @@ ul { list-style: none; }
 .bubble__who { font-size: 12px; color: var(--muted); padding-right: 4px; }
 
 /* ===== 9. 연락처 · 마음 전하실 곳 ===== */
-.account { align-items: stretch; gap: 12px; }
+.account { align-items: stretch; gap: 12px; padding-bottom: 40px; }
 .account .sec__title { align-self: center; }
 .account__intro { text-align: center; font-size: 14px; color: var(--muted); margin: -12px 0 12px; }
 .mini-heart { display: inline-block; width: 10px; height: 9px; background: var(--accent); clip-path: var(--heart); }
@@ -315,13 +315,15 @@ ul { list-style: none; }
 }
 
 /* ===== 10. 감사 인사 ===== */
-.thanks__photo { width: 280px; max-width: 100%; aspect-ratio: 3 / 4; padding: 8px; background: var(--white); box-shadow: 0 2px 12px rgba(31, 42, 51, 0.12); }
+.thanks { padding-bottom: 56px; }
+/* overflow: hidden — 없으면 사진 원본 비율(2:3)대로 액자가 늘어나요 */
+.thanks__photo { width: 280px; max-width: 100%; aspect-ratio: 3 / 4; overflow: hidden; padding: 8px; background: var(--white); box-shadow: 0 2px 12px rgba(31, 42, 51, 0.12); }
 .thanks__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; }
 .thanks__text { text-align: center; font-size: 15px; line-height: 1.8; }
 .thanks__sign { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--muted); margin-top: -14px; }
 
 /* ===== 10-1. 하트 보내기 ===== */
-.love { gap: 20px; padding-bottom: 56px; }
+.love { gap: 20px; padding-top: 64px; }
 .love__intro { text-align: center; font-size: 14px; color: var(--muted); }
 .love__stage {
   position: relative; width: 100%; max-width: 342px; height: 260px;
@@ -359,7 +361,7 @@ ul { list-style: none; }
 .love__count b { font-size: 18px; font-weight: 600; color: var(--deep); font-variant-numeric: tabular-nums; display: inline-block; min-width: 1ch; }
 
 /* ===== 11. 공유하기 ===== */
-.share { gap: 20px; padding-bottom: calc(40px + env(safe-area-inset-bottom)); }
+.share { gap: 20px; padding-bottom: calc(32px + env(safe-area-inset-bottom)); }
 .share__btns { width: 100%; display: flex; flex-direction: column; gap: 10px; }
 .share__btn {
   min-height: 50px; border-radius: 10px; border: 1px solid var(--sky-3); background: var(--white);
