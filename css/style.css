@@ -91,20 +91,26 @@ ul { list-style: none; }
   height: 420px;
   padding: 0; border: 0; background: none;
   cursor: pointer;
-  perspective: 900px;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+}
+/* 둥둥 떠다니는 건 몸통만 — 그림자는 바닥에 남아서 숨 쉬듯 커졌다 작아져요 (js/main.js) */
+.envelope__body { position: absolute; inset: 0; perspective: 900px; transform-origin: 50% 100%; will-change: transform; }
+.envelope__shadow {
+  position: absolute; left: 12%; right: 12%; bottom: -18px; height: 16px; border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(79, 111, 136, 0.22), rgba(79, 111, 136, 0));
+  will-change: transform, opacity;
 }
 .envelope__back {
   position: absolute; left: 0; right: 0; bottom: 0; height: 200px;
   background: var(--sky-2); border-radius: 3px;
 }
-/* 사진은 처음엔 봉투 속(아래쪽)에 숨어 있다가 위로 올라온다 */
+/* 사진은 처음엔 봉투 속(아래쪽)에 숨어 있다가 위로 쓱 올라와요 */
 .envelope__holder {
   position: absolute; left: 7%; right: 7%; bottom: 10px;
   height: 60px; overflow: hidden; z-index: 2;  /* 닫혀 있을 땐 사진이 봉투 앞면 뒤에 완전히 숨어요 */
-  transition: height 1.1s cubic-bezier(.22,.8,.25,1) .55s;
 }
-.envelope.is-open .envelope__holder { height: 400px; }
+.envelope.is-open .envelope__holder { animation: photoRise 1.3s cubic-bezier(.22,.75,.28,1) .62s both; }
+@keyframes photoRise { 0% { height: 60px; } 72% { height: 410px; } 100% { height: 400px; } }
 .envelope__photo {
   position: absolute; left: 0; right: 0; top: 0;
   aspect-ratio: 3 / 4;
@@ -120,15 +126,27 @@ ul { list-style: none; }
 .envelope__flap {
   position: absolute; left: 0; bottom: 82px; width: 100%; height: 118px; z-index: 4;
   transform-origin: top center;
-  transition: transform .6s ease-in, z-index 0s linear .3s;
+  transition: transform .8s cubic-bezier(.45,.05,.3,1) .14s, z-index 0s linear .5s;
 }
 .flap-outer { fill: var(--sky-1); }
-.flap-inner { fill: var(--sky-2); opacity: 0; transition: opacity 0s linear .3s; }
+.flap-inner { fill: var(--sky-2); opacity: 0; transition: opacity 0s linear .5s; }
 .envelope.is-open .envelope__flap { transform: rotateX(180deg); z-index: 1; }
 .envelope.is-open .flap-inner { opacity: 1; }
 
-.cover__hint { font-size: 13px; color: var(--muted); letter-spacing: 0.04em; margin-top: -12px; transition: opacity .3s; }
-.cover__hint.is-hidden { opacity: 0; }
+/* 봉투 가운데 하트 실링 — 누르면 톡 떨어져요 */
+.envelope__seal {
+  position: absolute; left: 50%; bottom: 68px; z-index: 5; width: 30px; height: 28px; margin-left: -15px;
+  filter: drop-shadow(0 2px 3px rgba(79, 111, 136, 0.25));
+  animation: sealPulse 2.4s ease-in-out infinite;
+  transition: transform .32s cubic-bezier(.3,1.4,.5,1), opacity .28s ease;
+}
+.envelope__seal svg { display: block; width: 100%; height: 100%; }
+.envelope.is-open .envelope__seal { animation: none; transform: scale(1.35) translateY(-6px); opacity: 0; }
+@keyframes sealPulse { 0%, 70%, 100% { transform: scale(1); } 80% { transform: scale(1.12); } 90% { transform: scale(.97); } }
+
+.cover__hint { font-size: 13px; color: var(--muted); letter-spacing: 0.04em; margin-top: -12px; transition: opacity .3s; animation: hintBreath 2.4s ease-in-out infinite; }
+.cover__hint.is-hidden { opacity: 0; animation: none; }
+@keyframes hintBreath { 0%, 100% { opacity: 1; } 50% { opacity: .55; } }
 
 /* ===== 2. 인사말 ===== */
 .greeting__text { white-space: pre-line; text-align: center; font-size: 15px; line-height: 1.8; }
@@ -343,7 +361,9 @@ ul { list-style: none; }
 .toast.is-show { opacity: 1; transform: translate(-50%, 0); }
 
 @media (prefers-reduced-motion: reduce) {
-  .envelope__holder, .envelope__flap, .flap-inner, .toast, .acc__toggle svg { transition: none; }
+  .envelope__flap, .flap-inner, .envelope__seal, .toast, .acc__toggle svg { transition: none; }
+  .envelope.is-open .envelope__holder { animation-duration: .01s; animation-delay: 0s; }
+  .envelope__seal, .cover__hint { animation: none; }
   .gallery__grid li.is-extra { animation: none; }
   .love__btn { animation: none; }
 }

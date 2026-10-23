@@ -44,16 +44,50 @@
 
   /* ---------- 1. 커버 봉투 ---------- */
   var envelope = document.getElementById('envelope');
+  var envBody = envelope.querySelector('.envelope__body');
+  var envShadow = envelope.querySelector('.envelope__shadow');
   var hint = document.getElementById('envelopeHint');
+  var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var canAnim = 'animate' in Element.prototype;
+  var floatAnims = [];
+
+  // 처음엔 봉투가 살짝 위아래로 둥둥 떠 있어요
+  if (canAnim && !calm) {
+    var opt = { duration: 3200, iterations: Infinity, direction: 'alternate', easing: 'ease-in-out' };
+    floatAnims.push(envBody.animate([
+      { transform: 'translateY(0) rotate(-0.6deg)' },
+      { transform: 'translateY(-10px) rotate(0.6deg)' }
+    ], opt));
+    floatAnims.push(envShadow.animate([
+      { transform: 'scaleX(1)', opacity: 1 },
+      { transform: 'scaleX(.84)', opacity: .6 }
+    ], opt));
+  }
+
+  function settle(el, keys, dur) {
+    // 떠 있던 위치에서 끊김 없이 이어서 움직이도록 지금 모습부터 시작해요
+    var cs = getComputedStyle(el);
+    var from = { transform: cs.transform === 'none' ? 'none' : cs.transform, opacity: cs.opacity };
+    return el.animate([from].concat(keys), { duration: dur, easing: 'cubic-bezier(.3,.7,.35,1)', fill: 'forwards' });
+  }
+
   function openEnvelope() {
     if (envelope.classList.contains('is-open')) return;
+    if (floatAnims.length) {
+      settle(envBody, [
+        { transform: 'translateY(3px) scale(.975, .965)', offset: 0.3 },
+        { transform: 'translateY(0) scale(1.008)', offset: 0.65 },
+        { transform: 'none' }
+      ], 560);
+      settle(envShadow, [{ transform: 'scaleX(1.06)', opacity: 1, offset: 0.3 }, { transform: 'scaleX(1)', opacity: 1 }], 560);
+      floatAnims.forEach(function (a) { a.cancel(); });
+      floatAnims = [];
+    }
     envelope.classList.add('is-open');
     envelope.setAttribute('aria-label', '청첩장 봉투가 열렸어요');
     hint.classList.add('is-hidden');
   }
   envelope.addEventListener('click', openEnvelope);
-  // 누르지 않아도 잠시 뒤 저절로 열려요
-  setTimeout(openEnvelope, 2200);
 
   /* ---------- 5. 갤러리 ---------- */
   var grid = document.getElementById('galleryGrid');
