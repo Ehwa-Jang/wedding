@@ -26,6 +26,10 @@
   var tapHint = stage && stage.querySelector('.love__tap');
   if (!stage || !btn || !countEl) return;
 
+  var rs = getComputedStyle(document.documentElement);
+  var EASE_OUT = rs.getPropertyValue('--ease-out').trim() || 'ease-out';
+  var EASE_IN = rs.getPropertyValue('--ease-in').trim() || 'ease-in';
+  var EASE_SPRING = rs.getPropertyValue('--ease-spring').trim() || 'ease-out';
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var canAnimate = typeof Element !== 'undefined' && 'animate' in Element.prototype;
 
@@ -43,8 +47,8 @@
   }
   function bumpCount() {
     if (!canAnimate || reduceMotion) return;
-    countEl.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.22)' }, { transform: 'scale(1)' }],
-      { duration: 260, easing: 'ease-out' });
+    countEl.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.16)', offset: .35 }, { transform: 'scale(1)' }],
+      { duration: 320, easing: EASE_SPRING });
   }
 
   /* ---------- 서버 (Firebase REST) ---------- */
@@ -125,7 +129,7 @@
         { transform: 'translate(-50%,-50%) scale(.3) rotate(0deg)', opacity: 0 },
         { transform: 'translate(calc(-50% + ' + dx * 0.55 + 'px), calc(-50% + ' + dy * 0.55 + 'px)) scale(1.1) rotate(' + rot * 0.6 + 'deg)', opacity: 1, offset: 0.35 },
         { transform: 'translate(calc(-50% + ' + dx + 'px), calc(-50% + ' + (dy + 18) + 'px)) scale(.6) rotate(' + rot + 'deg)', opacity: 0 }
-      ], { duration: dur, easing: 'cubic-bezier(.2,.7,.3,1)' });
+      ], { duration: dur, easing: EASE_OUT });
       a.onfinish = (function (node) { return function () { node.remove(); active--; }; })(el);
     }
   }
@@ -141,7 +145,7 @@
     // 먼저 떠 있던 문구는 살짝 올라가며 빨리 사라져요
     msgs.slice().forEach(function (m) {
       if (!canAnimate) { m.done(); return; }
-      m.el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 200, easing: 'ease-out', fill: 'forwards' }).onfinish = m.done;
+      m.el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 180, easing: EASE_IN, fill: 'forwards' }).onfinish = m.done;
     });
 
     var el = document.createElement('span');
@@ -162,7 +166,7 @@
       { transform: 'translate(calc(-50% + ' + x + 'px), 0) scale(1)', opacity: 1, offset: 0.15 },
       { transform: 'translate(calc(-50% + ' + x + 'px), -6px) scale(1)', opacity: 1, offset: 0.75 },
       { transform: 'translate(calc(-50% + ' + x + 'px), -22px) scale(.98)', opacity: 0 }
-    ], { duration: reduceMotion ? 1200 : 1700, easing: 'ease-out', fill: 'forwards' }).onfinish = done;
+    ], { duration: reduceMotion ? 1200 : 1700, easing: EASE_OUT, fill: 'forwards' }).onfinish = done;
   }
 
   var idleTimer = null;
@@ -172,9 +176,8 @@
     idleTimer = setTimeout(function () { btn.classList.remove('is-tapped'); }, 2500);
     if (!canAnimate || reduceMotion) return;
     btn.animate([
-      { transform: 'scale(1)' }, { transform: 'scale(.86)', offset: 0.3 },
-      { transform: 'scale(1.08)', offset: 0.65 }, { transform: 'scale(1)' }
-    ], { duration: 320, easing: 'ease-out' });
+      { transform: 'scale(1)' }, { transform: 'scale(.9)', offset: 0.25 }, { transform: 'scale(1)' }
+    ], { duration: 360, easing: EASE_SPRING });
   }
 
   /* ---------- 누르기 ---------- */

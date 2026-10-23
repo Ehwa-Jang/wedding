@@ -18,6 +18,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&display=swap">
 <link rel="stylesheet" href="css/style.css">
+<script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
 <main class="page">
@@ -205,7 +206,8 @@
         <span class="acc__title"><span class="mini-heart" aria-hidden="true"></span>신랑측</span>
         <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 5l4 4 4-4"></path></svg>
       </button>
-      <ul class="acc__list" id="acc-groom" hidden>
+      <div class="acc__panel">
+      <ul class="acc__list" id="acc-groom">
         <li class="person">
           <p class="person__name"><span class="person__role">신랑</span>고민석</p>
           <div class="person__row">
@@ -249,13 +251,15 @@
           </div>
         </li>
       </ul>
+      </div>
     </div>
     <div class="acc">
       <button type="button" class="acc__toggle" aria-expanded="false" aria-controls="acc-bride">
         <span class="acc__title"><span class="mini-heart" aria-hidden="true"></span>신부측</span>
         <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 5l4 4 4-4"></path></svg>
       </button>
-      <ul class="acc__list" id="acc-bride" hidden>
+      <div class="acc__panel">
+      <ul class="acc__list" id="acc-bride">
         <li class="person">
           <p class="person__name"><span class="person__role">신부</span>장이화</p>
           <div class="person__row">
@@ -299,6 +303,7 @@
           </div>
         </li>
       </ul>
+      </div>
     </div>
     <p class="account__note">화환은 웨딩홀 규정으로 인해 마음으로만 받겠습니다 ♡</p>
   </section>
