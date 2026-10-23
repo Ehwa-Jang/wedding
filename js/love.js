@@ -30,7 +30,7 @@
   var EASE_OUT = rs.getPropertyValue('--ease-out').trim() || 'ease-out';
   var EASE_IN = rs.getPropertyValue('--ease-in').trim() || 'ease-in';
   var EASE_SPRING = rs.getPropertyValue('--ease-spring').trim() || 'ease-out';
-  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var reduceMotion = false;   // '동작 줄이기'여도 같은 하트 연출 (반복되는 콩닥만 CSS에서 꺼요)
   var canAnimate = typeof Element !== 'undefined' && 'animate' in Element.prototype;
 
   /* ---------- 숫자 ---------- */

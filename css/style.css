@@ -421,16 +421,8 @@ ul { list-style: none; }
 .viewer__nav { transition: transform var(--dur-base) var(--ease-spring); }
 .viewer__nav:active { transform: translateY(-50%) scale(.9); transition: transform var(--dur-fast) var(--ease-out); }
 
-/* ===== 움직임 줄이기 설정: 이동 없이 투명도만, 짧게 ===== */
+/* ===== 움직임 줄이기 설정: 느낌은 같게, 계속 반복되는 움직임만 끄고 이동 거리만 줄여요 ===== */
 @media (prefers-reduced-motion: reduce) {
-  :root { --reveal-y: 0px; --dur-slow: 240ms; --dur-cover: 240ms; --dur-base: 200ms; --stagger: 0ms; }
-  .envelope__flap { transition-duration: 1ms, 0s; transition-delay: 0s, 0s; }
-  .flap-inner { transition-delay: 0s; }
-  .envelope__photo { transition: opacity var(--dur-cover) linear; transform: none; opacity: 0; }
-  .envelope.is-open .envelope__photo { opacity: 1; }
-  .love__btn { animation: none; }
-  .acc__list .person, .acc.is-open .acc__list .person { transform: none; transition-delay: 0s; }
-  .pill-btn:active, .share__btn:active, .copy-btn:active, .icon-btn:active, .location__maplinks a:active,
-  .acc__toggle:active, .gallery__grid button:active, .viewer__close:active { transform: none; }
-  .viewer__img, .viewer.is-open .viewer__img { transform: none; }
+  :root { --reveal-y: 8px; }
+  .love__btn { animation: none; }   /* 하트 버튼 콩닥(반복)만 꺼요 */
 }

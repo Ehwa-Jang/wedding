@@ -15,7 +15,9 @@
   function token(name) { return rootStyle.getPropertyValue(name).trim(); }
   function ms(name) { return parseFloat(token(name)) || 0; }
   var EASE = { out: token('--ease-out'), in: token('--ease-in'), inOut: token('--ease-in-out'), spring: token('--ease-spring') };
-  var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // '동작 줄이기'를 켠 사람도 같은 연출을 봐요. 다만 계속 반복되는 움직임(봉투 둥둥 · 실링 콩닥)만 꺼요.
+  var calm = false;
+  var noLoop = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var canAnim = 'animate' in Element.prototype;
   // iOS 사파리에서 :active(눌림 피드백)가 동작하도록
   document.addEventListener('touchstart', function () {}, { passive: true });
@@ -60,7 +62,7 @@
   var floatAnims = [];
 
   // 등장 연출이 끝날 즈음부터 봉투가 위아래로 둥둥 (작은 폭 · 사인 곡선 · 회전 없음 → 글자/테두리가 흔들리지 않아요)
-  if (canAnim && !calm) {
+  if (canAnim && !noLoop) {
     var floatOpt = { duration: 3600, delay: 700, iterations: Infinity, direction: 'alternate', easing: 'cubic-bezier(0.37, 0, 0.63, 1)' };
     envBody.classList.add('is-floating');
     floatAnims.push(envBody.animate([{ transform: 'translate3d(0, 0, 0)' }, { transform: 'translate3d(0, -8px, 0)' }], floatOpt));
