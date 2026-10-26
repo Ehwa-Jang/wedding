@@ -232,7 +232,7 @@ ul { list-style: none; }
 @keyframes introUp { from { opacity: 0; transform: translate3d(0, var(--reveal-y), 0); } to { opacity: 1; transform: none; } }
 
 /* ===== 2. 인사말 ===== */
-.greeting__hand { width: 100%; max-width: 326px; height: auto; }   /* 손글씨 인사말 이미지 */
+.greeting__hand { width: 100%; max-width: 300px; height: auto; }   /* 손글씨 인사말 이미지 */
 .greeting__text { text-align: center; font-size: 15px; line-height: 1.8; }
 .greeting__text p + p { margin-top: 1em; }   /* 문단 사이 한 줄 정도 */
 .greeting__art { position: relative; width: 100%; display: flex; justify-content: center; padding-top: 54px; }
