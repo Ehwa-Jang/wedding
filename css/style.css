@@ -237,11 +237,19 @@ ul { list-style: none; }
 .location__addr { font-size: 15px; color: var(--muted); }
 .location__info .pill-btn { margin-top: 8px; }
 .location__map {
-  height: 240px; background: #e6eef5;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
-  color: var(--deep); font-size: 13px;
+  position: relative; height: 240px; background: #e6eef5;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--deep); font-size: 13px; text-align: center;
 }
-.location__maplinks { display: flex; gap: 8px; }
+.location__map.is-ready { cursor: pointer; }
+.location__map.is-ready .location__mapmsg { display: none; }
+/* 지도 위 장소 이름표 (카카오맵 CustomOverlay) */
+.map-label {
+  margin-bottom: 40px; padding: 6px 12px; border-radius: 999px; white-space: nowrap;
+  background: var(--white); border: 1px solid var(--sky-1); box-shadow: 0 4px 12px rgba(79, 111, 136, 0.16);
+  font-family: var(--font); font-size: 12px; font-weight: 600; color: var(--deep);
+}
+.location__maplinks { display: flex; gap: 8px; padding: 0 28px; margin-top: -16px; }
 .location__maplinks a {
   padding: 10px 18px; border-radius: 999px; background: var(--white); border: 1px solid var(--sky-3);
   color: var(--ink); text-decoration: none; font-size: 13px;

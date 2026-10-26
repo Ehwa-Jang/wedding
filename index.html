@@ -138,13 +138,13 @@
       </button>
     </div>
 
-    <!-- TODO: 지도 API 키를 받으면 이 영역에 네이버 지도를 넣어요 -->
-    <div class="location__map" id="map">
-      <p>지도 앱에서 위치를 확인하세요</p>
-      <div class="location__maplinks">
-        <a href="https://map.naver.com/p/search/%EC%9B%A8%EB%94%A9%EC%8B%9C%EA%B7%B8%EB%8B%88%EC%B2%98" target="_blank" rel="noopener">네이버 지도</a>
-        <a href="https://map.kakao.com/link/search/%EC%9B%A8%EB%94%A9%EC%8B%9C%EA%B7%B8%EB%8B%88%EC%B2%98" target="_blank" rel="noopener">카카오맵</a>
-      </div>
+    <!-- 카카오맵 (js/main.js가 주소로 위치를 찾아 그려요. 못 불러오면 아래 지도 앱 버튼으로 안내) -->
+    <div class="location__map" id="map" role="img" aria-label="웨딩시그니처 위치 지도">
+      <p class="location__mapmsg" id="mapMsg">지도를 불러오고 있어요</p>
+    </div>
+    <div class="location__maplinks">
+      <a href="https://map.naver.com/p/search/%EC%9B%A8%EB%94%A9%EC%8B%9C%EA%B7%B8%EB%8B%88%EC%B2%98" target="_blank" rel="noopener">네이버 지도</a>
+      <a href="https://map.kakao.com/link/search/%EC%9B%A8%EB%94%A9%EC%8B%9C%EA%B7%B8%EB%8B%88%EC%B2%98" target="_blank" rel="noopener" id="kakaoMapLink">카카오맵</a>
     </div>
 
     <div class="location__guide">
@@ -343,7 +343,7 @@
   <section class="sec sec--sky share" id="share">
     <header class="sec__title"><h2>SHARE</h2></header>
     <div class="share__btns">
-      <!-- TODO: 카카오 JavaScript 키를 받으면 hidden을 지우고 js/main.js의 shareKakao를 연결해요 -->
+      <!-- 카카오 SDK가 준비되면 js/main.js가 보이게 해요 -->
       <button type="button" class="share__btn share__btn--kakao" id="shareKakao" hidden>
         <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 3C5 3 2 5.4 2 8.4c0 1.9 1.3 3.6 3.2 4.6L4.6 15.5l3-1.9c.5.1.9.1 1.4.1 4 0 7-2.4 7-5.3S13 3 9 3z"></path></svg>
         <span>카카오톡으로 공유하기</span>

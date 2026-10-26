@@ -37,10 +37,15 @@
 처음 숫자를 정하고 싶으면 데이터 탭에서 `love/count`에 숫자를 직접 넣으면 돼요.
 축하 문구는 `js/love.js`의 `MESSAGES` 목록에서 고칠 수 있어요.
 
-## 나중에 붙일 것
+## 카카오맵 · 카카오톡 공유
 
-- 카카오톡 공유: Kakao JavaScript 키 발급 → `index.html`의 `#shareKakao` 버튼 `hidden` 해제 → `js/main.js`에서 연결
-- 지도: 네이버 지도 API 키 발급 → `index.html`의 `#map` 영역에 지도 넣기 (지금은 지도 앱 바로가기 버튼)
+`js/main.js` 맨 위 `KAKAO_JS_KEY` 하나로 둘 다 동작해요. [카카오 디벨로퍼스](https://developers.kakao.com) 앱 설정에서 확인할 것:
+
+- **플랫폼 → Web → 사이트 도메인**에 `https://ehwa-jang.github.io` 등록 (없으면 지도·공유 모두 안 돼요)
+- **카카오맵** 사용 설정 켜기 (꺼져 있으면 지도만 안 떠요)
+
+지도 위치는 `VENUE.address` 주소로 찾아요. 공유 카드 문구는 `js/main.js`의 `Kakao.Share.sendDefault` 부분에서 고칠 수 있어요.
+등록한 도메인에서만 동작해서, 내 컴퓨터에서 파일로 열면 지도는 "불러오지 못했어요"로 보이고 카톡 버튼은 숨겨져요.
 
 ## 공개 주소
 
