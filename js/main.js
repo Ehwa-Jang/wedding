@@ -9,6 +9,10 @@
   }
   var GALLERY_PREVIEW = 9;          // 처음에 보이는 사진 수
   var WEDDING = { year: 2027, month: 3, day: 13 };
+  // 카카오 JavaScript 키 — 웹페이지에 공개되는 키예요. 카카오 디벨로퍼스에 등록한 도메인에서만 동작해요.
+  var KAKAO_JS_KEY = 'f3eb074e4568743b236c548c4f0cf601';
+  var SITE_URL = 'https://ehwa-jang.github.io/wedding/';
+  var VENUE = { name: '웨딩시그니처', address: '서울특별시 마포구 양화로 87' };
 
   /* ---------- 모션 공통 (css/style.css의 :root 토큰을 그대로 읽어요) ---------- */
   var rootStyle = getComputedStyle(document.documentElement);
@@ -300,5 +304,64 @@
   document.getElementById('shareLink').addEventListener('click', function () {
     copy(location.href.split('#')[0], '청첩장 링크를 복사했어요');
   });
-  // TODO: 카카오 공유 — Kakao JavaScript 키를 받은 뒤 연결
+
+  /* ---------- 카카오 SDK 불러오기 ---------- */
+  function loadScript(src, onload, onerror) {
+    var s = document.createElement('script');
+    s.src = src; s.async = true;
+    s.onload = onload; s.onerror = onerror;
+    document.head.appendChild(s);
+  }
+
+  /* 카카오톡 공유: SDK가 준비되면 버튼을 보여 줘요 (실패하면 링크 복사만 남아요) */
+  loadScript('https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js', function () {
+    if (!window.Kakao) return;
+    try { if (!Kakao.isInitialized()) Kakao.init(KAKAO_JS_KEY); } catch (e) { return; }
+    var btn = document.getElementById('shareKakao');
+    btn.hidden = false;
+    btn.addEventListener('click', function () {
+      var link = { mobileWebUrl: SITE_URL, webUrl: SITE_URL };
+      Kakao.Share.sendDefault({
+        objectType: 'feed',
+        content: {
+          title: '민석 ♥ 이화 결혼합니다',
+          description: '2027년 3월 13일 토요일 오후 3시\n웨딩시그니처 2층 트리니티홀',
+          imageUrl: SITE_URL + 'images/cover.jpg',
+          link: link
+        },
+        buttons: [{ title: '청첩장 보기', link: link }]
+      });
+    });
+  });
+
+  /* 카카오맵: 주소로 위치를 찾아 하트 마커를 찍어요. 페이지 스크롤을 방해하지 않게 지도는 고정하고, 누르면 카카오맵이 열려요 */
+  (function initMap() {
+    var box = document.getElementById('map');
+    var msg = document.getElementById('mapMsg');
+    if (!box) return;
+    function fail() { msg.textContent = '지도를 불러오지 못했어요. 아래 지도 앱에서 확인해 주세요'; }
+    loadScript('https://dapi.kakao.com/v2/maps/sdk.js?appkey=' + KAKAO_JS_KEY + '&libraries=services&autoload=false', function () {
+      if (!window.kakao || !kakao.maps) return fail();
+      kakao.maps.load(function () {
+        new kakao.maps.services.Geocoder().addressSearch(VENUE.address, function (result, status) {
+          if (status !== kakao.maps.services.Status.OK || !result.length) return fail();
+          var pos = new kakao.maps.LatLng(result[0].y, result[0].x);
+          var map = new kakao.maps.Map(box, { center: pos, level: 3, draggable: false, scrollwheel: false, disableDoubleClickZoom: true });
+          map.setZoomable(false);
+          var heart = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 112" width="34" height="31"><path d="M62 108C56 103 8 72 4 38 1 16 17 3 34 3c12 0 22 7 28 17 6-10 16-17 28-17 17 0 33 13 30 35-4 34-52 65-58 70z" fill="#6f93ae" stroke="#fff" stroke-width="6"/></svg>');
+          new kakao.maps.Marker({ map: map, position: pos, image: new kakao.maps.MarkerImage(heart, new kakao.maps.Size(34, 31), { offset: new kakao.maps.Point(17, 31) }) });
+          var label = document.createElement('div');
+          label.className = 'map-label';
+          label.textContent = VENUE.name;
+          new kakao.maps.CustomOverlay({ map: map, position: pos, content: label, yAnchor: 1 });
+          box.classList.add('is-ready');
+          var placeUrl = 'https://map.kakao.com/link/map/' + encodeURIComponent(VENUE.name) + ',' + result[0].y + ',' + result[0].x;
+          document.getElementById('kakaoMapLink').href = placeUrl;
+          kakao.maps.event.addListener(map, 'click', function () { window.open(placeUrl, '_blank', 'noopener'); });
+          // 섹션이 늦게 그려지거나 폭이 바뀌어도 마커가 가운데 오게
+          window.addEventListener('resize', function () { map.relayout(); map.setCenter(pos); });
+        });
+      });
+    }, fail);
+  })();
 })();
