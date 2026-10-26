@@ -348,12 +348,12 @@ ul { list-style: none; }
 /* ===== 8. Q&A ===== */
 .qna { padding-left: 20px; padding-right: 20px; }
 .chat { width: 100%; display: flex; flex-direction: column; gap: 10px; font-size: 14px; line-height: 1.55; }
-.bubble { padding: 11px 15px; max-width: 86%; }
-.bubble--q { align-self: flex-start; max-width: 78%; background: var(--white); border: 1px solid var(--sky-1); border-radius: 18px 18px 18px 4px; }
+.bubble { padding: 11px 15px; max-width: 100%; white-space: nowrap; font-size: min(14px, 3.6vw); }   /* 캔버스에서 정한 줄바꿈(<br>)만 쓰고, 좁은 폰에선 글자를 살짝 줄여요 */
+.bubble--q { align-self: flex-start; background: var(--white); border: 1px solid var(--sky-1); border-radius: 18px 18px 18px 4px; }
 .bubble--q:not(:first-child) { margin-top: 12px; }
 .bubble--q b { font-weight: 600; color: var(--deep); }
 .bubble--a { align-self: flex-end; background: var(--sage-soft); border-radius: 18px 18px 4px 18px; text-align: end; }
-.bubble-wrap { align-self: flex-end; max-width: 86%; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.bubble-wrap { align-self: flex-end; max-width: 100%; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
 .bubble-wrap .bubble { max-width: 100%; text-align: start; }
 .bubble__who { font-size: 12px; color: var(--muted); padding-right: 4px; }
 
