@@ -251,6 +251,7 @@ ul { list-style: none; }
 }
 .location__map.is-ready { cursor: pointer; }
 .location__map.is-ready .location__mapmsg { display: none; }
+.location__mapmsg small { font-size: 11px; color: var(--muted); }
 /* 지도 위 장소 이름표 (카카오맵 CustomOverlay) */
 .map-label {
   margin-bottom: 40px; padding: 6px 12px; border-radius: 999px; white-space: nowrap;
