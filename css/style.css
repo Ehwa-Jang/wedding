@@ -81,6 +81,7 @@ ul { list-style: none; }
   letter-spacing: 0.22em;
   margin-right: -0.22em;
 }
+.sec__title--ko h2 { letter-spacing: 0.08em; margin-right: -0.08em; }   /* 한글 제목은 자간을 좁게 */
 .sec__title::after { content: ""; width: 24px; height: 2px; background: var(--green); }
 
 .pill-btn {
@@ -273,7 +274,7 @@ ul { list-style: none; }
 .qna { padding-left: 20px; padding-right: 20px; }
 .chat { width: 100%; display: flex; flex-direction: column; gap: 10px; font-size: 14px; line-height: 1.55; }
 .bubble { padding: 11px 15px; max-width: 86%; }
-.bubble--q { align-self: flex-start; max-width: 78%; background: var(--white); border-radius: 18px 18px 18px 4px; }
+.bubble--q { align-self: flex-start; max-width: 78%; background: var(--sky); border-radius: 18px 18px 18px 4px; }
 .bubble--q:not(:first-child) { margin-top: 12px; }
 .bubble--q b { font-weight: 600; color: var(--deep); }
 .bubble--a { align-self: flex-end; background: var(--bubble); border-radius: 18px 18px 4px 18px; text-align: end; }
@@ -286,11 +287,11 @@ ul { list-style: none; }
 .account .sec__title { align-self: center; }
 .account__intro { text-align: center; font-size: 14px; color: var(--muted); margin: -12px 0 12px; }
 .mini-heart { display: inline-block; width: 10px; height: 9px; background: var(--accent); clip-path: var(--heart); }
-.acc { border: 1px solid var(--sky-1); border-radius: 12px; overflow: hidden; background: var(--sky); }
+.acc { border: 1px solid var(--sky-1); border-radius: 12px; overflow: hidden; background: var(--white); }
 .acc__toggle {
   width: 100%; min-height: 54px; padding: 0 18px;
   display: flex; align-items: center; justify-content: space-between;
-  background: var(--sky); border: 0; cursor: pointer;
+  background: var(--white); border: 0; cursor: pointer;
 }
 .acc__title { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; }
 .acc__toggle svg { stroke: var(--deep); transition: transform var(--dur-base) var(--ease-out); }
@@ -316,13 +317,13 @@ ul { list-style: none; }
 .person__info .ico { flex-shrink: 0; fill: none; stroke: var(--deep); stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; }
 .person__btns { display: flex; gap: 6px; flex-shrink: 0; }
 .icon-btn {
-  width: 34px; height: 34px; border-radius: 50%; background: var(--white);
+  width: 34px; height: 34px; border-radius: 50%; background: var(--sky);
   display: flex; align-items: center; justify-content: center; color: var(--ink);
 }
 .icon-btn svg { fill: none; stroke: currentColor; stroke-width: 1.2; stroke-linejoin: round; }
 .copy-btn {
   flex-shrink: 0; height: 34px; padding: 0 14px; border: 0; border-radius: 999px;
-  background: var(--white); font-size: 12px; cursor: pointer;
+  background: var(--sky); font-size: 12px; cursor: pointer;
 }
 .account__note {
   margin-top: 12px; padding: 12px 10px; border-radius: 10px; background: var(--white); border: 1px solid var(--sky-1);
