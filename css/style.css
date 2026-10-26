@@ -534,3 +534,9 @@ ul { list-style: none; }
   .love__btn { animation: none; }   /* 하트 버튼 콩닥(반복)만 꺼요 */
   .note__sticker { animation: none; }
 }
+
+/* 휴대폰이 번호·계좌번호를 자동으로 파란 링크로 바꾸지 않도록 (index.html format-detection과 함께) */
+.person__info a, a[x-apple-data-detectors], a[href^="tel:"]:not(.icon-btn) {
+  color: inherit !important; text-decoration: none !important;
+  font: inherit !important; -webkit-text-decoration: none !important;
+}
