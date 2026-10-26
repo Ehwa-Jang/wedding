@@ -360,8 +360,8 @@
           var pos = new kakao.maps.LatLng(result[0].y, result[0].x);
           var map = new kakao.maps.Map(box, { center: pos, level: 3, draggable: false, scrollwheel: false, disableDoubleClickZoom: true });
           map.setZoomable(false);
-          var pin = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 42" width="32" height="42"><defs><linearGradient id="g" x1="0" y1="0" x2=".5" y2="1"><stop offset="0" stop-color="#8fbb7b"/><stop offset="1" stop-color="#5b7a4d"/></linearGradient></defs><path d="M16 40C14 36 3 25 3 15.5A13 13 0 0 1 29 15.5C29 25 18 36 16 40z" fill="url(#g)" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"/><circle cx="16" cy="15.5" r="5" fill="#fff"/></svg>');
-          new kakao.maps.Marker({ map: map, position: pos, image: new kakao.maps.MarkerImage(pin, new kakao.maps.Size(32, 42), { offset: new kakao.maps.Point(16, 41) }) });   // 모브 그린 핀
+          var pin = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 42" width="32" height="42"><path d="M16 40C14 36 3 25 3 15.5A13 13 0 0 1 29 15.5C29 25 18 36 16 40z" fill="#93a85e" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"/><circle cx="16" cy="15.5" r="5" fill="#fff"/></svg>');
+          new kakao.maps.Marker({ map: map, position: pos, image: new kakao.maps.MarkerImage(pin, new kakao.maps.Size(32, 42), { offset: new kakao.maps.Point(16, 41) }) });   // 세이지 그린 평면 핀
           box.classList.add('is-ready');
           var placeUrl = 'https://map.kakao.com/link/map/' + encodeURIComponent(VENUE.name) + ',' + result[0].y + ',' + result[0].x;
           document.getElementById('kakaoMapLink').href = placeUrl;

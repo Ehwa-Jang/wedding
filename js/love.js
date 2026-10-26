@@ -18,7 +18,7 @@
     '꽃길만 걷자 🌷',
     '오늘보다 더 행복하길!'
   ];
-  var COLORS = ['#b9dca4', '#a9cd96', '#cfe5bf', '#93bf80', '#eeaeb2', '#f3c6c7'];   // 모브 그린 하트 위주 + 핑크 포인트
+  var COLORS = ['#c8d8a0', '#b7c98a', '#dbe5c0', '#a9bd78', '#c8d8a0', '#f2c4cb'];   // 세이지 하트 위주 + 연분홍 조금
 
   var stage = document.getElementById('loveStage');
   var btn = document.getElementById('loveBtn');
@@ -115,7 +115,7 @@
       el.className = 'love__fx ' + (isStar ? 'love__fx--star' : 'love__fx--heart');
       el.style.width = size + 'px';
       el.style.height = (isStar ? size : size * 0.92) + 'px';
-      el.style.background = isStar && Math.random() < 0.4 ? '#5b7a4d' : COLORS[(Math.random() * COLORS.length) | 0];
+      el.style.background = isStar && Math.random() < 0.4 ? '#56653a' : COLORS[(Math.random() * COLORS.length) | 0];
       el.style.left = cx + 'px'; el.style.top = cy + 'px';
       stage.appendChild(el);
       active++;

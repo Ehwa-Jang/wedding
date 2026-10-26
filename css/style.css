@@ -1,14 +1,18 @@
 /* ===== 색상 · 글꼴 ===== */
 :root {
   --white: #ffffff;
-  /* 2안 · 모브 그린이 주도하고, 핑크는 그라데이션·일부 포인트에만 (변수 이름은 예전 그대로) */
-  --sky: #eef6e7;     /* 연한 모브 그린 — 연락처 버튼 배경 */
-  --sky-1: #d6e8c8;   /* 테두리 · 구분선 */
-  --sky-2: #c9e1b8;   /* 구분선 */
-  --sky-3: #b9d6a6;   /* 버튼 테두리 · 봉투 접힘선 */
-  --accent: #eeaeb2;  /* 핑크 포인트 (커버 ♥ · 하트 수 ♡) */
-  --grad-heart: linear-gradient(160deg, #cfe5bf, #8fbb7b);  /* 그린 하트 */
-  --grad-heart-pink: linear-gradient(160deg, #f6c7cb, #e99ea6);
+  /* 2안 · 봄꽃 팔레트: 세이지(피스타치오) 그린 90% + 화이트 + 연분홍 포인트 (변수 이름은 예전 그대로) */
+  --sky: #eef2df;     /* 연한 세이지 — 연락처 버튼 · 지도 배경 */
+  --sky-1: #dbe5c0;   /* 테두리 · 구분선 */
+  --sky-2: #dbe5c0;   /* 구분선 */
+  --sky-3: #c2d199;   /* 버튼 테두리 */
+  --accent: #efb6c0;  /* 연분홍 포인트 (커버 ♥ · 하트 수 ♡) */
+  --blush: #f2c4cb;   /* 연분홍 스티커 · 실링 */
+  --sage: #c8d8a0;    /* 세이지 — 봉투 · 하트 · 주요 면 */
+  --sage-soft: #e6edcf; /* 답변 말풍선 */
+  --sage-strong: #a9bd78; /* 작은 하트 아이콘 */
+  --grad-heart: var(--sage-strong);  /* 작은 그린 하트 (평면) */
+  --grad-heart-pink: var(--blush);
   --green: #b9dca4;   /* 제목 아래 선 */
   --green-soft: #d6eac8;  /* 봉투 안쪽 */
   --green-heart: #d9eecb; /* 달력 큰 하트 */
@@ -16,16 +20,16 @@
   --wash: linear-gradient(170deg, #fdeeee 0%, #fdf6f3 48%, #eff8e9 100%);  /* 색 배경 섹션: 핑크→그린 */
   --bubble: #e3f2d8;
   /* 그라데이션 — 포스터처럼 흐릿하게 번지는 핑크·그린 덩어리(블롭)를 겹쳐서 써요 */
-  --blob-pink: rgba(245, 196, 199, 0.30);
-  --blob-green: rgba(198, 228, 178, 0.74);
-  --blob-base: #fbfcf8;
+  --blob-pink: rgba(255, 255, 255, 0.9);   /* 흰빛 번짐 */
+  --blob-green: rgba(200, 216, 160, 0.45);
+  --blob-base: #f4f6ea;
   --grad-pink: linear-gradient(150deg, #fbe2e2 0%, #f5c9cc 100%);
   --grad-green: linear-gradient(150deg, #e4f2d9 0%, #c9e3b8 100%);
-  --grad-line: linear-gradient(90deg, #f3c1c4, #bfe0aa);
+  --grad-line: linear-gradient(90deg, #b9cb8a, #b9cb8a);
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .4 0 0 0 0 .35 0 0 0 0 .36 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  --ink: #403c3d;
-  --muted: #6b6365;   /* 보조 글자 — 흰 배경 대비 약 5.5:1 */
-  --deep: #5b7a4d;    /* 아이콘 · 강조 글자 (모브 그린) — 대비 약 4.7:1 */
+  --ink: #3f3f38;
+  --muted: #626358;   /* 보조 글자 — 흰 배경 대비 약 6.1:1 */
+  --deep: #56653a;    /* 아이콘 · 강조 글자 (올리브 그린) — 대비 약 6.3:1 */
   --font: 'Work Sans', 'IBM Plex Sans KR', -apple-system, 'Apple SD Gothic Neo', sans-serif;
   --heart: polygon(50% 100%, 4% 46%, 0% 20%, 14% 4%, 34% 0%, 50% 16%, 66% 0%, 86% 4%, 100% 20%, 96% 46%);
   --heart-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 124 112'%3E%3Cpath d='M62 108C56 103 8 72 4 38 1 16 17 3 34 3c12 0 22 7 28 17 6-10 16-17 28-17 17 0 33 13 30 35-4 34-52 65-58 70z'/%3E%3C/svg%3E");
@@ -103,8 +107,8 @@ ul { list-style: none; }
 /* 흰 섹션은 숨 쉬는 공간으로 비워 두고, 커버만 위쪽 모서리에 아주 옅게 */
 .cover {
   background:
-    radial-gradient(55% 28% at 0% 0%, rgba(245, 196, 199, 0.32), transparent 72%),
-    radial-gradient(50% 26% at 100% 4%, rgba(205, 233, 188, 0.36), transparent 72%),
+    radial-gradient(55% 28% at 0% 0%, rgba(200, 216, 160, 0.22), transparent 72%),
+    radial-gradient(50% 26% at 100% 4%, rgba(200, 216, 160, 0.32), transparent 72%),
     var(--white);
 }
 
@@ -142,7 +146,7 @@ ul { list-style: none; }
   opacity: 0; pointer-events: none;
   transition: opacity var(--dur-fast) var(--ease-in);
 }
-.cover__scroll svg { display: block; fill: none; stroke: #b9a9ab; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.cover__scroll svg { display: block; fill: none; stroke: #aeb29c; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .cover__scroll svg + svg { margin-top: -5px; opacity: .45; }
 .envelope.is-open ~ .cover__scroll {
   opacity: 1; pointer-events: auto;
@@ -169,11 +173,11 @@ ul { list-style: none; }
 .envelope__body.is-floating { will-change: transform; }
 .envelope__shadow {
   position: absolute; left: 12%; right: 12%; bottom: -18px; height: 16px; border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(110, 140, 96, 0.24), rgba(110, 140, 96, 0));
+  background: radial-gradient(closest-side, rgba(90, 104, 56, 0.16), rgba(90, 104, 56, 0));
 }
 .envelope__back {
   position: absolute; left: 0; right: 0; bottom: 0; height: 200px;
-  background: linear-gradient(180deg, #f4d3d4 0%, #fbe9e8 100%); border-radius: 3px;
+  background: linear-gradient(180deg, #b4c682 0%, #c0d090 100%); border-radius: 3px;
 }
 /* 사진 자리는 처음부터 다 열어 두고(높이 고정), 사진만 transform으로 올려요 — 레이아웃 계산이 없어 끊기지 않아요 */
 .envelope__holder {
@@ -213,7 +217,7 @@ ul { list-style: none; }
 /* 봉투 가운데 하트 실링 */
 .envelope__seal {
   position: absolute; left: 50%; bottom: 68px; z-index: 5; width: 30px; height: 28px; margin-left: -15px;
-  filter: drop-shadow(0 2px 3px rgba(196, 120, 128, 0.32));
+  filter: none;
   /* 닫을 때: 뚜껑이 다 덮인 뒤 톡 하고 다시 붙어요 */
   transition: transform var(--dur-base) var(--ease-spring) 860ms, opacity var(--dur-fast) var(--ease-out) 860ms;
 }
@@ -238,8 +242,8 @@ ul { list-style: none; }
 .greeting__text { text-align: center; font-size: 15px; line-height: 1.8; }
 .greeting__text p + p { margin-top: 1em; }   /* 문단 사이 한 줄 정도 */
 .greeting__art { position: relative; width: 100%; display: flex; justify-content: center; padding-top: 54px; }
-.deco-heart { position: absolute; background: linear-gradient(160deg, #f8d3d5 0%, #eba6ad 100%); clip-path: var(--heart); }
-.deco-heart--lg { background: linear-gradient(160deg, #d6eac8 0%, #93bf80 100%); }
+.deco-heart { position: absolute; background: var(--blush); clip-path: var(--heart); }
+.deco-heart--lg { background: var(--sage); }
 .deco-heart--lg { width: 48px; height: 44px; right: 24px; top: -4px; transform: rotate(12deg); }
 .deco-heart--sm { width: 22px; height: 20px; left: 24px; top: 18px; transform: rotate(-17deg); }
 .greeting__card {
@@ -281,34 +285,34 @@ ul { list-style: none; }
 @media (max-width: 359px) { .note { transform: scale(.85); margin-bottom: -70px; } }
 .note__paper {
   position: absolute; left: 0; right: 0; top: 16px; bottom: 0;
-  background: #fffdfc; border-radius: 4px 4px 12px 12px;
-  box-shadow: 0 14px 34px rgba(110, 140, 96, 0.16), 0 2px 6px rgba(64, 60, 61, 0.06);
+  background: #ffffff; border-radius: 4px 4px 12px 12px;
+  box-shadow: 0 10px 28px rgba(90, 104, 56, 0.10), 0 2px 6px rgba(64, 60, 61, 0.06);
 }
 .note__rings { position: absolute; left: 8px; right: 8px; top: 0; display: flex; justify-content: space-between; }
 .note__rings svg { width: 12px; height: 34px; display: block; }
-.note__rings path { fill: none; stroke: #4a4547; stroke-width: 2.2; stroke-linecap: round; }
-.note__rings .hole { fill: #e7dcdd; }
+.note__rings path { fill: none; stroke: #45463d; stroke-width: 2.2; stroke-linecap: round; }
+.note__rings .hole { fill: #e3e6d6; }
 .note__head { position: absolute; left: 22px; right: 22px; top: 40px; display: flex; justify-content: space-between; font-size: 19px; font-weight: 700; letter-spacing: .14em; }
 .note__week { position: absolute; left: 0; right: 0; top: 90px; display: grid; grid-template-columns: repeat(3, 1fr); font-size: 11px; font-weight: 500; letter-spacing: .1em; color: var(--muted); }
 .note__week span { padding-left: 12px; }
-.note__week .is-sun, .note__cell.is-sun span { color: #c97a85; }
-.note__grid { position: absolute; left: 0; right: 0; top: 120px; display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 104px; border-top: 1px solid #ece2e2; }
-.note__cell { position: relative; padding: 9px 12px; font-size: 15px; font-variant-numeric: tabular-nums; border-bottom: 1px solid #ece2e2; }
+.note__week .is-sun, .note__cell.is-sun span { color: #a8666f; }
+.note__grid { position: absolute; left: 0; right: 0; top: 120px; display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 104px; border-top: 1px solid #e8ebdb; }
+.note__cell { position: relative; padding: 9px 12px; font-size: 15px; font-variant-numeric: tabular-nums; border-bottom: 1px solid #e8ebdb; }
 .note__cell:nth-child(n+7) { border-bottom: 0; }
-.note__cell:not(:nth-child(3n)) { border-right: 1px solid #ece2e2; }
-.note__cell.is-day { background: linear-gradient(145deg, #e6f2dc 0%, #c3deb0 100%); font-weight: 600; }
+.note__cell:not(:nth-child(3n)) { border-right: 1px solid #e8ebdb; }
+.note__cell.is-day { background: #dbe5c0; font-weight: 600; }
 /* 다이어리에 손으로 적은 메모 */
 .note__memo {
   position: absolute; left: 11px; top: 38px; white-space: nowrap;
-  font-family: var(--font); font-size: 13px; font-weight: 500; line-height: 1.5; letter-spacing: -0.01em; color: #3f5634;
+  font-family: var(--font); font-size: 13px; font-weight: 500; line-height: 1.5; letter-spacing: -0.01em; color: #45532a;
 }
 /* 하트 모양으로 오려낸 스티커 */
-.note__heart { position: absolute; overflow: visible; filter: drop-shadow(0 3px 4px rgba(64, 60, 61, 0.18)); }
+.note__heart { position: absolute; overflow: visible; filter: drop-shadow(0 1px 1.5px rgba(64, 60, 61, 0.12)); }
 .note__heart--a { left: 206px; top: 222px; width: 34px; transform: rotate(-14deg); }
 .note__heart--b { left: 308px; top: 302px; width: 28px; transform: rotate(14deg); }
 .note__heart--c { left: 184px; top: 400px; width: 26px; transform: rotate(8deg); }
 /* 사진 스티커 — 발끝을 축으로 제자리에서 까딱까딱 */
-.note__sticker { position: absolute; height: auto; filter: drop-shadow(0 6px 8px rgba(64, 60, 61, 0.18)); transform-origin: 50% 92%; }
+.note__sticker { position: absolute; height: auto; filter: drop-shadow(0 2px 3px rgba(64, 60, 61, 0.12)); transform-origin: 50% 92%; }
 .note__sticker--a { left: 254px; top: 150px; width: 100px; --r: 6deg; transform: rotate(var(--r)); animation: stickerTick 1.9s var(--ease-in-out) infinite; }
 .note__sticker--b { left: 34px; top: 366px; width: 116px; --r: -7deg; transform: rotate(var(--r)); animation: stickerTick 2.3s var(--ease-in-out) -.8s infinite; }
 @keyframes stickerTick {
@@ -327,7 +331,7 @@ ul { list-style: none; }
 .location__addr { font-size: 15px; color: var(--muted); }
 .location__info .pill-btn { margin-top: 8px; }
 .location__map {
-  position: relative; height: 240px; background: linear-gradient(135deg, #f0f7ea 0%, #fbf3f1 100%);
+  position: relative; height: 240px; background: var(--sky);
   display: flex; align-items: center; justify-content: center;
   color: var(--deep); font-size: 13px; text-align: center;
 }
@@ -350,10 +354,10 @@ ul { list-style: none; }
 .qna { padding-left: 20px; padding-right: 20px; }
 .chat { width: 100%; display: flex; flex-direction: column; gap: 10px; font-size: 14px; line-height: 1.55; }
 .bubble { padding: 11px 15px; max-width: 86%; }
-.bubble--q { align-self: flex-start; max-width: 78%; background: linear-gradient(135deg, #fdeeed 0%, #f6f8f0 100%); border-radius: 18px 18px 18px 4px; }
+.bubble--q { align-self: flex-start; max-width: 78%; background: var(--white); border: 1px solid var(--sky-1); border-radius: 18px 18px 18px 4px; }
 .bubble--q:not(:first-child) { margin-top: 12px; }
 .bubble--q b { font-weight: 600; color: var(--deep); }
-.bubble--a { align-self: flex-end; background: linear-gradient(135deg, #eaf5e1, #dcefcf); border-radius: 18px 18px 4px 18px; text-align: end; }
+.bubble--a { align-self: flex-end; background: var(--sage-soft); border-radius: 18px 18px 4px 18px; text-align: end; }
 .bubble-wrap { align-self: flex-end; max-width: 86%; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
 .bubble-wrap .bubble { max-width: 100%; text-align: start; }
 .bubble__who { font-size: 12px; color: var(--muted); padding-right: 4px; }
@@ -412,7 +416,7 @@ ul { list-style: none; }
 /* overflow: hidden — 없으면 사진 원본 비율(2:3)대로 액자가 늘어나요 */
 .thanks__photo { width: 280px; max-width: 100%; aspect-ratio: 3 / 4; overflow: hidden; padding: 8px; background: var(--white);
   /* 사진 아래로 핑크, 위로 그린 빛이 아주 은은하게 번져요 */
-  box-shadow: 0 2px 12px rgba(64, 60, 61, 0.10), 0 22px 44px -22px rgba(233, 160, 168, 0.55), 0 -16px 40px -26px rgba(160, 205, 140, 0.55); }
+  box-shadow: 0 2px 12px rgba(64, 60, 61, 0.10), 0 22px 44px -22px rgba(169, 189, 120, 0.32); }
 .thanks__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; }
 .thanks__text { text-align: center; font-size: 15px; line-height: 1.8; }
 .thanks__sign { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--muted); margin-top: -14px; }
@@ -428,14 +432,14 @@ ul { list-style: none; }
 /* 하트 뒤로 핑크·그린이 섞인 부드러운 빛 */
 .love__stage::before {
   content: ""; position: absolute; left: 50%; top: 52%; width: 240px; height: 200px; transform: translate(-50%, -50%);
-  background: radial-gradient(closest-side, rgba(208, 233, 192, 0.62), rgba(247, 205, 208, 0.28) 58%, transparent 100%);
+  background: radial-gradient(closest-side, rgba(200, 216, 160, 0.42), rgba(255, 255, 255, 0) 70%);
   filter: blur(6px); pointer-events: none;
 }
 .love__btn {
   position: relative; width: 124px; height: 112px; margin-top: 10px;
   padding: 0; border: 0; background: none; cursor: pointer;
   touch-action: manipulation;
-  filter: drop-shadow(0 8px 14px rgba(110, 140, 96, 0.26));
+  filter: none;
   animation: loveBeat 2.4s ease-in-out infinite;
 }
 .love__btn.is-tapped { animation: none; }
@@ -454,7 +458,7 @@ ul { list-style: none; }
 .love__msg {
   position: absolute; left: 50%; top: 22px; z-index: 2; pointer-events: none; white-space: nowrap;
   padding: 8px 14px; border-radius: 999px; background: var(--white); border: 1px solid var(--sky-1);
-  box-shadow: 0 4px 12px rgba(110, 140, 96, 0.12);
+  box-shadow: 0 4px 12px rgba(90, 104, 56, 0.08);
   font-size: 13px; font-weight: 500; color: var(--deep);
 }
 .love__count { display: flex; align-items: baseline; gap: 6px; font-size: 14px; color: var(--muted); }
@@ -468,7 +472,7 @@ ul { list-style: none; }
   min-height: 50px; border-radius: 10px; border: 1px solid var(--sky-3); background: var(--white);
   display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 15px; cursor: pointer;
 }
-.share__btn--kakao { background: linear-gradient(120deg, #cfe5bf 0%, #e6f1dc 60%, #f8e1e1 100%); border-color: transparent; }
+.share__btn--kakao { background: var(--sage); border-color: transparent; }
 .share__btn svg { stroke-width: 1.3; }
 .share__foot { margin-top: 20px; font-size: 11px; letter-spacing: 0.12em; color: var(--muted); }
 
