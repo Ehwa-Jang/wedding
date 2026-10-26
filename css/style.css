@@ -360,7 +360,7 @@ ul { list-style: none; }
 /* ===== 9. 연락처 · 마음 전하실 곳 ===== */
 .account { align-items: stretch; gap: 12px; padding-bottom: 64px; }   /* 색 배경 섹션 아래 여백 — 위(56px)보다 살짝 넉넉하게 */
 .account .sec__title { align-self: center; }
-.account__intro { text-align: center; font-size: 14px; color: var(--muted); margin: -12px 0 12px; }
+.account__intro { text-align: center; font-size: 14px; color: var(--muted); margin: 4px 0 12px; }   /* 제목 밑줄과 16px · 토글과 24px 띄워요 */
 .mini-heart { display: inline-block; width: 10px; height: 9px; background: var(--grad-heart); clip-path: var(--heart); }
 .thanks__sign .mini-heart { background: var(--grad-heart-pink); }   /* 두 사람 이름 사이 하트는 핑크 포인트 */
 .acc { border: 1px solid var(--sky-1); border-radius: 12px; overflow: hidden; background: var(--white); }
