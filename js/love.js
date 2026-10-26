@@ -115,7 +115,7 @@
       el.className = 'love__fx ' + (isStar ? 'love__fx--star' : 'love__fx--heart');
       el.style.width = size + 'px';
       el.style.height = (isStar ? size : size * 0.92) + 'px';
-      el.style.background = isStar && Math.random() < 0.4 ? '#7c9a6d' : COLORS[(Math.random() * COLORS.length) | 0];
+      el.style.background = isStar && Math.random() < 0.4 ? '#5b7a4d' : COLORS[(Math.random() * COLORS.length) | 0];
       el.style.left = cx + 'px'; el.style.top = cy + 'px';
       stage.appendChild(el);
       active++;
