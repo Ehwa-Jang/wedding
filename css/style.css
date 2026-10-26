@@ -13,6 +13,14 @@
   --seal: #a9cd96;    /* 봉투 실링 */
   --wash: linear-gradient(170deg, #fdeeee 0%, #fdf6f3 48%, #eff8e9 100%);  /* 색 배경 섹션: 핑크→그린 */
   --bubble: #e3f2d8;
+  /* 그라데이션 — 포스터처럼 흐릿하게 번지는 핑크·그린 덩어리(블롭)를 겹쳐서 써요 */
+  --blob-pink: rgba(245, 196, 199, 0.55);
+  --blob-green: rgba(205, 233, 188, 0.62);
+  --blob-base: #fffbfa;
+  --grad-pink: linear-gradient(150deg, #fbe2e2 0%, #f5c9cc 100%);
+  --grad-green: linear-gradient(150deg, #e4f2d9 0%, #c9e3b8 100%);
+  --grad-line: linear-gradient(90deg, #f3c1c4, #bfe0aa);
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .4 0 0 0 0 .35 0 0 0 0 .36 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   --ink: #403c3d;
   --muted: #8b8284;
   --deep: #7c9a6d;    /* 아이콘 · 강조 글자 (모브 그린) */
@@ -70,8 +78,32 @@ ul { list-style: none; }
   gap: 28px;
 }
 .sec--white { background: var(--white); }
-.sec--sky { background: var(--wash); }
-.sec--sky.greeting { background: var(--sky); }
+.sec--sky {
+  position: relative; isolation: isolate;
+  /* 블롭 위치·크기는 섹션마다 조금씩 달라서 반복돼 보이지 않아요 */
+  --b1: 70% 45% at 0% 0%;  --b2: 65% 45% at 100% 100%;
+  background:
+    radial-gradient(var(--b1), var(--blob-pink), transparent 72%),
+    radial-gradient(var(--b2), var(--blob-green), transparent 72%),
+    var(--blob-base);
+}
+/* 포스터 같은 아주 고운 입자감 */
+.sec--sky::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: var(--grain); opacity: .22; mix-blend-mode: multiply;
+}
+.greeting { --b1: 80% 32% at 10% 0%;  --b2: 75% 30% at 100% 62%; }
+.calendar { --b1: 75% 40% at 0% 0%;   --b2: 60% 30% at 100% 6%; }
+.account  { --b1: 70% 35% at 100% 0%; --b2: 70% 40% at 0% 100%; }
+.love     { --b1: 75% 45% at 50% 38%; --b2: 80% 35% at 50% 100%; }
+.share    { --b1: 60% 70% at 100% 0%; --b2: 60% 80% at 0% 100%; }
+/* 흰 섹션은 숨 쉬는 공간으로 비워 두고, 커버만 위쪽 모서리에 아주 옅게 */
+.cover {
+  background:
+    radial-gradient(55% 28% at 0% 0%, rgba(245, 196, 199, 0.32), transparent 72%),
+    radial-gradient(50% 26% at 100% 4%, rgba(205, 233, 188, 0.36), transparent 72%),
+    var(--white);
+}
 
 .sec__title { display: flex; flex-direction: column; align-items: center; gap: 12px; }
 .sec__title h2 {
@@ -82,7 +114,7 @@ ul { list-style: none; }
   margin-right: -0.22em;
 }
 .sec__title--ko h2 { letter-spacing: 0.08em; margin-right: -0.08em; }   /* 한글 제목은 자간을 좁게 */
-.sec__title::after { content: ""; width: 24px; height: 2px; background: var(--green); }
+.sec__title::after { content: ""; width: 28px; height: 2px; border-radius: 2px; background: var(--grad-line); }
 
 .pill-btn {
   display: inline-flex; align-items: center; gap: 8px;
@@ -122,7 +154,7 @@ ul { list-style: none; }
 }
 .envelope__back {
   position: absolute; left: 0; right: 0; bottom: 0; height: 200px;
-  background: var(--green-soft); border-radius: 3px;
+  background: linear-gradient(180deg, #d2e8c3 0%, #e7f2dd 100%); border-radius: 3px;
 }
 /* 사진 자리는 처음부터 다 열어 두고(높이 고정), 사진만 transform으로 올려요 — 레이아웃 계산이 없어 끊기지 않아요 */
 .envelope__holder {
@@ -144,7 +176,7 @@ ul { list-style: none; }
 .envelope__front {
   position: absolute; left: 0; bottom: 0; width: 100%; height: 200px; z-index: 3; pointer-events: none;
 }
-.fill-front { fill: var(--sky-1); }
+.fill-front { fill: url(#gEnvFront); }
 .stroke-line { stroke: var(--sky-3); stroke-width: 1; }
 /* 뚜껑: 대칭 이징이라 정확히 절반(=90°, 옆에서 보면 선)일 때 앞뒤가 바뀌어 튀어 보이지 않아요 */
 .envelope__flap {
@@ -153,8 +185,8 @@ ul { list-style: none; }
   /* 닫을 때: 사진이 거의 들어간 뒤(300ms~) 뚜껑이 덮여요. 90°가 되는 600ms에 다시 맨 앞으로 */
   transition: transform 600ms var(--ease-in-out) 300ms, z-index 0s linear 600ms;
 }
-.flap-outer { fill: var(--sky-1); }
-.flap-inner { fill: var(--green-soft); opacity: 0; transition: opacity 0s linear 600ms; }
+.flap-outer { fill: url(#gEnvFlap); }
+.flap-inner { fill: url(#gEnvInner); opacity: 0; transition: opacity 0s linear 600ms; }
 /* 열 때: 80ms~ 뚜껑 회전, 90°가 되는 400ms에 사진 뒤로 */
 .envelope.is-open .envelope__flap { transform: rotateX(180deg); z-index: 1; transition: transform 640ms var(--ease-in-out) 80ms, z-index 0s linear 400ms; }
 .envelope.is-open .flap-inner { opacity: 1; transition: opacity 0s linear 400ms; }
@@ -186,7 +218,7 @@ ul { list-style: none; }
 .greeting__text { text-align: center; font-size: 15px; line-height: 1.8; }
 .greeting__text p + p { margin-top: 1em; }   /* 문단 사이 한 줄 정도 */
 .greeting__art { position: relative; width: 100%; display: flex; justify-content: center; padding-top: 54px; }
-.deco-heart { position: absolute; background: var(--accent); clip-path: var(--heart); }
+.deco-heart { position: absolute; background: linear-gradient(160deg, #f8d3d5 0%, #eba6ad 100%); clip-path: var(--heart); }
 .deco-heart--lg { width: 48px; height: 44px; right: 24px; top: -4px; transform: rotate(12deg); }
 .deco-heart--sm { width: 22px; height: 20px; left: 24px; top: 18px; transform: rotate(-17deg); }
 .greeting__card {
@@ -204,7 +236,8 @@ ul { list-style: none; }
 .letter__img { width: 100%; height: auto; }
 /* 부모님 편지와 갤러리 사이 구분 장식 */
 .divider { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
-.divider::before, .divider::after { content: ""; width: 40px; height: 1px; background: var(--sky-2); }
+.divider::before, .divider::after { content: ""; width: 40px; height: 1px; background: linear-gradient(90deg, transparent, var(--sky-2)); }
+.divider::after { transform: scaleX(-1); }
 .divider span { width: 12px; height: 11px; background: var(--accent); clip-path: var(--heart); }
 
 /* ===== 5. 갤러리 ===== */
@@ -227,7 +260,8 @@ ul { list-style: none; }
 .calendar__heart {
   position: absolute; left: 50%; top: 34px; width: 410px; height: 470px;
   transform: translateX(-50%);
-  background: var(--green-heart);
+  /* 위는 모브 그린, 아래 꼭짓점으로 갈수록 연핑크로 번져요 */
+  background: linear-gradient(168deg, #d3eac4 0%, #e3f1d7 48%, #f6dedd 100%);
   clip-path: polygon(50% 100%, 4% 46%, 0% 12%, 14% 4%, 34% 0%, 50% 12%, 66% 0%, 86% 4%, 100% 12%, 96% 46%);
 }
 .calendar__wrap { position: relative; width: 290px; }
@@ -251,7 +285,7 @@ ul { list-style: none; }
 .location__addr { font-size: 15px; color: var(--muted); }
 .location__info .pill-btn { margin-top: 8px; }
 .location__map {
-  position: relative; height: 240px; background: #f1f7ec;
+  position: relative; height: 240px; background: linear-gradient(135deg, #f0f7ea 0%, #fbf3f1 100%);
   display: flex; align-items: center; justify-content: center;
   color: var(--deep); font-size: 13px; text-align: center;
 }
@@ -280,10 +314,10 @@ ul { list-style: none; }
 .qna { padding-left: 20px; padding-right: 20px; }
 .chat { width: 100%; display: flex; flex-direction: column; gap: 10px; font-size: 14px; line-height: 1.55; }
 .bubble { padding: 11px 15px; max-width: 86%; }
-.bubble--q { align-self: flex-start; max-width: 78%; background: var(--sky); border-radius: 18px 18px 18px 4px; }
+.bubble--q { align-self: flex-start; max-width: 78%; background: linear-gradient(135deg, #fdf1f0, #fbe4e4); border-radius: 18px 18px 18px 4px; }
 .bubble--q:not(:first-child) { margin-top: 12px; }
 .bubble--q b { font-weight: 600; color: var(--deep); }
-.bubble--a { align-self: flex-end; background: var(--bubble); border-radius: 18px 18px 4px 18px; text-align: end; }
+.bubble--a { align-self: flex-end; background: linear-gradient(135deg, #eaf5e1, #dcefcf); border-radius: 18px 18px 4px 18px; text-align: end; }
 .bubble-wrap { align-self: flex-end; max-width: 86%; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
 .bubble-wrap .bubble { max-width: 100%; text-align: start; }
 .bubble__who { font-size: 12px; color: var(--muted); padding-right: 4px; }
@@ -292,7 +326,7 @@ ul { list-style: none; }
 .account { align-items: stretch; gap: 12px; padding-bottom: 40px; }
 .account .sec__title { align-self: center; }
 .account__intro { text-align: center; font-size: 14px; color: var(--muted); margin: -12px 0 12px; }
-.mini-heart { display: inline-block; width: 10px; height: 9px; background: var(--accent); clip-path: var(--heart); }
+.mini-heart { display: inline-block; width: 10px; height: 9px; background: linear-gradient(160deg, #f6c7cb, #e99ea6); clip-path: var(--heart); }
 .acc { border: 1px solid var(--sky-1); border-radius: 12px; overflow: hidden; background: var(--white); }
 .acc__toggle {
   width: 100%; min-height: 54px; padding: 0 18px;
@@ -339,7 +373,9 @@ ul { list-style: none; }
 /* ===== 10. 감사 인사 ===== */
 .thanks { padding-bottom: 56px; }
 /* overflow: hidden — 없으면 사진 원본 비율(2:3)대로 액자가 늘어나요 */
-.thanks__photo { width: 280px; max-width: 100%; aspect-ratio: 3 / 4; overflow: hidden; padding: 8px; background: var(--white); box-shadow: 0 2px 12px rgba(64, 60, 61, 0.12); }
+.thanks__photo { width: 280px; max-width: 100%; aspect-ratio: 3 / 4; overflow: hidden; padding: 8px; background: var(--white);
+  /* 사진 아래로 핑크, 위로 그린 빛이 아주 은은하게 번져요 */
+  box-shadow: 0 2px 12px rgba(64, 60, 61, 0.10), 0 22px 44px -22px rgba(233, 160, 168, 0.55), 0 -16px 40px -26px rgba(160, 205, 140, 0.55); }
 .thanks__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; }
 .thanks__text { text-align: center; font-size: 15px; line-height: 1.8; }
 .thanks__sign { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--muted); margin-top: -14px; }
@@ -351,6 +387,12 @@ ul { list-style: none; }
   position: relative; width: 100%; max-width: 342px; height: 260px;
   display: flex; align-items: center; justify-content: center;
   -webkit-user-select: none; user-select: none;
+}
+/* 하트 뒤로 핑크·그린이 섞인 부드러운 빛 */
+.love__stage::before {
+  content: ""; position: absolute; left: 50%; top: 52%; width: 240px; height: 200px; transform: translate(-50%, -50%);
+  background: radial-gradient(closest-side, rgba(247, 205, 208, 0.55), rgba(214, 236, 199, 0.35) 55%, transparent 100%);
+  filter: blur(6px); pointer-events: none;
 }
 .love__btn {
   position: relative; width: 124px; height: 112px; margin-top: 10px;
@@ -389,7 +431,7 @@ ul { list-style: none; }
   min-height: 50px; border-radius: 10px; border: 1px solid var(--sky-3); background: var(--white);
   display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 15px; cursor: pointer;
 }
-.share__btn--kakao { background: var(--sky-2); border-color: var(--sky-2); }
+.share__btn--kakao { background: linear-gradient(120deg, #f7d3d5 0%, #f3e0dd 50%, #d9ecca 100%); border-color: transparent; }
 .share__btn svg { stroke-width: 1.3; }
 .share__foot { margin-top: 20px; font-size: 11px; letter-spacing: 0.12em; color: var(--muted); }
 
