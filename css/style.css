@@ -333,12 +333,6 @@ ul { list-style: none; }
 }
 .location__map.is-ready { cursor: pointer; }
 .location__map.is-ready .location__mapmsg { display: none; }
-/* 지도 위 장소 이름표 (카카오맵 CustomOverlay) */
-.map-label {
-  margin-bottom: 40px; padding: 6px 12px; border-radius: 999px; white-space: nowrap;
-  background: var(--white); border: 1px solid var(--sky-1); box-shadow: 0 4px 12px rgba(110, 140, 96, 0.16);
-  font-family: var(--font); font-size: 12px; font-weight: 600; color: var(--deep);
-}
 .location__maplinks { display: flex; gap: 8px; padding: 0 28px; margin-top: -16px; }
 .location__maplinks a {
   padding: 10px 18px; border-radius: 999px; background: var(--white); border: 1px solid var(--sky-3);
