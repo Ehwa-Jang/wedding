@@ -1,12 +1,14 @@
 /* ===== 색상 · 글꼴 ===== */
 :root {
   --white: #ffffff;
-  /* 2안 · 은은한 핑크 & 모브 그린 (변수 이름은 예전 그대로 두고 값만 바꿨어요) */
-  --sky: #fdf0ef;     /* 연한 블러시 핑크 — 인사말 · 토글 배경 */
-  --sky-1: #f8dedd;   /* 봉투 앞면 · 구분선 */
-  --sky-2: #f3c6c7;   /* 핑크 포인트 (카톡 버튼 · 구분선) */
-  --sky-3: #e9b8ba;   /* 버튼 테두리 */
-  --accent: #eeaeb2;  /* 장식 하트 */
+  /* 2안 · 모브 그린이 주도하고, 핑크는 그라데이션·일부 포인트에만 (변수 이름은 예전 그대로) */
+  --sky: #eef6e7;     /* 연한 모브 그린 — 연락처 버튼 배경 */
+  --sky-1: #d6e8c8;   /* 테두리 · 구분선 */
+  --sky-2: #c9e1b8;   /* 구분선 */
+  --sky-3: #b9d6a6;   /* 버튼 테두리 · 봉투 접힘선 */
+  --accent: #eeaeb2;  /* 핑크 포인트 (커버 ♥ · 하트 수 ♡) */
+  --grad-heart: linear-gradient(160deg, #cfe5bf, #8fbb7b);  /* 그린 하트 */
+  --grad-heart-pink: linear-gradient(160deg, #f6c7cb, #e99ea6);
   --green: #b9dca4;   /* 제목 아래 선 */
   --green-soft: #d6eac8;  /* 봉투 안쪽 */
   --green-heart: #d9eecb; /* 달력 큰 하트 */
@@ -14,9 +16,9 @@
   --wash: linear-gradient(170deg, #fdeeee 0%, #fdf6f3 48%, #eff8e9 100%);  /* 색 배경 섹션: 핑크→그린 */
   --bubble: #e3f2d8;
   /* 그라데이션 — 포스터처럼 흐릿하게 번지는 핑크·그린 덩어리(블롭)를 겹쳐서 써요 */
-  --blob-pink: rgba(245, 196, 199, 0.55);
-  --blob-green: rgba(205, 233, 188, 0.62);
-  --blob-base: #fffbfa;
+  --blob-pink: rgba(245, 196, 199, 0.30);
+  --blob-green: rgba(198, 228, 178, 0.74);
+  --blob-base: #fbfcf8;
   --grad-pink: linear-gradient(150deg, #fbe2e2 0%, #f5c9cc 100%);
   --grad-green: linear-gradient(150deg, #e4f2d9 0%, #c9e3b8 100%);
   --grad-line: linear-gradient(90deg, #f3c1c4, #bfe0aa);
@@ -167,11 +169,11 @@ ul { list-style: none; }
 .envelope__body.is-floating { will-change: transform; }
 .envelope__shadow {
   position: absolute; left: 12%; right: 12%; bottom: -18px; height: 16px; border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(196, 120, 128, 0.22), rgba(196, 120, 128, 0));
+  background: radial-gradient(closest-side, rgba(110, 140, 96, 0.24), rgba(110, 140, 96, 0));
 }
 .envelope__back {
   position: absolute; left: 0; right: 0; bottom: 0; height: 200px;
-  background: linear-gradient(180deg, #d2e8c3 0%, #e7f2dd 100%); border-radius: 3px;
+  background: linear-gradient(180deg, #f4d3d4 0%, #fbe9e8 100%); border-radius: 3px;
 }
 /* 사진 자리는 처음부터 다 열어 두고(높이 고정), 사진만 transform으로 올려요 — 레이아웃 계산이 없어 끊기지 않아요 */
 .envelope__holder {
@@ -211,7 +213,7 @@ ul { list-style: none; }
 /* 봉투 가운데 하트 실링 */
 .envelope__seal {
   position: absolute; left: 50%; bottom: 68px; z-index: 5; width: 30px; height: 28px; margin-left: -15px;
-  filter: drop-shadow(0 2px 3px rgba(110, 140, 96, 0.3));
+  filter: drop-shadow(0 2px 3px rgba(196, 120, 128, 0.32));
   /* 닫을 때: 뚜껑이 다 덮인 뒤 톡 하고 다시 붙어요 */
   transition: transform var(--dur-base) var(--ease-spring) 860ms, opacity var(--dur-fast) var(--ease-out) 860ms;
 }
@@ -237,6 +239,7 @@ ul { list-style: none; }
 .greeting__text p + p { margin-top: 1em; }   /* 문단 사이 한 줄 정도 */
 .greeting__art { position: relative; width: 100%; display: flex; justify-content: center; padding-top: 54px; }
 .deco-heart { position: absolute; background: linear-gradient(160deg, #f8d3d5 0%, #eba6ad 100%); clip-path: var(--heart); }
+.deco-heart--lg { background: linear-gradient(160deg, #d6eac8 0%, #93bf80 100%); }
 .deco-heart--lg { width: 48px; height: 44px; right: 24px; top: -4px; transform: rotate(12deg); }
 .deco-heart--sm { width: 22px; height: 20px; left: 24px; top: 18px; transform: rotate(-17deg); }
 .greeting__card {
@@ -256,7 +259,7 @@ ul { list-style: none; }
 .divider { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
 .divider::before, .divider::after { content: ""; width: 40px; height: 1px; background: linear-gradient(90deg, transparent, var(--sky-2)); }
 .divider::after { transform: scaleX(-1); }
-.divider span { width: 12px; height: 11px; background: var(--accent); clip-path: var(--heart); }
+.divider span { width: 12px; height: 11px; background: var(--grad-heart); clip-path: var(--heart); }
 
 /* ===== 5. 갤러리 ===== */
 .gallery { padding-left: 0; padding-right: 0; padding-top: 80px; padding-bottom: 40px; gap: 24px; }
@@ -279,7 +282,7 @@ ul { list-style: none; }
 .note__paper {
   position: absolute; left: 0; right: 0; top: 16px; bottom: 0;
   background: #fffdfc; border-radius: 4px 4px 12px 12px;
-  box-shadow: 0 14px 34px rgba(196, 120, 128, 0.16), 0 2px 6px rgba(64, 60, 61, 0.06);
+  box-shadow: 0 14px 34px rgba(110, 140, 96, 0.16), 0 2px 6px rgba(64, 60, 61, 0.06);
 }
 .note__rings { position: absolute; left: 8px; right: 8px; top: 0; display: flex; justify-content: space-between; }
 .note__rings svg { width: 12px; height: 34px; display: block; }
@@ -293,12 +296,11 @@ ul { list-style: none; }
 .note__cell { position: relative; padding: 9px 12px; font-size: 15px; font-variant-numeric: tabular-nums; border-bottom: 1px solid #ece2e2; }
 .note__cell:nth-child(n+7) { border-bottom: 0; }
 .note__cell:not(:nth-child(3n)) { border-right: 1px solid #ece2e2; }
-.note__cell.is-day { background: linear-gradient(145deg, #fbe0e2 0%, #f4c5cb 100%); font-weight: 600; }
+.note__cell.is-day { background: linear-gradient(145deg, #e6f2dc 0%, #c3deb0 100%); font-weight: 600; }
 /* 다이어리에 손으로 적은 메모 */
 .note__memo {
-  position: absolute; left: 10px; top: 36px; white-space: nowrap;
-  font-family: 'Nanum Pen Script', 'Gaegu', cursive; font-size: 22px; font-weight: 400; line-height: 1.15; color: #4a4547;
-  transform: rotate(-3deg); transform-origin: left top;
+  position: absolute; left: 11px; top: 38px; white-space: nowrap;
+  font-family: var(--font); font-size: 13px; font-weight: 500; line-height: 1.5; letter-spacing: -0.01em; color: #3f5634;
 }
 /* 하트 모양으로 오려낸 스티커 */
 .note__heart { position: absolute; overflow: visible; filter: drop-shadow(0 3px 4px rgba(64, 60, 61, 0.18)); }
@@ -307,7 +309,7 @@ ul { list-style: none; }
 .note__heart--c { left: 184px; top: 400px; width: 26px; transform: rotate(8deg); }
 /* 사진 스티커 — 발끝을 축으로 제자리에서 까딱까딱 */
 .note__sticker { position: absolute; height: auto; filter: drop-shadow(0 6px 8px rgba(64, 60, 61, 0.18)); transform-origin: 50% 92%; }
-.note__sticker--a { left: 258px; top: 160px; width: 92px; --r: 6deg; transform: rotate(var(--r)); animation: stickerTick 1.9s var(--ease-in-out) infinite; }
+.note__sticker--a { left: 254px; top: 150px; width: 100px; --r: 6deg; transform: rotate(var(--r)); animation: stickerTick 1.9s var(--ease-in-out) infinite; }
 .note__sticker--b { left: 34px; top: 366px; width: 116px; --r: -7deg; transform: rotate(var(--r)); animation: stickerTick 2.3s var(--ease-in-out) -.8s infinite; }
 @keyframes stickerTick {
   0%, 100% { transform: rotate(var(--r)); }
@@ -334,7 +336,7 @@ ul { list-style: none; }
 /* 지도 위 장소 이름표 (카카오맵 CustomOverlay) */
 .map-label {
   margin-bottom: 40px; padding: 6px 12px; border-radius: 999px; white-space: nowrap;
-  background: var(--white); border: 1px solid var(--sky-1); box-shadow: 0 4px 12px rgba(196, 120, 128, 0.16);
+  background: var(--white); border: 1px solid var(--sky-1); box-shadow: 0 4px 12px rgba(110, 140, 96, 0.16);
   font-family: var(--font); font-size: 12px; font-weight: 600; color: var(--deep);
 }
 .location__maplinks { display: flex; gap: 8px; padding: 0 28px; margin-top: -16px; }
@@ -354,7 +356,7 @@ ul { list-style: none; }
 .qna { padding-left: 20px; padding-right: 20px; }
 .chat { width: 100%; display: flex; flex-direction: column; gap: 10px; font-size: 14px; line-height: 1.55; }
 .bubble { padding: 11px 15px; max-width: 86%; }
-.bubble--q { align-self: flex-start; max-width: 78%; background: linear-gradient(135deg, #fdf1f0, #fbe4e4); border-radius: 18px 18px 18px 4px; }
+.bubble--q { align-self: flex-start; max-width: 78%; background: linear-gradient(135deg, #fdeeed 0%, #f6f8f0 100%); border-radius: 18px 18px 18px 4px; }
 .bubble--q:not(:first-child) { margin-top: 12px; }
 .bubble--q b { font-weight: 600; color: var(--deep); }
 .bubble--a { align-self: flex-end; background: linear-gradient(135deg, #eaf5e1, #dcefcf); border-radius: 18px 18px 4px 18px; text-align: end; }
@@ -366,7 +368,8 @@ ul { list-style: none; }
 .account { align-items: stretch; gap: 12px; padding-bottom: 40px; }
 .account .sec__title { align-self: center; }
 .account__intro { text-align: center; font-size: 14px; color: var(--muted); margin: -12px 0 12px; }
-.mini-heart { display: inline-block; width: 10px; height: 9px; background: linear-gradient(160deg, #f6c7cb, #e99ea6); clip-path: var(--heart); }
+.mini-heart { display: inline-block; width: 10px; height: 9px; background: var(--grad-heart); clip-path: var(--heart); }
+.thanks__sign .mini-heart { background: var(--grad-heart-pink); }   /* 두 사람 이름 사이 하트는 핑크 포인트 */
 .acc { border: 1px solid var(--sky-1); border-radius: 12px; overflow: hidden; background: var(--white); }
 .acc__toggle {
   width: 100%; min-height: 54px; padding: 0 18px;
@@ -431,14 +434,14 @@ ul { list-style: none; }
 /* 하트 뒤로 핑크·그린이 섞인 부드러운 빛 */
 .love__stage::before {
   content: ""; position: absolute; left: 50%; top: 52%; width: 240px; height: 200px; transform: translate(-50%, -50%);
-  background: radial-gradient(closest-side, rgba(247, 205, 208, 0.55), rgba(214, 236, 199, 0.35) 55%, transparent 100%);
+  background: radial-gradient(closest-side, rgba(208, 233, 192, 0.62), rgba(247, 205, 208, 0.28) 58%, transparent 100%);
   filter: blur(6px); pointer-events: none;
 }
 .love__btn {
   position: relative; width: 124px; height: 112px; margin-top: 10px;
   padding: 0; border: 0; background: none; cursor: pointer;
   touch-action: manipulation;
-  filter: drop-shadow(0 8px 14px rgba(196, 120, 128, 0.22));
+  filter: drop-shadow(0 8px 14px rgba(110, 140, 96, 0.26));
   animation: loveBeat 2.4s ease-in-out infinite;
 }
 .love__btn.is-tapped { animation: none; }
@@ -457,7 +460,7 @@ ul { list-style: none; }
 .love__msg {
   position: absolute; left: 50%; top: 22px; z-index: 2; pointer-events: none; white-space: nowrap;
   padding: 8px 14px; border-radius: 999px; background: var(--white); border: 1px solid var(--sky-1);
-  box-shadow: 0 4px 12px rgba(196, 120, 128, 0.12);
+  box-shadow: 0 4px 12px rgba(110, 140, 96, 0.12);
   font-size: 13px; font-weight: 500; color: var(--deep);
 }
 .love__count { display: flex; align-items: baseline; gap: 6px; font-size: 14px; color: var(--muted); }
@@ -471,7 +474,7 @@ ul { list-style: none; }
   min-height: 50px; border-radius: 10px; border: 1px solid var(--sky-3); background: var(--white);
   display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 15px; cursor: pointer;
 }
-.share__btn--kakao { background: linear-gradient(120deg, #f7d3d5 0%, #f3e0dd 50%, #d9ecca 100%); border-color: transparent; }
+.share__btn--kakao { background: linear-gradient(120deg, #cfe5bf 0%, #e6f1dc 60%, #f8e1e1 100%); border-color: transparent; }
 .share__btn svg { stroke-width: 1.3; }
 .share__foot { margin-top: 20px; font-size: 11px; letter-spacing: 0.12em; color: var(--muted); }
 

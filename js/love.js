@@ -18,7 +18,7 @@
     '꽃길만 걷자 🌷',
     '오늘보다 더 행복하길!'
   ];
-  var COLORS = ['#eeaeb2', '#f3c6c7', '#e9b8ba', '#b9dca4', '#a9cd96'];   // 핑크 하트 + 모브 그린 하트
+  var COLORS = ['#b9dca4', '#a9cd96', '#cfe5bf', '#93bf80', '#eeaeb2', '#f3c6c7'];   // 모브 그린 하트 위주 + 핑크 포인트
 
   var stage = document.getElementById('loveStage');
   var btn = document.getElementById('loveBtn');
