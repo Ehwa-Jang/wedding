@@ -177,19 +177,19 @@ ul { list-style: none; }
 @keyframes introUp { from { opacity: 0; transform: translate3d(0, var(--reveal-y), 0); } to { opacity: 1; transform: none; } }
 
 /* ===== 2. 인사말 ===== */
-.greeting__text { white-space: pre-line; text-align: center; font-size: 15px; line-height: 1.8; }
+.greeting__text { text-align: center; font-size: 15px; line-height: 1.8; }
+.greeting__text p + p { margin-top: 1em; }   /* 문단 사이 한 줄 정도 */
 .greeting__art { position: relative; width: 100%; display: flex; justify-content: center; padding-top: 54px; }
 .deco-heart { position: absolute; background: var(--accent); clip-path: var(--heart); }
 .deco-heart--lg { width: 48px; height: 44px; right: 24px; top: -4px; transform: rotate(12deg); }
 .deco-heart--sm { width: 22px; height: 20px; left: 24px; top: 18px; transform: rotate(-17deg); }
 .greeting__card {
-  width: 256px; padding: 16px 16px 18px;
+  width: 256px; padding: 16px;   /* 캡션 없이 사진만 — 위아래 여백 같게 */
   background: var(--white);
   box-shadow: 0 2px 12px rgba(64, 60, 61, 0.10);
   display: flex; flex-direction: column; align-items: center; gap: 12px;
 }
 .heart-clip { width: 200px; height: 209px; object-fit: cover; clip-path: var(--heart); }
-.greeting__card figcaption { font-size: 14px; line-height: 1.4; text-align: center; }
 
 /* ===== 3·4. 부모님 편지 ===== */
 .letter__head { text-align: center; display: flex; flex-direction: column; gap: 4px; }
