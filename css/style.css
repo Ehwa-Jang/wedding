@@ -330,8 +330,8 @@ ul { list-style: none; }
 .note__cell.is-day { background: #dbe5c0; font-weight: 600; }
 /* 다이어리에 손으로 적은 메모 */
 .note__memo {
-  position: absolute; left: 11px; top: 38px; white-space: nowrap;
-  font-family: var(--font); font-size: 13px; font-weight: 500; line-height: 1.5; letter-spacing: -0.01em; color: #45532a;
+  position: absolute; left: 9px; top: 38px; white-space: nowrap;
+  font-family: var(--font); font-size: 12px; font-weight: 500; line-height: 1.5; letter-spacing: -0.02em; color: #45532a;
 }
 /* 하트 모양으로 오려낸 스티커 */
 .note__heart { position: absolute; overflow: visible; filter: drop-shadow(0 1px 1.5px rgba(64, 60, 61, 0.12)); }
