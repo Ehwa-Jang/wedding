@@ -62,8 +62,7 @@
   var envelope = document.getElementById('envelope');
   var envBody = envelope.querySelector('.envelope__body');
   var envShadow = envelope.querySelector('.envelope__shadow');
-  var hint = document.getElementById('envelopeHint');
-  var floatAnims = [], pressAnims = [], hintAnim = null, busyUntil = 0, floatTimer = null;
+  var floatAnims = [], pressAnims = [], busyUntil = 0, floatTimer = null;
   var seal = envelope.querySelector('.envelope__seal');
 
   // 닫혀 있는 동안 봉투가 위아래로 둥둥 (작은 폭 · 사인 곡선 · 회전 없음 → 글자/테두리가 흔들리지 않아요)
@@ -74,10 +73,7 @@
     envBody.classList.add('is-floating');
     floatAnims.push(envBody.animate([{ transform: 'translate3d(0, 0, 0)' }, { transform: 'translate3d(0, -8px, 0)' }], floatOpt));
     floatAnims.push(envShadow.animate([{ transform: 'scaleX(1)', opacity: 1 }, { transform: 'scaleX(.86)', opacity: .65 }], floatOpt));
-    // 실링 하트는 가끔 한 번씩만 콩
-    floatAnims.push(seal.animate([
-      { transform: 'scale(1)' }, { transform: 'scale(1.1)', offset: .12 }, { transform: 'scale(1)', offset: .28 }, { transform: 'scale(1)' }
-    ], { duration: 2800, delay: delay + 500, iterations: Infinity, easing: EASE.out }));
+    // 실링 하트의 반짝·콩닥은 CSS (닫혀 있는 동안 '눌러 보세요' 대신)
   }
   startFloat(700);   // 등장 연출이 끝날 즈음부터
 
@@ -101,32 +97,20 @@
     floatAnims.forEach(function (x) { x.cancel(); }); floatAnims = [];
     envBody.classList.remove('is-floating');
   }
-  function fadeHint(show) {
-    if (!canAnim) return;
-    var from = getComputedStyle(hint).opacity;
-    if (hintAnim) hintAnim.cancel();
-    hintAnim = show
-      ? hint.animate([{ opacity: 0 }, { opacity: 1 }], { duration: ms('--dur-base'), delay: 900, easing: EASE.out, fill: 'both' })
-      : hint.animate([{ opacity: from }, { opacity: 0 }], { duration: ms('--dur-fast'), easing: EASE.in, fill: 'forwards' });
-  }
 
   function openEnvelope() {
     press();
-    fadeHint(false);
     // 실링 톡 → 뚜껑 열림(80ms~) → 뚜껑이 반쯤일 때(360ms~) 사진이 겹쳐서 올라와요 — 타이밍은 CSS
     envelope.classList.add('is-open');
     envelope.setAttribute('aria-label', '청첩장 봉투 닫기');
     envelope.setAttribute('aria-expanded', 'true');
-    hint.classList.add('is-hidden');
   }
   function closeEnvelope() {
     press();
-    // 사진이 쏙 들어가고(0~520ms) → 뚜껑이 덮이고(300~900ms) → 실링이 붙고(860ms~) → 안내 문구와 둥둥이 다시
+    // 사진이 쏙 들어가고(0~520ms) → 뚜껑이 덮이고(300~900ms) → 실링이 붙고(860ms~) → 둥둥이 다시
     envelope.classList.remove('is-open');
     envelope.setAttribute('aria-label', '청첩장 봉투 열기');
     envelope.setAttribute('aria-expanded', 'false');
-    hint.classList.remove('is-hidden');
-    fadeHint(true);
     floatTimer = setTimeout(function () { startFloat(0); }, calm ? 0 : 1100);
   }
   envelope.setAttribute('aria-expanded', 'false');
