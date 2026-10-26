@@ -269,30 +269,52 @@ ul { list-style: none; }
 #galleryMore svg { transition: transform var(--dur-base) var(--ease-out); }
 #galleryMore[aria-expanded="true"] svg { transform: rotate(180deg); }
 
-/* ===== 6. 달력 ===== */
-.calendar { position: relative; overflow: hidden; gap: 20px; padding-top: 56px; padding-bottom: 0; }
-.calendar__date { font-size: 16px; position: relative; z-index: 1; }
-.calendar .sec__title { position: relative; z-index: 1; }
-/* 하트 꼭짓점이 섹션 맨 아래에 닿도록 보드 높이 = 하트 하단까지 (디자인: 하트 top 190 · 표 top 270 · 높이 470) */
-.calendar__board { position: relative; width: 100%; min-height: 444px; /* 하트 아래 끝 60px은 잘라서 보여줘요 */ display: flex; justify-content: center; align-items: flex-start; padding-top: 114px; }
-.calendar__heart {
-  position: absolute; left: 50%; top: 34px; width: 410px; height: 470px;
-  transform: translateX(-50%);
-  /* 위는 모브 그린, 아래 꼭짓점으로 갈수록 연핑크로 번져요 */
-  background: linear-gradient(168deg, #d3eac4 0%, #e3f1d7 48%, #f6dedd 100%);
-  clip-path: polygon(50% 100%, 4% 46%, 0% 12%, 14% 4%, 34% 0%, 50% 12%, 66% 0%, 86% 4%, 100% 12%, 96% 46%);
+/* ===== 6. 달력 — 스프링 노트 ===== */
+.calendar { gap: 20px; padding-top: 56px; }
+.calendar__date { font-size: 16px; }
+.note { position: relative; width: 342px; height: 470px; margin-top: 10px; flex-shrink: 0; }
+/* 좁은 폰에서는 노트 전체를 비율 그대로 살짝 줄여요 (스티커 위치가 흐트러지지 않게) */
+@media (max-width: 389px) { .calendar { padding-left: 16px; padding-right: 16px; } .note { transform: scale(.94); transform-origin: top center; margin-bottom: -28px; } }
+@media (max-width: 359px) { .note { transform: scale(.85); margin-bottom: -70px; } }
+.note__paper {
+  position: absolute; left: 0; right: 0; top: 16px; bottom: 0;
+  background: #fffdfc; border-radius: 4px 4px 12px 12px;
+  box-shadow: 0 14px 34px rgba(196, 120, 128, 0.16), 0 2px 6px rgba(64, 60, 61, 0.06);
 }
-.calendar__wrap { position: relative; width: 290px; }
-.calendar__month { position: absolute; left: 6px; top: -38px; font-size: 15px; font-weight: 500; letter-spacing: 0.08em; color: var(--deep); }
-.calendar__table { position: relative; width: 290px; border-collapse: collapse; text-align: center; font-size: 13px; font-variant-numeric: tabular-nums; }
-.calendar__table th { font-size: 11px; font-weight: 500; letter-spacing: 0.06em; padding-bottom: 10px; }
-.calendar__table td { height: 40px; position: relative; }
-.calendar__table td span { position: relative; z-index: 1; }
-.calendar__table td.is-day::before {
-  content: ""; position: absolute; left: 50%; top: 50%; width: 32px; height: 30px; margin: -15px 0 0 -16px;
-  background: var(--white); clip-path: var(--heart);
+.note__rings { position: absolute; left: 8px; right: 8px; top: 0; display: flex; justify-content: space-between; }
+.note__rings svg { width: 12px; height: 34px; display: block; }
+.note__rings path { fill: none; stroke: #4a4547; stroke-width: 2.2; stroke-linecap: round; }
+.note__rings .hole { fill: #e7dcdd; }
+.note__head { position: absolute; left: 22px; right: 22px; top: 40px; display: flex; justify-content: space-between; font-size: 19px; font-weight: 700; letter-spacing: .14em; }
+.note__week { position: absolute; left: 0; right: 0; top: 90px; display: grid; grid-template-columns: repeat(3, 1fr); font-size: 11px; font-weight: 500; letter-spacing: .1em; color: var(--muted); }
+.note__week span { padding-left: 12px; }
+.note__week .is-sun, .note__cell.is-sun span { color: #c97a85; }
+.note__grid { position: absolute; left: 0; right: 0; top: 120px; display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 104px; border-top: 1px solid #ece2e2; }
+.note__cell { position: relative; padding: 9px 12px; font-size: 15px; font-variant-numeric: tabular-nums; border-bottom: 1px solid #ece2e2; }
+.note__cell:nth-child(n+7) { border-bottom: 0; }
+.note__cell:not(:nth-child(3n)) { border-right: 1px solid #ece2e2; }
+.note__cell.is-day { background: linear-gradient(145deg, #fbe0e2 0%, #f4c5cb 100%); font-weight: 600; }
+/* 다이어리에 손으로 적은 메모 */
+.note__memo {
+  position: absolute; left: 10px; top: 36px; white-space: nowrap;
+  font-family: 'Nanum Pen Script', 'Gaegu', cursive; font-size: 22px; font-weight: 400; line-height: 1.15; color: #4a4547;
+  transform: rotate(-3deg); transform-origin: left top;
 }
-.calendar__table td.is-day { font-weight: 600; }
+/* 하트 모양으로 오려낸 스티커 */
+.note__heart { position: absolute; overflow: visible; filter: drop-shadow(0 3px 4px rgba(64, 60, 61, 0.18)); }
+.note__heart--a { left: 206px; top: 222px; width: 34px; transform: rotate(-14deg); }
+.note__heart--b { left: 308px; top: 302px; width: 28px; transform: rotate(14deg); }
+.note__heart--c { left: 184px; top: 400px; width: 26px; transform: rotate(8deg); }
+/* 사진 스티커 — 발끝을 축으로 제자리에서 까딱까딱 */
+.note__sticker { position: absolute; height: auto; filter: drop-shadow(0 6px 8px rgba(64, 60, 61, 0.18)); transform-origin: 50% 92%; }
+.note__sticker--a { left: 258px; top: 160px; width: 92px; --r: 6deg; transform: rotate(var(--r)); animation: stickerTick 1.9s var(--ease-in-out) infinite; }
+.note__sticker--b { left: 34px; top: 366px; width: 116px; --r: -7deg; transform: rotate(var(--r)); animation: stickerTick 2.3s var(--ease-in-out) -.8s infinite; }
+@keyframes stickerTick {
+  0%, 100% { transform: rotate(var(--r)); }
+  25%      { transform: rotate(calc(var(--r) - 4deg)); }
+  50%      { transform: rotate(var(--r)); }
+  75%      { transform: rotate(calc(var(--r) + 4deg)); }
+}
 
 /* ===== 7. 오시는 길 ===== */
 .location { align-items: stretch; padding-left: 0; padding-right: 0; padding-bottom: 40px; }
@@ -509,4 +531,5 @@ ul { list-style: none; }
 @media (prefers-reduced-motion: reduce) {
   :root { --reveal-y: 8px; }
   .love__btn { animation: none; }   /* 하트 버튼 콩닥(반복)만 꺼요 */
+  .note__sticker { animation: none; }
 }

@@ -267,23 +267,7 @@
     back.onfinish = function () {};
   });
 
-  /* ---------- 6. 달력 ---------- */
-  (function buildCalendar() {
-    var t = document.getElementById('calendarTable');
-    var first = new Date(WEDDING.year, WEDDING.month - 1, 1).getDay();
-    var days = new Date(WEDDING.year, WEDDING.month, 0).getDate();
-    var week = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-    var html = '<thead><tr>' + week.map(function (w) { return '<th scope="col">' + w + '</th>'; }).join('') + '</tr></thead><tbody><tr>';
-    for (var i = 0; i < first; i++) html += '<td></td>';
-    for (var d = 1; d <= days; d++) {
-      var isDay = d === WEDDING.day;
-      html += '<td' + (isDay ? ' class="is-day" aria-label="' + d + '일 예식일"' : '') + '><span>' + d + '</span></td>';
-      if ((first + d) % 7 === 0 && d !== days) html += '</tr><tr>';
-    }
-    var rest = (7 - (first + days) % 7) % 7;
-    for (var j = 0; j < rest; j++) html += '<td></td>';
-    t.innerHTML = html + '</tr></tbody>';
-  })();
+  /* ---------- 6. 달력: 스프링 노트는 HTML/CSS만으로 그려요 (index.html의 .note) ---------- */
 
   /* ---------- 9. 계좌 토글 ---------- */
   document.querySelectorAll('.acc__toggle').forEach(function (btn) {
