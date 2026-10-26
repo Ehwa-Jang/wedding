@@ -351,7 +351,7 @@
     var box = document.getElementById('map');
     var msg = document.getElementById('mapMsg');
     if (!box) return;
-    function fail() { msg.textContent = '지도를 불러오지 못했어요. 아래 지도 앱에서 확인해 주세요'; }
+    function fail() { msg.textContent = '지도를 불러오지 못했어요. 위 주소를 복사해 지도 앱에서 검색해 주세요'; }
     loadScript('https://dapi.kakao.com/v2/maps/sdk.js?appkey=' + KAKAO_JS_KEY + '&libraries=services&autoload=false', function () {
       if (!window.kakao || !kakao.maps) return fail();
       kakao.maps.load(function () {
@@ -364,7 +364,6 @@
           new kakao.maps.Marker({ map: map, position: pos, image: new kakao.maps.MarkerImage(pin, new kakao.maps.Size(32, 42), { offset: new kakao.maps.Point(16, 41) }) });   // 세이지 그린 평면 핀
           box.classList.add('is-ready');
           var placeUrl = 'https://map.kakao.com/link/map/' + encodeURIComponent(VENUE.name) + ',' + result[0].y + ',' + result[0].x;
-          document.getElementById('kakaoMapLink').href = placeUrl;
           kakao.maps.event.addListener(map, 'click', function () { window.open(placeUrl, '_blank', 'noopener'); });
           // 섹션이 늦게 그려지거나 폭이 바뀌어도 마커가 가운데 오게
           window.addEventListener('resize', function () { map.relayout(); map.setCenter(pos); });
