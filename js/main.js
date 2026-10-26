@@ -63,19 +63,23 @@
   var envBody = envelope.querySelector('.envelope__body');
   var envShadow = envelope.querySelector('.envelope__shadow');
   var hint = document.getElementById('envelopeHint');
-  var floatAnims = [];
+  var floatAnims = [], pressAnims = [], hintAnim = null, busyUntil = 0, floatTimer = null;
+  var seal = envelope.querySelector('.envelope__seal');
 
-  // 등장 연출이 끝날 즈음부터 봉투가 위아래로 둥둥 (작은 폭 · 사인 곡선 · 회전 없음 → 글자/테두리가 흔들리지 않아요)
-  if (canAnim && !noLoop) {
-    var floatOpt = { duration: 3600, delay: 700, iterations: Infinity, direction: 'alternate', easing: 'cubic-bezier(0.37, 0, 0.63, 1)' };
+  // 닫혀 있는 동안 봉투가 위아래로 둥둥 (작은 폭 · 사인 곡선 · 회전 없음 → 글자/테두리가 흔들리지 않아요)
+  function startFloat(delay) {
+    if (!canAnim || noLoop) return;
+    pressAnims.forEach(function (x) { x.cancel(); }); pressAnims = [];
+    var floatOpt = { duration: 3600, delay: delay, iterations: Infinity, direction: 'alternate', easing: 'cubic-bezier(0.37, 0, 0.63, 1)' };
     envBody.classList.add('is-floating');
     floatAnims.push(envBody.animate([{ transform: 'translate3d(0, 0, 0)' }, { transform: 'translate3d(0, -8px, 0)' }], floatOpt));
     floatAnims.push(envShadow.animate([{ transform: 'scaleX(1)', opacity: 1 }, { transform: 'scaleX(.86)', opacity: .65 }], floatOpt));
     // 실링 하트는 가끔 한 번씩만 콩
-    floatAnims.push(envelope.querySelector('.envelope__seal').animate([
+    floatAnims.push(seal.animate([
       { transform: 'scale(1)' }, { transform: 'scale(1.1)', offset: .12 }, { transform: 'scale(1)', offset: .28 }, { transform: 'scale(1)' }
-    ], { duration: 2800, delay: 1200, iterations: Infinity, easing: EASE.out }));
+    ], { duration: 2800, delay: delay + 500, iterations: Infinity, easing: EASE.out }));
   }
+  startFloat(700);   // 등장 연출이 끝날 즈음부터
 
   // 떠 있던 바로 그 위치에서 이어서 움직여요 (뚝 끊기지 않게)
   function fromCurrent(el, keys, opt) {
@@ -83,31 +87,55 @@
     var from = { transform: cs.transform === 'none' ? 'none' : cs.transform, opacity: cs.opacity };
     return el.animate([from].concat(keys), opt);
   }
+  // 손에 반응: 살짝 눌렸다가 스프링처럼 제자리로 (열 때 · 닫을 때 같은 느낌)
+  function press() {
+    if (!canAnim || calm) return;
+    clearTimeout(floatTimer);
+    pressAnims.forEach(function (x) { x.cancel(); }); pressAnims = [];
+    pressAnims.push(fromCurrent(envBody, [
+      { transform: 'translate3d(0, 2px, 0) scale(.97)', offset: .35 },
+      { transform: 'none' }
+    ], { duration: 420, easing: EASE.spring, fill: 'forwards' }));
+    pressAnims.push(fromCurrent(envShadow, [{ transform: 'scaleX(1.04)', opacity: 1, offset: .35 }, { transform: 'none', opacity: 1 }],
+      { duration: 420, easing: EASE.out, fill: 'forwards' }));
+    floatAnims.forEach(function (x) { x.cancel(); }); floatAnims = [];
+    envBody.classList.remove('is-floating');
+  }
+  function fadeHint(show) {
+    if (!canAnim) return;
+    var from = getComputedStyle(hint).opacity;
+    if (hintAnim) hintAnim.cancel();
+    hintAnim = show
+      ? hint.animate([{ opacity: 0 }, { opacity: 1 }], { duration: ms('--dur-base'), delay: 900, easing: EASE.out, fill: 'both' })
+      : hint.animate([{ opacity: from }, { opacity: 0 }], { duration: ms('--dur-fast'), easing: EASE.in, fill: 'forwards' });
+  }
 
   function openEnvelope() {
-    if (envelope.classList.contains('is-open')) return;
-    if (canAnim && !calm) {
-      // 1) 손에 반응: 살짝 눌렸다가 스프링처럼 제자리로
-      fromCurrent(envBody, [
-        { transform: 'translate3d(0, 2px, 0) scale(.97)', offset: .35 },
-        { transform: 'none' }
-      ], { duration: 420, easing: EASE.spring, fill: 'forwards' })
-        .onfinish = function () { envBody.classList.remove('is-floating'); };
-      fromCurrent(envShadow, [{ transform: 'scaleX(1.04)', opacity: 1, offset: .35 }, { transform: 'none', opacity: 1 }],
-        { duration: 420, easing: EASE.out, fill: 'forwards' });
-      floatAnims.forEach(function (x) { x.cancel(); });
-      floatAnims = [];
-    }
-    if (canAnim) {
-      // 안내 문구는 짧고 빠르게 퇴장
-      hint.animate([{ opacity: getComputedStyle(hint).opacity }, { opacity: 0 }], { duration: ms('--dur-fast'), easing: EASE.in, fill: 'forwards' });
-    }
-    // 2) 실링 톡 → 3) 뚜껑 열림(80ms~) → 4) 뚜껑이 반쯤일 때(360ms~) 사진이 겹쳐서 올라와요 — 타이밍은 CSS
+    press();
+    fadeHint(false);
+    // 실링 톡 → 뚜껑 열림(80ms~) → 뚜껑이 반쯤일 때(360ms~) 사진이 겹쳐서 올라와요 — 타이밍은 CSS
     envelope.classList.add('is-open');
-    envelope.setAttribute('aria-label', '청첩장 봉투가 열렸어요');
+    envelope.setAttribute('aria-label', '청첩장 봉투 닫기');
+    envelope.setAttribute('aria-expanded', 'true');
     hint.classList.add('is-hidden');
   }
-  envelope.addEventListener('click', openEnvelope);
+  function closeEnvelope() {
+    press();
+    // 사진이 쏙 들어가고(0~520ms) → 뚜껑이 덮이고(300~900ms) → 실링이 붙고(860ms~) → 안내 문구와 둥둥이 다시
+    envelope.classList.remove('is-open');
+    envelope.setAttribute('aria-label', '청첩장 봉투 열기');
+    envelope.setAttribute('aria-expanded', 'false');
+    hint.classList.remove('is-hidden');
+    fadeHint(true);
+    floatTimer = setTimeout(function () { startFloat(0); }, calm ? 0 : 1100);
+  }
+  envelope.setAttribute('aria-expanded', 'false');
+  envelope.addEventListener('click', function () {
+    // 연출이 한창일 때 연타하면 꼬이지 않게 잠깐 기다려요
+    if (Date.now() < busyUntil) return;
+    busyUntil = Date.now() + 650;
+    if (envelope.classList.contains('is-open')) closeEnvelope(); else openEnvelope();
+  });
 
   /* ---------- 5. 갤러리 ---------- */
   var grid = document.getElementById('galleryGrid');

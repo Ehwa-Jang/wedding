@@ -135,9 +135,11 @@ ul { list-style: none; }
   background: var(--white); padding: 8px;
   box-shadow: 0 2px 10px rgba(64, 60, 61, 0.12);
   transform: translate3d(0, 340px, 0);   /* 닫혀 있을 땐 봉투 주머니 뒤에 숨어 있어요 */
-  transition: transform var(--dur-cover) var(--ease-out) 360ms;   /* 뚜껑이 반쯤 열릴 때부터 겹쳐서 올라와요 */
+  /* 닫을 때: 사진이 먼저 쏙 들어가요 (가속하며 짧게) */
+  transition: transform 520ms var(--ease-in);
 }
-.envelope.is-open .envelope__photo { transform: none; }
+/* 열 때: 뚜껑이 반쯤 열릴 때부터 겹쳐서 올라와요 (길게 감속) */
+.envelope.is-open .envelope__photo { transform: none; transition: transform var(--dur-cover) var(--ease-out) 360ms; }
 .envelope__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; }
 .envelope__front {
   position: absolute; left: 0; bottom: 0; width: 100%; height: 200px; z-index: 3; pointer-events: none;
@@ -148,21 +150,25 @@ ul { list-style: none; }
 .envelope__flap {
   position: absolute; left: 0; bottom: 82px; width: 100%; height: 118px; z-index: 4;
   transform-origin: top center;
-  transition: transform 640ms var(--ease-in-out) 80ms, z-index 0s linear 400ms;
+  /* 닫을 때: 사진이 거의 들어간 뒤(300ms~) 뚜껑이 덮여요. 90°가 되는 600ms에 다시 맨 앞으로 */
+  transition: transform 600ms var(--ease-in-out) 300ms, z-index 0s linear 600ms;
 }
 .flap-outer { fill: var(--sky-1); }
-.flap-inner { fill: var(--green-soft); opacity: 0; transition: opacity 0s linear 400ms; }
-.envelope.is-open .envelope__flap { transform: rotateX(180deg); z-index: 1; }
-.envelope.is-open .flap-inner { opacity: 1; }
+.flap-inner { fill: var(--green-soft); opacity: 0; transition: opacity 0s linear 600ms; }
+/* 열 때: 80ms~ 뚜껑 회전, 90°가 되는 400ms에 사진 뒤로 */
+.envelope.is-open .envelope__flap { transform: rotateX(180deg); z-index: 1; transition: transform 640ms var(--ease-in-out) 80ms, z-index 0s linear 400ms; }
+.envelope.is-open .flap-inner { opacity: 1; transition: opacity 0s linear 400ms; }
 
 /* 봉투 가운데 하트 실링 */
 .envelope__seal {
   position: absolute; left: 50%; bottom: 68px; z-index: 5; width: 30px; height: 28px; margin-left: -15px;
   filter: drop-shadow(0 2px 3px rgba(110, 140, 96, 0.3));
-  transition: transform var(--dur-fast) var(--ease-in), opacity var(--dur-fast) var(--ease-in);
+  /* 닫을 때: 뚜껑이 다 덮인 뒤 톡 하고 다시 붙어요 */
+  transition: transform var(--dur-base) var(--ease-spring) 860ms, opacity var(--dur-fast) var(--ease-out) 860ms;
 }
 .envelope__seal svg { display: block; width: 100%; height: 100%; }
-.envelope.is-open .envelope__seal { transform: scale(.6); opacity: 0; }
+/* 열 때: 누르자마자 짧고 빠르게 떨어져요 */
+.envelope.is-open .envelope__seal { transform: scale(.6); opacity: 0; transition: transform var(--dur-fast) var(--ease-in), opacity var(--dur-fast) var(--ease-in); }
 
 .cover__hint { font-size: 13px; color: var(--muted); letter-spacing: 0.04em; margin-top: -12px; }
 .cover__hint.is-hidden { opacity: 0; }   /* JS 없이도 숨겨지도록 — 실제 퇴장 모션은 js/main.js */
