@@ -339,12 +339,13 @@
     var box = document.getElementById('map');
     var msg = document.getElementById('mapMsg');
     if (!box) return;
-    function fail() { msg.textContent = '지도를 불러오지 못했어요. 아래 지도 앱에서 확인해 주세요'; }
+    // 어느 단계에서 실패했는지 작게 같이 보여 줘요 (휴대폰에서도 원인을 바로 알 수 있게)
+    function fail(reason) { msg.innerHTML = '지도를 불러오지 못했어요. 아래 지도 앱에서 확인해 주세요<br><small>(' + reason + ')</small>'; }
     loadScript('https://dapi.kakao.com/v2/maps/sdk.js?appkey=' + KAKAO_JS_KEY + '&libraries=services&autoload=false', function () {
-      if (!window.kakao || !kakao.maps) return fail();
+      if (!window.kakao || !kakao.maps) return fail('지도 SDK 응답 오류 · 카카오맵 사용 설정 또는 도메인 확인');
       kakao.maps.load(function () {
         new kakao.maps.services.Geocoder().addressSearch(VENUE.address, function (result, status) {
-          if (status !== kakao.maps.services.Status.OK || !result.length) return fail();
+          if (status !== kakao.maps.services.Status.OK || !result.length) return fail('주소 검색 ' + status + ' · 카카오맵 사용 설정 확인');
           var pos = new kakao.maps.LatLng(result[0].y, result[0].x);
           var map = new kakao.maps.Map(box, { center: pos, level: 3, draggable: false, scrollwheel: false, disableDoubleClickZoom: true });
           map.setZoomable(false);
@@ -362,6 +363,6 @@
           window.addEventListener('resize', function () { map.relayout(); map.setCenter(pos); });
         });
       });
-    }, fail);
+    }, function () { fail('지도 SDK를 불러오지 못함 · 카카오맵 사용 설정 또는 도메인 확인'); });
   })();
 })();
