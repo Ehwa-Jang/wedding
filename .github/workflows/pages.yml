@@ -29,6 +29,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+      # 휴대폰 브라우저가 예전 CSS·JS·사진을 붙잡고 있지 않도록, 배포할 때마다 주소 끝 ?v=dev 를 커밋 번호로 바꿔요
+      - name: Cache busting
+        run: |
+          V=$(echo "$GITHUB_SHA" | cut -c1-8)
+          sed -i "s/?v=dev/?v=$V/g" index.html js/main.js
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .

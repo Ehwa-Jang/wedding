@@ -546,7 +546,6 @@ ul { list-style: none; }
   :root { --reveal-y: 8px; }
   .love__btn { animation: none; }   /* 하트 버튼 콩닥(반복)만 꺼요 */
   .note__sticker { animation: none; }
-  .envelope__seal svg, .envelope__seal::before, .seal-spark { animation: none !important; }   /* 실링은 멈춘 채로 */
 }
 
 /* 휴대폰이 번호·계좌번호를 자동으로 파란 링크로 바꾸지 않도록 (index.html format-detection과 함께) */

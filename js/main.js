@@ -5,7 +5,7 @@
   // 갤러리 사진: images/gallery/ 안의 같은 이름 파일을 실제 사진으로 바꾸면 됩니다.
   var GALLERY = [];
   for (var i = 1; i <= 18; i++) {
-    GALLERY.push('images/gallery/gallery-' + (i < 10 ? '0' + i : i) + '.jpg');
+    GALLERY.push('images/gallery/gallery-' + (i < 10 ? '0' + i : i) + '.jpg?v=dev');
   }
   var GALLERY_PREVIEW = 9;          // 처음에 보이는 사진 수
   var WEDDING = { year: 2027, month: 3, day: 13 };
