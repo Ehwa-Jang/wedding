@@ -339,7 +339,7 @@ ul { list-style: none; }
 .note__cell.is-day { background: #dbe5c0; font-weight: 600; }
 /* 다이어리에 손으로 적은 메모 */
 .note__memo {
-  position: absolute; left: 9px; top: 38px; white-space: nowrap;
+  position: absolute; left: 9px; top: 38px; width: 102px; white-space: nowrap; text-align: center;
   font-family: var(--font); font-size: 12px; font-weight: 500; line-height: 1.5; letter-spacing: -0.02em; color: #45532a;
 }
 /* 하트 모양으로 오려낸 스티커 */
