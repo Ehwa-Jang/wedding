@@ -23,9 +23,11 @@
 - 카카오: JS 키는 js/main.js `KAKAO_JS_KEY`. 공유 링크가 열리려면 Kakao Developers [앱] > [제품 링크 관리] > [웹 도메인]에 사이트 주소 등록 필요
 - 공유 미리보기 이미지: images/og.jpg (봉투 사진은 images/cover.jpg)
 - 배경음악(V2): audio/bgm.m4a (원본 21분 → AAC 96kbps로 줄임), 오른쪽 위 고정 버튼(js/main.js `bgm`). 첫 터치 때 재생 시작, 끄면 다시 안 켜짐, 앱 나가면 멈춤. 캔버스 보드 `Main-2-bgm`
+- 하객 사진(V2, GUEST SNAP): 공유하기 아래 섹션, js/snap.js. 고른 사진을 긴 변 2000px JPEG로 줄여 Google Apps Script 웹 앱으로 한 장씩 보내면 신랑·신부 Drive 폴더에 저장. 코드는 docs/guest-snap-apps-script.gs, 웹 앱 주소는 js/snap.js `SNAP_UPLOAD_URL`(비어 있으면 "곧 열릴 예정이에요"). 노출 기간 제한 없음. 캔버스 `GuestSnap-2`, `GuestSnapPicked-2`
+- 푸터: 맨 아래 별도 섹션(.foot), 캔버스 `Footer-2`
 - 지도 앱 링크: 카카오맵 kko.to/nzLoHhTfSQ · 네이버 naver.me/G9UarGMu · 티맵 tmap.life/96d7bac3
 
 ## 남은 일
 - 갤러리 실제 사진 18장 (images/gallery/gallery-01~18.jpg 같은 이름으로 교체)
-- 버전 2 후보: ~~BGM~~(완료) · 하객 사진 업로드 섹션
+- 버전 2: ~~BGM~~(완료) · 하객 사진(코드 완료, Apps Script 웹 앱 주소 연결 남음)
 - 도메인 연결(선택)

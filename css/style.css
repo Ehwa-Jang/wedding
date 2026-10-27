@@ -505,7 +505,7 @@ ul { list-style: none; }
 .love__count b { font-size: 18px; font-weight: 600; color: var(--deep); font-variant-numeric: tabular-nums; display: inline-block; min-width: 1ch; }
 
 /* ===== 11. 공유하기 ===== */
-.share { gap: 20px; padding-bottom: calc(32px + env(safe-area-inset-bottom)); }
+.share { gap: 20px; padding-bottom: 56px; }
 .share__btns { width: 100%; display: flex; flex-direction: column; gap: 10px; }
 .share__btn {
   min-height: 50px; border-radius: 10px; border: 1px solid var(--sky-3); background: var(--white);
@@ -513,7 +513,68 @@ ul { list-style: none; }
 }
 .share__btn--kakao { background: var(--sage); border-color: transparent; }
 .share__btn svg { stroke-width: 1.3; }
-.share__foot { margin-top: 20px; font-size: 11px; letter-spacing: 0.12em; color: var(--muted); }
+
+/* ===== 13. 하객 사진 (GUEST SNAP) ===== */
+.snap {
+  gap: 24px;
+  background:
+    radial-gradient(55% 30% at 0% 0%, rgba(200, 216, 160, 0.22), transparent 72%),
+    radial-gradient(50% 30% at 100% 100%, rgba(242, 196, 203, 0.22), transparent 72%),
+    var(--white);
+}
+.snap__text { margin: 0; font-size: 15px; line-height: 1.75; text-align: center; }
+.snap__frames { position: relative; width: 300px; height: 200px; margin-top: 4px; flex-shrink: 0; }
+.snap__polaroid { position: absolute; box-sizing: border-box; background: var(--white); box-shadow: 0 2px 10px rgba(64, 60, 61, 0.10); }
+.snap__polaroid span { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; }
+.snap__polaroid--l { left: 22px; top: 26px; width: 112px; height: 136px; padding: 8px 8px 26px; transform: rotate(-9deg); }
+.snap__polaroid--l span { background: #f1f4e4; }
+.snap__polaroid--r { right: 22px; top: 30px; width: 112px; height: 136px; padding: 8px 8px 26px; transform: rotate(8deg); }
+.snap__polaroid--r span { background: #fbeef0; }
+.snap__polaroid--c { left: 88px; top: 8px; width: 124px; height: 150px; padding: 8px 8px 30px; transform: rotate(-1deg); box-shadow: 0 4px 14px rgba(64, 60, 61, 0.12); }
+.snap__polaroid--c span { background: var(--sage-soft); }
+.snap__polaroid svg { fill: none; stroke: #7f9150; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
+.snap__heart { position: absolute; overflow: visible; filter: drop-shadow(0 1px 1.5px rgba(64, 60, 61, 0.12)); }
+.snap__heart--a { left: 196px; top: 0; width: 30px; transform: rotate(14deg); }
+.snap__heart--b { left: 30px; top: 150px; width: 24px; transform: rotate(-12deg); }
+
+.snap__grid { width: 100%; margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.snap__grid[hidden] { display: none; }
+.snap__cell { position: relative; aspect-ratio: 1; border-radius: 8px; overflow: hidden; background: var(--sage-soft); }
+.snap__cell img { width: 100%; height: 100%; object-fit: cover; }
+.snap__remove { position: absolute; top: 0; right: 0; width: 36px; height: 36px; padding: 0; border: 0; background: none; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.snap__remove span { width: 20px; height: 20px; border-radius: 999px; background: rgba(63, 63, 56, 0.7); display: flex; align-items: center; justify-content: center; }
+.snap__remove svg { stroke: #fff; stroke-width: 1.4; stroke-linecap: round; }
+.snap__more-cell { aspect-ratio: 1; }
+.snap__more {
+  width: 100%; height: 100%; border-radius: 8px; border: 1px dashed var(--sky-3); background: var(--white);
+  font-size: 12px; color: var(--deep); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; cursor: pointer;
+}
+.snap__more svg { fill: none; stroke: var(--deep); stroke-width: 1.4; stroke-linecap: round; }
+
+.snap__actions { width: 100%; display: flex; flex-direction: column; gap: 12px; }
+.snap__name { display: flex; flex-direction: column; gap: 6px; font-size: 12px; color: var(--muted); }
+.snap__name[hidden] { display: none; }
+.snap__name input {
+  min-height: 46px; box-sizing: border-box; padding: 0 14px; border: 1px solid var(--sky-3); border-radius: 10px;
+  background: var(--white); font: inherit; font-size: 16px; color: var(--ink);   /* 16px: iOS가 입력할 때 확대하지 않아요 */
+}
+.snap__name input:focus { outline: 2px solid var(--sage-strong); outline-offset: 1px; }
+.snap__btn {
+  width: 100%; min-height: 50px; border: 0; border-radius: 10px; background: var(--sage);
+  display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 15px; cursor: pointer;
+}
+.snap__btn svg { fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+.snap__btn:disabled { opacity: .6; cursor: progress; }
+.snap__note { margin: 0; font-size: 12px; line-height: 1.6; color: var(--muted); text-align: center; }
+
+/* ===== 14. 푸터 ===== */
+.foot {
+  background: var(--sky); color: var(--muted);
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  padding: 32px 24px calc(32px + env(safe-area-inset-bottom));
+}
+.foot svg { fill: var(--sage); }
+.foot p { margin: 0; font-size: 11px; letter-spacing: 0.12em; }
 
 /* ===== 사진 크게 보기 ===== */
 .viewer {
@@ -579,6 +640,8 @@ ul { list-style: none; }
 }
 
 /* ===== 누르는 느낌 — 손가락을 대면 살짝 눌리고, 떼면 스프링처럼 돌아와요 ===== */
+.snap__btn, .snap__more { transition: transform var(--dur-base) var(--ease-spring); }
+.snap__btn:active:not(:disabled), .snap__more:active { transform: scale(.97); transition: transform var(--dur-fast) var(--ease-out); }
 .pill-btn, .share__btn, .copy-btn, .icon-btn, .maplink, .acc__toggle, .gallery__grid button, .viewer__close {
   transition: transform var(--dur-base) var(--ease-spring);
 }
