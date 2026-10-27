@@ -8,7 +8,7 @@
 
   // Apps Script를 "웹 앱"으로 배포하면 나오는 주소(…/exec)를 여기에 넣어 주세요.
   // 비어 있으면 사진을 고를 수는 있지만, 보내기를 누르면 "곧 열릴 예정이에요" 안내만 떠요.
-  var SNAP_UPLOAD_URL = '';
+  var SNAP_UPLOAD_URL = 'https://script.google.com/macros/s/AKfycbxK8bmIdQGg6bNLdAvq-el2Bv7k73l4QoJxvcvLIU35sHphEFUhY8YZ76JhmzijJrf3/exec';
 
   var MAX_FILES = 20;      // 한 번에 보낼 수 있는 사진 수
   var MAX_SIDE = 2000;     // 긴 변 (px)
