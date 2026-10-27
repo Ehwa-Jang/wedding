@@ -403,6 +403,20 @@
     btn.hidden = false;
     btn.addEventListener('click', function () {
       var link = { mobileWebUrl: SITE_URL, webUrl: SITE_URL };
+      // [시험용] 주소 뒤 ?share=a|b|c 로 열면 다른 형식으로 공유해요 — 카톡 '일정 등록' 버튼이 붙는 조건 확인용
+      var t = (location.search.match(/[?&]share=([abc])/) || [])[1];
+      var dateOnly = '2027년 3월 13일 오후 3시';
+      if (t === 'c') { Kakao.Share.sendScrap({ requestUrl: SITE_URL + 'share-test.html' }); return; }
+      if (t === 'a' || t === 'b') {
+        var opt = {
+          objectType: 'feed',
+          content: { title: '민석 ♥ 이화 결혼합니다', description: dateOnly,
+            imageUrl: SITE_URL + 'images/og.jpg?v=dev', imageWidth: 800, imageHeight: 800, link: link }
+        };
+        if (t === 'a') opt.buttons = [{ title: '청첩장 보기', link: link }];
+        Kakao.Share.sendDefault(opt);
+        return;
+      }
       Kakao.Share.sendDefault({
         objectType: 'feed',
         content: {
