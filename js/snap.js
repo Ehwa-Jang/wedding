@@ -1,6 +1,6 @@
 /* 13. 하객 사진 (GUEST SNAP)
- * 사진: 휴대폰에서 먼저 줄인 뒤(긴 변 2000px JPEG) Google Apps Script 웹 앱으로 한 장씩 보내요.
- * 영상: 줄일 수 없어서 원본을 8MB씩 잘라 보내고, Apps Script가 Drive에 이어 붙여 하나의 파일로 저장해요.
+ * 사진은 휴대폰에서 먼저 줄이고(긴 변 2000px JPEG), 영상은 원본 그대로
+ * Google Drive로 바로 보내요. Apps Script(웹 앱)는 업로드 자리만 만들어 줘요.
  * → 신랑·신부 Google Drive 폴더에 저장돼요.
  * Apps Script 코드와 설정 방법: docs/guest-snap-apps-script.gs, docs/HANDOFF.md
  */
@@ -15,7 +15,7 @@
   var MAX_SIDE = 2000;                     // 사진 긴 변 (px)
   var QUALITY = 0.85;
   var MAX_VIDEO = 300 * 1024 * 1024;       // 영상 한 개 최대 300MB (Apps Script 코드의 값과 같아야 해요)
-  var CHUNK = 8 * 1024 * 1024;             // 영상 조각 크기 (256KB의 배수)
+  var CHUNK = 8 * 1024 * 1024;             // (바로 보내기가 막힐 때만) Apps Script로 보내는 조각 크기
 
   var section = document.getElementById('snap');
   if (!section) return;
@@ -117,7 +117,14 @@
     send(name);
   });
 
-  /* ---------- 보내기 ---------- */
+  /* ---------- 보내기 ----------
+   * 1) Apps Script에 "업로드 자리"(Drive 이어 올리기 주소)를 받아요 (작은 요청 하나)
+   * 2) 파일은 휴대폰에서 Drive로 바로, 원본 그대로 보내요 (Apps Script를 거치지 않아 빨라요)
+   * 2-1) 혹시 바로 보내기가 막히는 환경이면, 예전처럼 Apps Script를 거쳐 8MB씩 보내요 (느리지만 안전)
+   * 여러 개는 동시에 3개씩 보내요.
+   */
+  var PARALLEL = 3;
+
   function post(body) {
     return fetch(SNAP_UPLOAD_URL, {
       method: 'POST',
@@ -136,7 +143,7 @@
     });
   }
 
-  /* 사진 줄이기: 긴 변 MAX_SIDE 이하 JPEG → base64 */
+  /* 사진 줄이기: 긴 변 MAX_SIDE 이하 JPEG Blob */
   function shrink(file) {
     return new Promise(function (resolve, reject) {
       var img = new Image();
@@ -150,7 +157,7 @@
         ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, w, h);
         ctx.drawImage(img, 0, 0, w, h);
         URL.revokeObjectURL(url);
-        resolve(c.toDataURL('image/jpeg', QUALITY).split(',')[1]);
+        c.toBlob(function (b) { b ? resolve(b) : reject(new Error('encode')); }, 'image/jpeg', QUALITY);
       };
       img.onerror = function () { URL.revokeObjectURL(url); reject(new Error('decode')); };
       img.src = url;
@@ -166,32 +173,69 @@
     });
   }
 
-  function sendPhoto(name, index, file) {
-    return shrink(file).then(function (b64) {
-      return retry(function () { return post({ name: name, index: index, image: b64 }); }, 1);
+  function startSession(meta) {
+    return retry(function () {
+      return post({ action: 'start', name: meta.name, index: meta.index, size: meta.blob.size,
+        mime: meta.mime, ext: meta.ext, origin: location.origin });
+    }, 1).then(function (res) { return res.session; });
+  }
+
+  // Drive로 바로 보내기. 바로 연결이 안 되면(status 0) 'direct' 오류로 알려 줘요
+  function putDirect(session, blob, mime, onProgress) {
+    return new Promise(function (resolve, reject) {
+      var x = new XMLHttpRequest();
+      x.open('PUT', session);
+      x.setRequestHeader('Content-Type', mime);
+      x.upload.onprogress = function (e) { if (e.lengthComputable) onProgress(e.loaded); };
+      x.onload = function () {
+        if (x.status === 200 || x.status === 201) { onProgress(blob.size); resolve(); }
+        else reject(new Error('put ' + x.status));
+      };
+      x.onerror = function () { reject(new Error(x.status === 0 ? 'direct' : 'put')); };
+      x.send(blob);
     });
   }
 
-  // 영상: 업로드 자리 만들기(start) → 8MB씩 차례로(chunk). onProgress(0~1)
-  function sendVideo(name, index, file, onProgress) {
-    var ext = ((file.name || '').split('.').pop() || 'mp4').toLowerCase();
-    var mime = file.type || (ext === 'mov' ? 'video/quicktime' : 'video/mp4');
-    var total = file.size;
-    return post({ action: 'start', name: name, index: index, size: total, mime: mime, ext: ext }).then(function (res) {
-      var session = res.session;
-      function part(start) {
-        if (start >= total) return Promise.resolve();
-        var end = Math.min(start + CHUNK, total);
-        return blobToBase64(file.slice(start, end)).then(function (b64) {
-          return retry(function () {
-            return post({ action: 'chunk', session: session, start: start, total: total, data: b64 });
-          }, 2);
-        }).then(function () {
-          onProgress(end / total);
-          return part(end);
-        });
+  // 느린 길: Apps Script를 거쳐 8MB씩
+  function putViaScript(session, blob, onProgress) {
+    var total = blob.size;
+    function part(start) {
+      if (start >= total) return Promise.resolve();
+      var end = Math.min(start + CHUNK, total);
+      return blobToBase64(blob.slice(start, end)).then(function (b64) {
+        return retry(function () {
+          return post({ action: 'chunk', session: session, start: start, total: total, data: b64 });
+        }, 2);
+      }).then(function () { onProgress(end); return part(end); });
+    }
+    return part(0);
+  }
+
+  var directWorks = null;   // 한 번 막히면 그 뒤로는 바로 느린 길로
+
+  function sendOne(name, index, p, onProgress) {
+    var prep = p.video
+      ? Promise.resolve({
+          blob: p.file,
+          mime: p.file.type || (/\.mov$/i.test(p.file.name || '') ? 'video/quicktime' : 'video/mp4'),
+          ext: ((p.file.name || '').split('.').pop() || 'mp4').toLowerCase()
+        })
+      : shrink(p.file).then(function (b) { return { blob: b, mime: 'image/jpeg', ext: 'jpg' }; });
+
+    return prep.then(function (m) {
+      m.name = name; m.index = index;
+      p.bytes = m.blob.size;
+      if (directWorks === false) {
+        return startSession(m).then(function (s) { return putViaScript(s, m.blob, onProgress); });
       }
-      return part(0);
+      return startSession(m).then(function (s) {
+        return putDirect(s, m.blob, m.mime, onProgress).then(function () { directWorks = true; });
+      }).catch(function (e) {
+        if (e.message !== 'direct' || directWorks === true) throw e;
+        directWorks = false;
+        onProgress(0);
+        return startSession(m).then(function (s) { return putViaScript(s, m.blob, onProgress); });
+      });
     });
   }
 
@@ -208,35 +252,44 @@
     sending = true;
     btn.disabled = true;
     var list = picked.slice();
-    var done = 0, failed = [];
     var total = list.length;
-    if (list.some(function (p) { return p.video; })) keepAwake(true);
+    var done = 0, failed = [], finished = 0, nextIdx = 0;
+    keepAwake(true);
+    btnText.textContent = '보내는 중…';
 
-    function next(i) {
-      if (i >= total) return finish();
-      var p = list[i];
-      var head = '보내는 중 ' + (i + 1) + ' / ' + total;
-      btnText.textContent = head;
-      var job = p.video
-        ? sendVideo(name, i + 1, p.file, function (r) { btnText.textContent = head + ' · ' + Math.round(r * 100) + '%'; })
-        : sendPhoto(name, i + 1, p.file);
-      job.then(function () { done++; }, function () { failed.push(p); })
-        .then(function () { next(i + 1); });
+    // 진행률: 영상은 크기 그대로, 사진은 줄인 뒤 크기를 몰라 대략 1MB로 셈
+    list.forEach(function (p) { p.sent = 0; p.bytes = p.video ? p.file.size : 1024 * 1024; });
+    function update() {
+      var all = 0, sent = 0;
+      list.forEach(function (p) { all += p.bytes; sent += Math.min(p.sent, p.bytes); });
+      var pct = all ? Math.min(99, Math.round(sent / all * 100)) : 0;
+      btnText.textContent = '보내는 중 ' + pct + '%';
     }
+
+    function worker() {
+      if (nextIdx >= total) return Promise.resolve();
+      var i = nextIdx++;
+      var p = list[i];
+      return sendOne(name, i + 1, p, function (b) { p.sent = b; update(); })
+        .then(function () { done++; }, function () { failed.push(p); })
+        .then(function () { finished++; return worker(); });
+    }
+
+    var workers = [];
+    for (var k = 0; k < Math.min(PARALLEL, total); k++) workers.push(worker());
+    Promise.all(workers).then(finish);
 
     function finish() {
       sending = false;
       btn.disabled = false;
       keepAwake(false);
       list.forEach(function (p) { if (failed.indexOf(p) < 0) URL.revokeObjectURL(p.url); });
-      picked = failed;   // 실패한 것만 남겨서 다시 보낼 수 있게
+      picked = list.filter(function (p) { return failed.indexOf(p) >= 0; });   // 실패한 것만 남겨서 다시 보낼 수 있게
       render();
       if (!failed.length) toast(done + '개를 보냈어요. 고마워요 ♡', 2600);
       else if (done) toast(done + '개는 보냈고 ' + failed.length + '개는 실패했어요. 다시 눌러 주세요', 3200);
       else toast('보내지 못했어요. 잠시 뒤 다시 눌러 주세요', 2600);
     }
-
-    next(0);
   }
 
   // 보내는 중에 페이지를 닫으려 하면 한 번 물어봐요
