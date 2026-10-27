@@ -312,6 +312,18 @@
     });
   })();
 
+  /* ---------- 6. 캘린더에 추가하기 ----------
+   * wedding.ics(일정 파일)를 열면 아이폰은 "캘린더에 추가" 화면이, 안드로이드는 캘린더 앱 선택이 떠요.
+   * 카톡 안 브라우저는 일정 파일을 못 여는 경우가 있어서 외부 브라우저로 넘겨요. */
+  (function addToCalendar() {
+    var a = document.getElementById('addCal');
+    if (!a || !/KAKAOTALK/i.test(navigator.userAgent)) return;
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(a.href);
+    });
+  })();
+
   /* ---------- 배경음악 ---------- */
   // 휴대폰은 소리 자동 재생을 막아서, 처음 화면을 터치하는 순간 재생을 시작해요.
   // 버튼으로 끄면 그 뒤로는 저절로 다시 켜지지 않아요. 다른 앱/탭으로 나가면 잠시 멈췄다가 돌아오면 이어서 재생해요.

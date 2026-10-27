@@ -313,6 +313,8 @@ ul { list-style: none; }
 /* ===== 6. 달력 — 스프링 노트 ===== */
 .calendar { gap: 20px; padding-top: 56px; }
 .calendar__date { font-size: 16px; }
+.addcal { margin-top: 12px; text-decoration: none; color: var(--ink); }
+.addcal svg { stroke: var(--deep); }
 .note { position: relative; width: 342px; height: 470px; margin-top: 10px; flex-shrink: 0; }
 /* 좁은 폰에서는 노트 전체를 비율 그대로 살짝 줄여요 (스티커 위치가 흐트러지지 않게) */
 @media (max-width: 389px) { .calendar { padding-left: 16px; padding-right: 16px; } .note { transform: scale(.94); transform-origin: top center; margin-bottom: -28px; } }
