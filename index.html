@@ -345,36 +345,10 @@
     </p>
   </section>
 
-  <!-- 11. 감사 인사 -->
-  <section class="sec sec--white thanks" id="thanks">
-    <header class="sec__title"><h2>THANK YOU</h2></header>
-    <figure class="thanks__photo">
-      <img src="images/thanks.jpg?v=dev" width="900" height="1350" loading="lazy" alt="나무 아치 아래에서 하객에게 고개 숙여 인사하는 민석과 이화">
-    </figure>
-    <p class="thanks__text">축하해 주시는 따뜻한 마음과<br>귀한 시간 내어 함께해 주시는 발걸음에<br>진심으로 감사드립니다.</p>
-    <p class="thanks__sign">민석<span class="mini-heart" aria-hidden="true"></span>이화 올림</p>
-  </section>
-
-  <!-- 12. 공유하기 -->
-  <section class="sec sec--sky share" id="share">
-    <header class="sec__title"><h2>SHARE</h2></header>
-    <div class="share__btns">
-      <!-- 카카오 SDK가 준비되면 js/main.js가 보이게 해요 -->
-      <button type="button" class="share__btn share__btn--kakao" id="shareKakao" hidden>
-        <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 3C5 3 2 5.4 2 8.4c0 1.9 1.3 3.6 3.2 4.6L4.6 15.5l3-1.9c.5.1.9.1 1.4.1 4 0 7-2.4 7-5.3S13 3 9 3z"></path></svg>
-        <span>카카오톡으로 공유하기</span>
-      </button>
-      <button type="button" class="share__btn" id="shareLink">
-        <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M7.5 10.5l3-3M6 8.5l-1.6 1.6a2.4 2.4 0 0 0 3.4 3.4L9.5 12M12 9.5l1.6-1.6a2.4 2.4 0 0 0-3.4-3.4L8.5 6"></path></svg>
-        <span>링크 복사하기</span>
-      </button>
-    </div>
-  </section>
-
-  <!-- 13. 하객 사진 (GUEST SNAP): 고른 사진을 Google Drive(신랑·신부 전용 폴더)로 보내요 — js/snap.js -->
+  <!-- 11. 하객 사진 (GUEST SNAP): 고른 사진을 Google Drive(신랑·신부 전용 폴더)로 보내요 — js/snap.js -->
   <section class="sec sec--white snap" id="snap">
     <header class="sec__title"><h2>GUEST SNAP</h2></header>
-    <p class="snap__text">결혼식 날 촬영하신 사진과 영상을 보내주세요!</p>
+    <p class="snap__text">저희의 스냅 작가가 되어주세요!</p>
 
     <!-- 고르기 전: 빈 폴라로이드 세 장 + 하트 스티커 -->
     <div class="snap__frames" id="snapFrames" aria-hidden="true">
@@ -405,6 +379,32 @@
       <p class="snap__note">올려주신 사진과 영상은 저희만 볼 수 있어요.<br>영상은 한 개에 300MB까지 올릴 수 있어요</p>
     </div>
     <input type="file" id="snapFile" accept="image/*,video/*" multiple hidden>
+  </section>
+
+  <!-- 12. 감사 인사 -->
+  <section class="sec sec--white thanks" id="thanks">
+    <header class="sec__title"><h2>THANK YOU</h2></header>
+    <figure class="thanks__photo">
+      <img src="images/thanks.jpg?v=dev" width="900" height="1350" loading="lazy" alt="나무 아치 아래에서 하객에게 고개 숙여 인사하는 민석과 이화">
+    </figure>
+    <p class="thanks__text">축하해 주시는 따뜻한 마음과<br>귀한 시간 내어 함께해 주시는 발걸음에<br>진심으로 감사드립니다.</p>
+    <p class="thanks__sign">민석<span class="mini-heart" aria-hidden="true"></span>이화 올림</p>
+  </section>
+
+  <!-- 13. 공유하기 -->
+  <section class="sec sec--sky share" id="share">
+    <header class="sec__title"><h2>SHARE</h2></header>
+    <div class="share__btns">
+      <!-- 카카오 SDK가 준비되면 js/main.js가 보이게 해요 -->
+      <button type="button" class="share__btn share__btn--kakao" id="shareKakao" hidden>
+        <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 3C5 3 2 5.4 2 8.4c0 1.9 1.3 3.6 3.2 4.6L4.6 15.5l3-1.9c.5.1.9.1 1.4.1 4 0 7-2.4 7-5.3S13 3 9 3z"></path></svg>
+        <span>카카오톡으로 공유하기</span>
+      </button>
+      <button type="button" class="share__btn" id="shareLink">
+        <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M7.5 10.5l3-3M6 8.5l-1.6 1.6a2.4 2.4 0 0 0 3.4 3.4L9.5 12M12 9.5l1.6-1.6a2.4 2.4 0 0 0-3.4-3.4L8.5 6"></path></svg>
+        <span>링크 복사하기</span>
+      </button>
+    </div>
   </section>
 
   <!-- 14. 푸터 -->

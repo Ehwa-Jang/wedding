@@ -460,7 +460,7 @@ ul { list-style: none; }
   box-shadow: 0 2px 12px rgba(64, 60, 61, 0.10), 0 22px 44px -22px rgba(169, 189, 120, 0.32); }
 .thanks__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; }
 .thanks__text { text-align: center; font-family: 'OngleipParkDahyeon', var(--font); font-size: min(18px, 4.6vw); line-height: 1.7; }   /* 손글씨 폰트 */
-.thanks__sign { display: flex; align-items: center; gap: 8px; font-family: 'OngleipParkDahyeon', var(--font); font-size: 17px; color: var(--muted); margin-top: -14px; }
+.thanks__sign { display: flex; align-items: center; gap: 8px; font-family: 'OngleipParkDahyeon', var(--font); font-size: min(18px, 4.6vw); color: var(--muted); margin-top: -14px; }   /* 인사말 서명과 같은 크기 */
 
 /* ===== 10-1. 하트 보내기 ===== */
 .love { gap: 20px; padding-top: 64px; }
@@ -524,7 +524,7 @@ ul { list-style: none; }
     radial-gradient(50% 30% at 100% 100%, rgba(242, 196, 203, 0.22), transparent 72%),
     var(--white);
 }
-.snap__text { margin: 0; font-size: min(15px, 3.85vw); line-height: 1.75; text-align: center; white-space: nowrap; }   /* 한 줄로, 좁은 폰에선 글자를 살짝 줄여요 */
+.snap__text { margin: 0; text-align: center; font-size: 14px; color: var(--muted); }   /* 섹션 안내 한 줄: 하트 보내기 · 마음 전하실 곳 안내와 같은 크기 */
 .snap__frames { position: relative; width: 300px; height: 200px; margin-top: 4px; flex-shrink: 0; }
 .snap__polaroid { position: absolute; box-sizing: border-box; background: var(--white); box-shadow: 0 2px 10px rgba(64, 60, 61, 0.10); }
 .snap__polaroid span { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; }
