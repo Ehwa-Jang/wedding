@@ -121,6 +121,22 @@
     if (envelope.classList.contains('is-open')) closeEnvelope(); else openEnvelope();
   });
 
+  // 처음 한 번은 저절로 열려요: 들어온 지 2초가 지나거나, 스크롤을 조금이라도 내리면 사진이 올라와요
+  // (한 번 열린 뒤 사용자가 닫으면 다시 저절로 열지는 않아요)
+  var autoDone = false;
+  function autoOpen() {
+    if (autoDone) return;
+    autoDone = true;
+    clearTimeout(autoTimer);
+    window.removeEventListener('scroll', onFirstScroll);
+    if (!envelope.classList.contains('is-open')) { busyUntil = Date.now() + 650; openEnvelope(); }
+  }
+  function onFirstScroll() { if (window.scrollY > 0) autoOpen(); }
+  var autoTimer = setTimeout(autoOpen, 2000);
+  window.addEventListener('scroll', onFirstScroll, { passive: true });
+  envelope.addEventListener('click', function () { autoDone = true; clearTimeout(autoTimer); window.removeEventListener('scroll', onFirstScroll); }, true);
+  if (window.scrollY > 0) autoOpen();   // 새로고침으로 중간 위치에서 시작한 경우
+
   /* ---------- 5. 갤러리 ---------- */
   var grid = document.getElementById('galleryGrid');
   var moreBtn = document.getElementById('galleryMore');
