@@ -312,6 +312,36 @@
     });
   })();
 
+  /* ---------- 6. 캘린더에 추가하기 ---------- */
+  (function addToCalendar() {
+    var btn = document.getElementById('addCal');
+    var menu = document.getElementById('addCalMenu');
+    var google = document.getElementById('calGoogle');
+    var apple = document.getElementById('calApple');
+    var ua = navigator.userAgent;
+    var isAndroid = /Android/i.test(ua);
+    var inKakao = /KAKAOTALK/i.test(ua);
+
+    // 안드로이드는 Google을 앞에, 그 밖(아이폰 등)은 Apple을 앞에
+    if (!isAndroid) apple.parentNode.insertBefore(apple, google);
+
+    btn.addEventListener('click', function () {
+      var open = btn.getAttribute('aria-expanded') !== 'true';
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      menu.hidden = !open;
+    });
+
+    // 카톡 안 브라우저에서는 .ics가 안 열리거나 구글 로그인이 꼬여서, 외부 브라우저로 열어요
+    if (inKakao) {
+      [google, apple].forEach(function (a) {
+        a.addEventListener('click', function (e) {
+          e.preventDefault();
+          location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(a.href);
+        });
+      });
+    }
+  })();
+
   /* ---------- 10. 공유 ---------- */
   document.getElementById('shareLink').addEventListener('click', function () {
     copy(location.href.split('#')[0], '청첩장 링크를 복사했어요');

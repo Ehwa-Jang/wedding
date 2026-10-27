@@ -345,6 +345,17 @@ ul { list-style: none; }
 /* 사진 스티커 — 발끝을 축으로 제자리에서 까딱까딱 */
 .note__sticker { position: absolute; height: auto; filter: drop-shadow(0 2px 3px rgba(64, 60, 61, 0.12)); transform-origin: 50% 92%; }
 .note__sticker--a { left: 254px; top: 150px; width: 100px; --r: 6deg; transform: rotate(var(--r)); animation: stickerTick 1.9s var(--ease-in-out) infinite; }
+/* 캘린더에 추가하기 */
+.addcal { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 12px; }
+.addcal__toggle svg { stroke: var(--deep); }
+.addcal__toggle[aria-expanded="true"] { background: var(--sky); border-color: var(--sage-strong); }
+.addcal__menu { display: flex; flex-direction: column; align-items: center; gap: 12px; animation: addcalIn var(--dur-base) var(--ease-out); }
+.addcal__menu[hidden] { display: none; }
+.addcal__btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.addcal__btns a { min-height: 44px; box-sizing: border-box; text-decoration: none; }
+.addcal__note { margin: 0; font-size: 11px; color: var(--muted); }
+@keyframes addcalIn { from { opacity: 0; transform: translateY(-6px); } }
+
 .note__sticker--b { left: 34px; top: 366px; width: 116px; --r: -7deg; transform: rotate(var(--r)); animation: stickerTick 2.3s var(--ease-in-out) -.8s infinite; }
 @keyframes stickerTick {
   0%, 100% { transform: rotate(var(--r)); }

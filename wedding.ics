@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//minseok-ehwa//wedding//KO
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:20270313-minseok-ehwa@ehwa-jang.github.io
+DTSTAMP:20261027T000000Z
+DTSTART:20270313T060000Z
+DTEND:20270313T080000Z
+SUMMARY:민석 ♥ 이화 결혼식
+LOCATION:웨딩시그니처 2층 트리니티홀\, 서울 마포구 양화로 87
+DESCRIPTION:모바일 청첩장: https://ehwa-jang.github.io/wedding/
+URL:https://ehwa-jang.github.io/wedding/
+END:VEVENT
+END:VCALENDAR
