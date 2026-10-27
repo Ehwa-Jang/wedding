@@ -116,6 +116,12 @@
   <!-- 5. 갤러리 -->
   <section class="sec sec--white gallery" id="gallery">
     <header class="sec__title"><h2>GALLERY</h2></header>
+    <!-- 대표 사진 캐러셀(1~5번): 옆으로 넘기기, 다음 사진이 살짝 보여요 -->
+    <div class="gallery__top">
+      <ul class="gallery__hero" id="galleryHero" aria-label="대표 사진, 옆으로 넘겨 보세요"></ul>
+      <div class="gallery__dots" id="galleryDots" aria-hidden="true"></div>
+    </div>
+    <!-- 나머지 사진(6~20번): 3열 격자, 처음엔 9장 -->
     <ul class="gallery__grid" id="galleryGrid"></ul>
     <button type="button" class="pill-btn" id="galleryMore" aria-expanded="false">
       <span>사진 더보기</span>

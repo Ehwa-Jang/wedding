@@ -3,11 +3,13 @@
 
   /* ---------- 설정 ---------- */
   // 갤러리 사진: images/gallery/ 안의 같은 이름 파일을 실제 사진으로 바꾸면 됩니다.
+  // 1~5번은 위 대표 사진 캐러셀(3:4 세로 추천), 6~20번은 아래 격자(정사각형으로 잘려 보여요)
   var GALLERY = [];
-  for (var i = 1; i <= 18; i++) {
+  for (var i = 1; i <= 20; i++) {
     GALLERY.push('images/gallery/gallery-' + (i < 10 ? '0' + i : i) + '.jpg?v=dev');
   }
-  var GALLERY_PREVIEW = 9;          // 처음에 보이는 사진 수
+  var GALLERY_HERO = 5;             // 대표 사진 캐러셀 수
+  var GALLERY_PREVIEW = 9;          // 격자에 처음 보이는 사진 수
   var WEDDING = { year: 2027, month: 3, day: 13 };
   // 카카오 JavaScript 키 — 웹페이지에 공개되는 키예요. 카카오 디벨로퍼스에 등록한 도메인에서만 동작해요.
   var KAKAO_JS_KEY = 'f3eb074e4568743b236c548c4f0cf601';
@@ -142,16 +144,47 @@
   var moreBtn = document.getElementById('galleryMore');
   var expanded = false;
 
+  var hero = document.getElementById('galleryHero');
+  var dots = document.getElementById('galleryDots');
+  var GRID = GALLERY.slice(GALLERY_HERO);     // 격자에 들어갈 사진 (전체 번호는 GALLERY_HERO만큼 뒤)
+
+  // 대표 사진 캐러셀 + 점 표시
+  (function renderHero() {
+    var html = '', d = '';
+    for (var i = 0; i < GALLERY_HERO && i < GALLERY.length; i++) {
+      html += '<li><button type="button" data-index="' + i + '" aria-label="대표 사진 ' + (i + 1) + ' 크게 보기">' +
+        '<img src="' + GALLERY[i] + '" alt="" ' + (i ? 'loading="lazy"' : '') + '></button></li>';
+      d += '<span' + (i ? '' : ' class="is-on"') + '></span>';
+    }
+    hero.innerHTML = html;
+    dots.innerHTML = d;
+    var ticking = false;
+    hero.addEventListener('scroll', function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        ticking = false;
+        var li = hero.querySelector('li');
+        if (!li) return;
+        var step = li.getBoundingClientRect().width + 10;
+        var idx = Math.round(hero.scrollLeft / step);
+        if (hero.scrollLeft + hero.clientWidth >= hero.scrollWidth - 4) idx = GALLERY_HERO - 1;   // 끝까지 밀면 마지막
+        dots.querySelectorAll('span').forEach(function (s, k) { s.classList.toggle('is-on', k === idx); });
+      });
+    }, { passive: true });
+  })();
+
   function renderGallery() {
-    var count = expanded ? GALLERY.length : Math.min(GALLERY_PREVIEW, GALLERY.length);
+    var count = expanded ? GRID.length : Math.min(GALLERY_PREVIEW, GRID.length);
     var html = '';
     for (var i = 0; i < count; i++) {
+      var n = i + GALLERY_HERO;
       html += '<li' + (i >= GALLERY_PREVIEW ? ' class="is-extra" style="--i:' + (i - GALLERY_PREVIEW) + '"' : '') + '>' +
-        '<button type="button" data-index="' + i + '" aria-label="사진 ' + (i + 1) + ' 크게 보기">' +
-        '<img src="' + GALLERY[i] + '" alt="" loading="lazy"></button></li>';
+        '<button type="button" data-index="' + n + '" aria-label="사진 ' + (n + 1) + ' 크게 보기">' +
+        '<img src="' + GRID[i] + '" alt="" loading="lazy"></button></li>';
     }
     grid.innerHTML = html;
-    moreBtn.hidden = GALLERY.length <= GALLERY_PREVIEW;
+    moreBtn.hidden = GRID.length <= GALLERY_PREVIEW;
     moreBtn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
     moreBtn.querySelector('span').textContent = expanded ? '사진 접기' : '사진 더보기';
   }
@@ -221,9 +254,11 @@
     closeTimer = setTimeout(function () { viewer.hidden = true; }, calm ? 0 : ms('--dur-fast') + 20);
     if (lastFocus) lastFocus.focus();
   }
-  grid.addEventListener('click', function (e) {
-    var b = e.target.closest('button[data-index]');
-    if (b) openViewer(parseInt(b.getAttribute('data-index'), 10));
+  [grid, hero].forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      var b = e.target.closest('button[data-index]');
+      if (b) openViewer(parseInt(b.getAttribute('data-index'), 10));
+    });
   });
   document.getElementById('viewerClose').addEventListener('click', closeViewer);
   document.getElementById('viewerPrev').addEventListener('click', function () { go(-1); });

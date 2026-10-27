@@ -300,9 +300,27 @@ ul { list-style: none; }
 .divider span { width: 12px; height: 11px; background: var(--grad-heart); clip-path: var(--heart); }
 
 /* ===== 5. 갤러리 ===== */
-.gallery { padding-left: 0; padding-right: 0; padding-top: 80px; padding-bottom: 40px; gap: 24px; }
-.gallery__grid { width: 100%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2px; }
-.gallery__grid li { aspect-ratio: 1 / 1; overflow: hidden; background: #efefef; }
+.gallery { padding-left: 0; padding-right: 0; gap: 24px; }
+.gallery__top { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+/* 캐러셀: 화면 폭 스크롤 + 칸 맞춤(scroll-snap). 그림자가 잘리지 않게 위아래 여백을 살짝 둬요 */
+.gallery__hero {
+  width: 100%; box-sizing: border-box; margin: -6px 0 -18px; padding: 6px 0 18px 24px;
+  display: flex; gap: 10px; overflow-x: auto; overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory; scroll-padding-left: 24px; scrollbar-width: none;
+}
+.gallery__hero::-webkit-scrollbar { display: none; }
+.gallery__hero::after { content: ""; flex: 0 0 14px; }   /* 마지막 사진 오른쪽 여백 24px (간격 10 + 14) */
+.gallery__hero li {
+  flex: 0 0 min(312px, calc(100% - 78px)); aspect-ratio: 3 / 4; scroll-snap-align: start;
+  border-radius: 14px; overflow: hidden; background: #e9e9e6; box-shadow: 0 6px 18px rgba(90, 104, 56, 0.10);
+}
+.gallery__hero button { display: block; width: 100%; height: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; }
+.gallery__hero img { width: 100%; height: 100%; object-fit: cover; }
+.gallery__dots { display: flex; align-items: center; gap: 6px; }
+.gallery__dots span { width: 6px; height: 6px; border-radius: 3px; background: var(--sky-1); transition: width var(--dur-base) var(--ease-out), background-color var(--dur-base) var(--ease-out); }
+.gallery__dots span.is-on { width: 18px; background: var(--sage-strong); }
+.gallery__grid { width: 100%; box-sizing: border-box; padding: 4px 24px 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; }
+.gallery__grid li { aspect-ratio: 1 / 1; overflow: hidden; border-radius: 6px; background: #f0f0ed; }
 .gallery__grid button { width: 100%; height: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; }
 .gallery__grid img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
 .gallery__grid li.is-extra { animation: introUp var(--dur-base) var(--ease-out) both; animation-delay: calc(var(--i, 0) * 40ms); }

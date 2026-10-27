@@ -30,6 +30,6 @@
 - 지도 앱 링크: 카카오맵 kko.to/nzLoHhTfSQ · 네이버 naver.me/G9UarGMu · 티맵 tmap.life/96d7bac3
 
 ## 남은 일
-- 갤러리 실제 사진 18장 (images/gallery/gallery-01~18.jpg 같은 이름으로 교체)
+- 갤러리 실제 사진 20장 (images/gallery/gallery-01~20.jpg 같은 이름으로 교체: 01~05 대표 사진 캐러셀 3:4 세로, 06~20 격자)
 - 버전 2: ~~BGM~~(완료) · 하객 사진(Apps Script 웹 앱 연결 완료)
 - 도메인 연결(선택)
