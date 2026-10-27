@@ -322,7 +322,8 @@
         content: {
           title: '민석 ♥ 이화 결혼합니다',
           description: '2027년 3월 13일 토요일 오후 3시\n웨딩시그니처 2층 트리니티홀',
-          imageUrl: SITE_URL + 'images/cover.jpg?v=dev',   // 배포마다 버전이 붙어 카톡도 새 사진을 가져가요
+          imageUrl: SITE_URL + 'images/og.jpg?v=dev',   // 공유 카드 전용 이미지 (배포마다 버전이 붙어 카톡도 새 사진을 가져가요)
+          imageWidth: 800, imageHeight: 800,   // 정사각형 그대로 보이게
           link: link
         },
         buttons: [{ title: '청첩장 보기', link: link }]
