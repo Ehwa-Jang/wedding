@@ -364,8 +364,21 @@ ul { list-style: none; }
   display: flex; align-items: center; justify-content: center;
   color: var(--deep); font-size: 13px; text-align: center;
 }
-.location__map.is-ready { cursor: pointer; }
+.location__map.is-ready { cursor: grab; touch-action: none; }
 .location__map.is-ready .location__mapmsg { display: none; }
+/* 지도 앱 바로가기 */
+.maplinks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 0 20px; margin-top: -16px; }
+.maplink {
+  display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 40px; padding: 0 6px;
+  border-radius: 10px; background: var(--white); border: 1px solid var(--sky-1);
+  color: var(--ink); text-decoration: none; font-size: min(13px, 3.4vw); white-space: nowrap;
+}
+.maplink__ico { flex-shrink: 0; width: 18px; height: 18px; border-radius: 5px; display: grid; place-items: center; }
+.maplink__ico svg { width: 12px; height: 12px; }
+.maplink__ico svg path { fill: #fff; } .maplink__ico svg circle { fill: currentColor; }
+.maplink__ico--kakao { background: #fee500; color: #fee500; } .maplink__ico--kakao svg path { fill: #3a1d1d; }
+.maplink__ico--naver { background: #03c75a; color: #03c75a; }
+.maplink__ico--tmap  { background: #2d6bff; color: #2d6bff; }
 .location__guide { gap: 24px; }
 .guide { display: flex; flex-direction: column; gap: 6px; font-size: 14px; color: var(--muted); }
 .guide__label { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 700; color: var(--ink); }
@@ -541,10 +554,10 @@ ul { list-style: none; }
 }
 
 /* ===== 누르는 느낌 — 손가락을 대면 살짝 눌리고, 떼면 스프링처럼 돌아와요 ===== */
-.pill-btn, .share__btn, .copy-btn, .icon-btn, .acc__toggle, .gallery__grid button, .viewer__close {
+.pill-btn, .share__btn, .copy-btn, .icon-btn, .maplink, .acc__toggle, .gallery__grid button, .viewer__close {
   transition: transform var(--dur-base) var(--ease-spring);
 }
-.pill-btn:active, .share__btn:active, .copy-btn:active, .icon-btn:active, .viewer__close:active {
+.pill-btn:active, .maplink:active, .share__btn:active, .copy-btn:active, .icon-btn:active, .viewer__close:active {
   transform: scale(.97); transition: transform var(--dur-fast) var(--ease-out);
 }
 .acc__toggle:active { transform: scale(.985); transition: transform var(--dur-fast) var(--ease-out); }

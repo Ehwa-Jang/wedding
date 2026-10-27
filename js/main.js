@@ -330,29 +330,34 @@
     });
   });
 
-  /* 카카오맵: 주소로 위치를 찾아 하트 마커를 찍어요. 페이지 스크롤을 방해하지 않게 지도는 고정하고, 누르면 카카오맵이 열려요 */
+  /* 카카오맵: 주소로 위치를 찾아 핀을 찍어요. 드래그로 움직이고, +/- 버튼으로 확대·축소해요 */
   (function initMap() {
     var box = document.getElementById('map');
     var msg = document.getElementById('mapMsg');
     if (!box) return;
-    function fail() { msg.textContent = '지도를 불러오지 못했어요. 위 주소를 복사해 지도 앱에서 검색해 주세요'; }
+    function fail() { msg.textContent = '지도를 불러오지 못했어요. 아래 지도 앱에서 확인해 주세요'; }
     loadScript('https://dapi.kakao.com/v2/maps/sdk.js?appkey=' + KAKAO_JS_KEY + '&libraries=services&autoload=false', function () {
       if (!window.kakao || !kakao.maps) return fail();
       kakao.maps.load(function () {
         new kakao.maps.services.Geocoder().addressSearch(VENUE.address, function (result, status) {
           if (status !== kakao.maps.services.Status.OK || !result.length) return fail();
           var pos = new kakao.maps.LatLng(result[0].y, result[0].x);
-          var map = new kakao.maps.Map(box, { center: pos, level: 3, draggable: false, scrollwheel: false, disableDoubleClickZoom: true });
-          map.setZoomable(false);
+          var map = new kakao.maps.Map(box, { center: pos, level: 3, draggable: true, scrollwheel: false });
+          map.addControl(new kakao.maps.ZoomControl(), kakao.maps.ControlPosition.RIGHT);
           var pin = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 42" width="32" height="42"><path d="M16 40C14 36 3 25 3 15.5A13 13 0 0 1 29 15.5C29 25 18 36 16 40z" fill="#93a85e" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"/><circle cx="16" cy="15.5" r="5" fill="#fff"/></svg>');
           new kakao.maps.Marker({ map: map, position: pos, image: new kakao.maps.MarkerImage(pin, new kakao.maps.Size(32, 42), { offset: new kakao.maps.Point(16, 41) }) });   // 세이지 그린 평면 핀
           box.classList.add('is-ready');
-          var placeUrl = 'https://map.kakao.com/link/map/' + encodeURIComponent(VENUE.name) + ',' + result[0].y + ',' + result[0].x;
-          kakao.maps.event.addListener(map, 'click', function () { window.open(placeUrl, '_blank', 'noopener'); });
           // 섹션이 늦게 그려지거나 폭이 바뀌어도 마커가 가운데 오게
           window.addEventListener('resize', function () { map.relayout(); map.setCenter(pos); });
         });
       });
     }, fail);
   })();
+
+  /* 지도 앱 바로가기: 아직 링크가 없으면(#) 안내만 띄워요 */
+  document.querySelectorAll('.maplink').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      if (a.getAttribute('href') === '#') { e.preventDefault(); toast('곧 연결될 예정이에요'); }
+    });
+  });
 })();
