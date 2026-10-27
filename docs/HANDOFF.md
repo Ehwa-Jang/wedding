@@ -1,0 +1,30 @@
+# 작업 인수인계 (버전 1 완료 · a95ac62)
+
+새 작업 세션에서 이 파일부터 읽어 주세요.
+
+## 프로젝트
+- 모바일 청첩장: 민석 ♥ 이화 · 2027.03.13(토) 오후 3시 · 웨딩시그니처 2층 트리니티홀 (서울 마포구 양화로 87)
+- 사이트: https://ehwa-jang.github.io/wedding/ (main에 push하면 GitHub Actions로 자동 배포, 배포 때 `?v=dev`가 커밋 번호로 바뀌어 캐시를 깨요)
+- 디자인 캔버스(Claude 아티팩트): https://claude.ai/artifact/BTjvggF9fNmTX5ErJGVn5E — 현재 디자인은 "2안" 보드들(`*-2.dc.html`), 1안은 보관용
+
+## 작업 방식
+- 캔버스에서 먼저 디자인 → "코드에 반영해줘" 하면 코드 수정·배포. 캔버스는 사용자도 직접 고치므로 작업 전 항상 최신본을 다시 읽기
+- 짧은 한국어 답변 선호
+- 넣지 않기로 한 것: 하단 고정 바, 혼주 이름 줄, D-day
+
+## 디자인 기준
+- 색: 세이지(피스타치오) 그린 90% + 화이트 + 연분홍 포인트 (css/style.css `:root` 토큰)
+- 글꼴: Work Sans / IBM Plex Sans KR, 인사말·감사 인사는 온글잎 박다현체(눈누 CDN)
+- 스티커·하트는 평면(그라데이션·반사광 없음) + 흰 테두리
+
+## 구조
+- index.html · css/style.css · js/main.js(봉투·갤러리·지도·공유) · js/love.js(하트 카운터, Firebase RTDB)
+- 봉투: 접속 0.5초 뒤 또는 첫 스크롤에 자동으로 열림, 누르면 여닫기
+- 카카오: JS 키는 js/main.js `KAKAO_JS_KEY`. 공유 링크가 열리려면 Kakao Developers [앱] > [제품 링크 관리] > [웹 도메인]에 사이트 주소 등록 필요
+- 공유 미리보기 이미지: images/og.jpg (봉투 사진은 images/cover.jpg)
+- 지도 앱 링크: 카카오맵 kko.to/nzLoHhTfSQ · 네이버 naver.me/G9UarGMu · 티맵 tmap.life/96d7bac3
+
+## 남은 일
+- 갤러리 실제 사진 18장 (images/gallery/gallery-01~18.jpg 같은 이름으로 교체)
+- 버전 2 후보: 캘린더에 추가하기 · BGM · 하객 사진 업로드 섹션
+- 도메인 연결(선택)
