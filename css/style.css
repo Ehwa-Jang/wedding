@@ -289,6 +289,8 @@ ul { list-style: none; }
 .letter__head { text-align: center; display: flex; flex-direction: column; gap: 4px; }
 .letter__parents { font-size: 16px; color: var(--muted); }
 .letter__name { font-size: 20px; font-weight: 600; letter-spacing: -0.01em; }
+.letter__role--groom { color: #7f9150; }   /* 신랑: 그린 (흰 바탕 대비 3.5:1, 20px 굵은 글씨 기준 통과) */
+.letter__role--bride { color: #c27884; }   /* 신부: 핑크 (3.3:1) */
 .letter__img { width: 100%; height: auto; }
 /* 부모님 편지와 갤러리 사이 구분 장식 */
 .divider { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
