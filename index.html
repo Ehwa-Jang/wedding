@@ -427,13 +427,14 @@
 
 <!-- 사진 크게 보기 -->
 <div class="viewer" id="viewer" hidden role="dialog" aria-modal="true" aria-label="사진 크게 보기">
+  <!-- 사진 20장을 옆으로 나란히: 캐러셀과 같은 가로 스크롤 + 칸 맞춤 -->
+  <ul class="viewer__track" id="viewerTrack"></ul>
   <button type="button" class="viewer__close" id="viewerClose" aria-label="닫기">
     <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M5 5l12 12M17 5L5 17"></path></svg>
   </button>
   <button type="button" class="viewer__nav viewer__nav--prev" id="viewerPrev" aria-label="이전 사진">
     <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M14 4l-7 7 7 7"></path></svg>
   </button>
-  <img class="viewer__img" id="viewerImg" alt="">
   <button type="button" class="viewer__nav viewer__nav--next" id="viewerNext" aria-label="다음 사진">
     <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M8 4l7 7-7 7"></path></svg>
   </button>

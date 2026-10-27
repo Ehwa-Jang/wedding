@@ -202,48 +202,55 @@
   });
   renderGallery();
 
-  /* 사진 크게 보기 */
+  /* 사진 크게 보기 — 캐러셀과 같은 가로 스크롤 + 칸 맞춤이라 손가락을 그대로 따라오고 폰 관성으로 넘어가요 */
   var viewer = document.getElementById('viewer');
-  var vImg = document.getElementById('viewerImg');
+  var track = document.getElementById('viewerTrack');
   var vCount = document.getElementById('viewerCount');
-  var current = 0, lastFocus = null, closeTimer = null, switching = false;
+  var vPrev = document.getElementById('viewerPrev');
+  var vNext = document.getElementById('viewerNext');
+  var current = 0, lastFocus = null, closeTimer = null;
 
-  function setPhoto(i) {
-    current = (i + GALLERY.length) % GALLERY.length;
-    vImg.src = GALLERY[current];
-    vImg.alt = '갤러리 사진 ' + (current + 1);
+  track.innerHTML = GALLERY.map(function (src, i) {
+    return '<li aria-roledescription="slide" aria-label="' + (i + 1) + ' / ' + GALLERY.length + '">' +
+      '<img data-src="' + src + '" alt="갤러리 사진 ' + (i + 1) + '" decoding="async" draggable="false"></li>';
+  }).join('');
+  var slides = track.children;
+
+  // 지금 사진과 양옆 사진만 미리 불러와요 (넘길 때 멈칫하지 않게)
+  function load(i) {
+    [i - 1, i, i + 1, i + 2].forEach(function (k) {
+      var img = slides[k] && slides[k].firstChild;
+      if (img && !img.src) img.src = img.getAttribute('data-src');
+    });
+  }
+  function setCurrent(i) {
+    current = Math.max(0, Math.min(GALLERY.length - 1, i));
     vCount.textContent = (current + 1) + ' / ' + GALLERY.length;
+    vPrev.disabled = current === 0;
+    vNext.disabled = current === GALLERY.length - 1;
+    load(current);
   }
-  // 다음/이전: 지금 사진은 밀던 방향으로 짧게 빠지고, 새 사진은 반대편에서 감속하며 들어와요
-  function go(dir, fromX) {
-    if (switching) return;
-    if (!canAnim || calm) { setPhoto(current + dir); return; }
-    switching = true;
-    var x0 = fromX || 0;
-    vImg.classList.remove('is-dragging');
-    var out = vImg.animate([
-      { transform: 'translate3d(' + x0 + 'px,0,0)', opacity: vImg.style.opacity || 1 },
-      { transform: 'translate3d(' + (-dir * 72 + x0 * 0.3) + 'px,0,0)', opacity: 0 }
-    ], { duration: ms('--dur-fast'), easing: EASE.in, fill: 'forwards' });
-    out.onfinish = function () {
-      vImg.style.transform = ''; vImg.style.opacity = '';
-      setPhoto(current + dir);
-      var ready = vImg.decode ? vImg.decode().catch(function () {}) : Promise.resolve();
-      ready.then(function () {
-        out.cancel();
-        vImg.animate([
-          { transform: 'translate3d(' + dir * 48 + 'px,0,0)', opacity: 0 },
-          { transform: 'none', opacity: 1 }
-        ], { duration: ms('--dur-base'), easing: EASE.out }).onfinish = function () { switching = false; };
-      });
-    };
+  function goTo(i, smooth) {
+    track.scrollTo({ left: track.clientWidth * i, behavior: smooth && !calm ? 'smooth' : 'auto' });
   }
+  var ticking = false;
+  track.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      ticking = false;
+      var i = Math.round(track.scrollLeft / Math.max(1, track.clientWidth));
+      if (i !== current) setCurrent(i);
+    });
+  }, { passive: true });
+
   function openViewer(i) {
     lastFocus = document.activeElement;
     clearTimeout(closeTimer);
-    setPhoto(i);
     viewer.hidden = false;
     document.body.style.overflow = 'hidden';
+    setCurrent(i);
+    goTo(i, false);                            // 누른 사진 자리에서 바로 열려요
     viewer.getBoundingClientRect();           // 다음 프레임에 전환이 시작되도록
     viewer.classList.add('is-open');
     document.getElementById('viewerClose').focus();
@@ -261,45 +268,17 @@
     });
   });
   document.getElementById('viewerClose').addEventListener('click', closeViewer);
-  document.getElementById('viewerPrev').addEventListener('click', function () { go(-1); });
-  document.getElementById('viewerNext').addEventListener('click', function () { go(1); });
-  viewer.addEventListener('click', function (e) { if (e.target === viewer) closeViewer(); });
+  vPrev.addEventListener('click', function () { goTo(current - 1, true); });
+  vNext.addEventListener('click', function () { goTo(current + 1, true); });
+  // 사진 바깥(어두운 곳)을 누르면 닫혀요
+  track.addEventListener('click', function (e) { if (e.target.tagName === 'LI') closeViewer(); });
+  // 창 크기가 바뀌어도(폰 가로 회전) 보던 사진에 그대로
+  window.addEventListener('resize', function () { if (!viewer.hidden) goTo(current, false); });
   document.addEventListener('keydown', function (e) {
     if (viewer.hidden) return;
     if (e.key === 'Escape') closeViewer();
-    if (e.key === 'ArrowLeft') go(-1);
-    if (e.key === 'ArrowRight') go(1);
-  });
-  // 좌우로 밀기: 손가락을 그대로 따라오고, 놓으면 넘어가거나 스프링처럼 제자리로
-  var drag = null;
-  viewer.addEventListener('touchstart', function (e) {
-    if (e.touches.length !== 1 || switching) return;
-    drag = { x: e.touches[0].clientX, y: e.touches[0].clientY, t: Date.now(), dx: 0, lock: null };
-  }, { passive: true });
-  viewer.addEventListener('touchmove', function (e) {
-    if (!drag) return;
-    var dx = e.touches[0].clientX - drag.x, dy = e.touches[0].clientY - drag.y;
-    if (drag.lock === null && (Math.abs(dx) > 6 || Math.abs(dy) > 6)) drag.lock = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
-    if (drag.lock !== 'x' || calm) return;
-    drag.dx = dx;
-    vImg.classList.add('is-dragging');
-    vImg.style.transform = 'translate3d(' + dx + 'px,0,0)';
-    vImg.style.opacity = String(1 - Math.min(Math.abs(dx) / 700, .35));
-  }, { passive: true });
-  viewer.addEventListener('touchend', function (e) {
-    if (!drag) return;
-    var dx = calm ? e.changedTouches[0].clientX - drag.x : drag.dx;
-    var speed = Math.abs(dx) / Math.max(1, Date.now() - drag.t);
-    drag = null;
-    if (Math.abs(dx) > 60 || (speed > 0.45 && Math.abs(dx) > 20)) { go(dx < 0 ? 1 : -1, calm ? 0 : dx); return; }
-    if (!dx || calm) return;
-    var back = vImg.animate([
-      { transform: 'translate3d(' + dx + 'px,0,0)', opacity: vImg.style.opacity || 1 },
-      { transform: 'none', opacity: 1 }
-    ], { duration: ms('--dur-base'), easing: EASE.spring });
-    vImg.classList.remove('is-dragging');
-    vImg.style.transform = ''; vImg.style.opacity = '';
-    back.onfinish = function () {};
+    if (e.key === 'ArrowLeft') goTo(current - 1, true);
+    if (e.key === 'ArrowRight') goTo(current + 1, true);
   });
 
   /* ---------- 6. 달력: 스프링 노트는 HTML/CSS만으로 그려요 (index.html의 .note) ---------- */
