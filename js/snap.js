@@ -298,11 +298,38 @@
       list.forEach(function (p) { if (failed.indexOf(p) < 0) URL.revokeObjectURL(p.url); });
       picked = list.filter(function (p) { return failed.indexOf(p) >= 0; });   // 실패한 것만 남겨서 다시 보낼 수 있게
       render();
-      if (!failed.length) toast(done + '개를 보냈어요. 고마워요 ♡', 2600);
+      if (!failed.length) showDone(done, list.some(function (p) { return p.video; }));
       else if (done) toast(done + '개는 보냈고 ' + failed.length + '개는 실패했어요. 다시 눌러 주세요', 3200);
       else toast('보내지 못했어요. 잠시 뒤 다시 눌러 주세요', 2600);
     }
   }
+
+  /* ---------- 업로드 완료 팝업 ---------- */
+  var popup = document.getElementById('snapDone');
+  var popupMsg = document.getElementById('snapDoneMsg');
+  var popupOk = document.getElementById('snapDoneOk');
+  var lastFocus = null;
+  function showDone(n, hasVideo) {
+    popupMsg.innerHTML = n + (hasVideo ? '개' : '장') + '의 업로드가 완료되었어요.<br>감사합니다 <span class="popup__love" aria-hidden="true">♥&#xFE0E;</span>';
+    lastFocus = document.activeElement;
+    popup.classList.remove('is-closing');
+    popup.hidden = false;
+    popupOk.focus();
+  }
+  function closeDone() {
+    if (popup.hidden || popup.classList.contains('is-closing')) return;
+    popup.classList.add('is-closing');
+    setTimeout(function () {
+      popup.hidden = true; popup.classList.remove('is-closing');
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }, 180);
+  }
+  popupOk.addEventListener('click', closeDone);
+  popup.addEventListener('click', function (e) { if (e.target === popup) closeDone(); });
+  popup.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeDone();
+    if (e.key === 'Tab') { e.preventDefault(); popupOk.focus(); }   // 팝업 안에 버튼이 하나뿐이라 포커스를 붙잡아 둬요
+  });
 
   // 보내는 중에 페이지를 닫으려 하면 한 번 물어봐요
   window.addEventListener('beforeunload', function (e) {

@@ -574,6 +574,35 @@ ul { list-style: none; }
 .snap__btn:not(.is-sending) .snap__bar { display: none; }
 .snap__note { margin: 0; font-size: 12px; line-height: 1.6; color: var(--muted); text-align: center; }
 
+/* 업로드 완료 팝업 — 화면 가운데 */
+.popup {
+  position: fixed; inset: 0; z-index: 55;
+  display: flex; align-items: center; justify-content: center; padding: 24px;
+  background: rgba(40, 38, 36, 0.36);
+  animation: popupFade var(--dur-base) var(--ease-out);
+}
+.popup[hidden] { display: none; }
+.popup__card {
+  width: min(300px, 100%); box-sizing: border-box; padding: 32px 24px 24px;
+  border-radius: 16px; background: var(--white); text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 16px;
+  box-shadow: 0 12px 36px rgba(64, 60, 61, 0.18);
+  animation: popupIn 420ms var(--ease-spring);
+}
+.popup__heart { width: 44px; overflow: visible; filter: drop-shadow(0 1px 2px rgba(64, 60, 61, 0.14)); transform: rotate(-8deg); }
+.popup__msg { margin: 0; font-size: 15px; line-height: 1.7; }
+.popup__love { color: #e99ea6; }
+.popup__ok {
+  width: 100%; min-height: 46px; margin-top: 4px; border: 0; border-radius: 10px;
+  background: var(--sage); font-size: 15px; cursor: pointer;
+  transition: transform var(--dur-base) var(--ease-spring);
+}
+.popup__ok:active { transform: scale(.97); transition: transform var(--dur-fast) var(--ease-out); }
+.popup.is-closing { animation: popupOut var(--dur-fast) var(--ease-in) forwards; }
+@keyframes popupFade { from { opacity: 0; } }
+@keyframes popupIn { from { opacity: 0; transform: scale(.92) translateY(8px); } }
+@keyframes popupOut { to { opacity: 0; } }
+
 /* ===== 14. 푸터 ===== */
 .foot {
   background: var(--sky); color: var(--muted);

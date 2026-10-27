@@ -410,7 +410,7 @@
   <!-- 14. 푸터 -->
   <footer class="foot">
     <svg width="16" height="15" viewBox="0 0 124 112" aria-hidden="true"><path d="M62 108C56 103 8 72 4 38 1 16 17 3 34 3c12 0 22 7 28 17 6-10 16-17 28-17 17 0 33 13 30 35-4 34-52 65-58 70z"></path></svg>
-    <p>Made with love by Ehwa Jang · 2026 ♡</p>
+    <p>Made with love by Ehwa Jang · 2026</p>
   </footer>
 </main>
 
@@ -440,6 +440,15 @@
     </svg>
   </span>
 </button>
+
+<!-- 하객 사진 업로드 완료 팝업 (js/snap.js) -->
+<div class="popup" id="snapDone" hidden>
+  <div class="popup__card" role="dialog" aria-modal="true" aria-labelledby="snapDoneMsg">
+    <svg class="popup__heart" viewBox="-9 -9 142 128" aria-hidden="true"><path d="M62 108C56 103 8 72 4 38 1 16 17 3 34 3c12 0 22 7 28 17 6-10 16-17 28-17 17 0 33 13 30 35-4 34-52 65-58 70z" fill="#fff" stroke="#fff" stroke-width="16" stroke-linejoin="round"></path><path d="M62 108C56 103 8 72 4 38 1 16 17 3 34 3c12 0 22 7 28 17 6-10 16-17 28-17 17 0 33 13 30 35-4 34-52 65-58 70z" fill="#f4cdd3"></path></svg>
+    <p class="popup__msg" id="snapDoneMsg"></p>
+    <button type="button" class="popup__ok" id="snapDoneOk">확인</button>
+  </div>
+</div>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
