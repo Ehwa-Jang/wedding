@@ -440,8 +440,8 @@ ul { list-style: none; }
   /* 사진 아래로 핑크, 위로 그린 빛이 아주 은은하게 번져요 */
   box-shadow: 0 2px 12px rgba(64, 60, 61, 0.10), 0 22px 44px -22px rgba(169, 189, 120, 0.32); }
 .thanks__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; }
-.thanks__text { text-align: center; font-size: 15px; line-height: 1.8; }
-.thanks__sign { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--muted); margin-top: -14px; }
+.thanks__text { text-align: center; font-family: 'OngleipParkDahyeon', var(--font); font-size: min(18px, 4.6vw); line-height: 1.7; }   /* 손글씨 폰트 */
+.thanks__sign { display: flex; align-items: center; gap: 8px; font-family: 'OngleipParkDahyeon', var(--font); font-size: 17px; color: var(--muted); margin-top: -14px; }
 
 /* ===== 10-1. 하트 보내기 ===== */
 .love { gap: 20px; padding-top: 64px; }
