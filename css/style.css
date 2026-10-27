@@ -566,7 +566,12 @@ ul { list-style: none; }
   display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 15px; cursor: pointer;
 }
 .snap__btn svg { fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
-.snap__btn:disabled { opacity: .6; cursor: progress; }
+.snap__btn { position: relative; overflow: hidden; isolation: isolate; }
+.snap__btn > :not(.snap__bar) { position: relative; }
+/* 보내는 동안: 연한 바탕 위로 세이지색이 왼쪽부터 차올라요 */
+.snap__bar { position: absolute; inset: 0; z-index: -1; transform-origin: left center; transform: scaleX(var(--p, 0)); background: var(--sage); transition: transform .4s var(--ease-out); }
+.snap__btn.is-sending { background: var(--sage-soft); cursor: progress; }
+.snap__btn:not(.is-sending) .snap__bar { display: none; }
 .snap__note { margin: 0; font-size: 12px; line-height: 1.6; color: var(--muted); text-align: center; }
 
 /* ===== 14. 푸터 ===== */

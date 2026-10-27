@@ -28,6 +28,7 @@
   var btn = document.getElementById('snapBtn');
   var btnText = document.getElementById('snapBtnText');
   var fileInput = document.getElementById('snapFile');
+  var bar = document.getElementById('snapBar');
 
   var picked = [];   // { file, url, video }
   var sending = false;
@@ -251,6 +252,8 @@
   function send(name) {
     sending = true;
     btn.disabled = true;
+    btn.style.setProperty('--p', '0');
+    btn.classList.add('is-sending');
     var list = picked.slice();
     var total = list.length;
     var done = 0, failed = [], finished = 0, nextIdx = 0;
@@ -264,6 +267,7 @@
       list.forEach(function (p) { all += p.bytes; sent += Math.min(p.sent, p.bytes); });
       var pct = all ? Math.min(99, Math.round(sent / all * 100)) : 0;
       btnText.textContent = '보내는 중 ' + pct + '%';
+      btn.style.setProperty('--p', (pct / 100).toFixed(3));
     }
 
     function worker() {
@@ -280,9 +284,17 @@
     Promise.all(workers).then(finish);
 
     function finish() {
-      sending = false;
-      btn.disabled = false;
+      if (!failed.length) btn.style.setProperty('--p', '1');
       keepAwake(false);
+      setTimeout(function () {   // 끝까지 차오르는 걸 잠깐 보여 준 뒤 원래 버튼으로
+        sending = false;
+        btn.disabled = false;
+        btn.classList.remove('is-sending');
+        btn.style.removeProperty('--p');
+        after();
+      }, 450);
+    }
+    function after() {
       list.forEach(function (p) { if (failed.indexOf(p) < 0) URL.revokeObjectURL(p.url); });
       picked = list.filter(function (p) { return failed.indexOf(p) >= 0; });   // 실패한 것만 남겨서 다시 보낼 수 있게
       render();
