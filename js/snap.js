@@ -1,18 +1,21 @@
 /* 13. 하객 사진 (GUEST SNAP)
- * 하객이 고른 사진을 휴대폰에서 먼저 줄인 뒤(긴 변 2000px JPEG),
- * Google Apps Script 웹 앱으로 한 장씩 보내요 → 신랑·신부 Google Drive 폴더에 저장돼요.
+ * 사진: 휴대폰에서 먼저 줄인 뒤(긴 변 2000px JPEG) Google Apps Script 웹 앱으로 한 장씩 보내요.
+ * 영상: 줄일 수 없어서 원본을 8MB씩 잘라 보내고, Apps Script가 Drive에 이어 붙여 하나의 파일로 저장해요.
+ * → 신랑·신부 Google Drive 폴더에 저장돼요.
  * Apps Script 코드와 설정 방법: docs/guest-snap-apps-script.gs, docs/HANDOFF.md
  */
 (function () {
   'use strict';
 
-  // Apps Script를 "웹 앱"으로 배포하면 나오는 주소(…/exec)를 여기에 넣어 주세요.
-  // 비어 있으면 사진을 고를 수는 있지만, 보내기를 누르면 "곧 열릴 예정이에요" 안내만 떠요.
+  // Apps Script를 "웹 앱"으로 배포하면 나오는 주소(…/exec)
+  // 비어 있으면 고를 수는 있지만, 보내기를 누르면 "곧 열릴 예정이에요" 안내만 떠요.
   var SNAP_UPLOAD_URL = 'https://script.google.com/macros/s/AKfycbxK8bmIdQGg6bNLdAvq-el2Bv7k73l4QoJxvcvLIU35sHphEFUhY8YZ76JhmzijJrf3/exec';
 
-  var MAX_FILES = 20;      // 한 번에 보낼 수 있는 사진 수
-  var MAX_SIDE = 2000;     // 긴 변 (px)
+  var MAX_FILES = 20;                      // 한 번에 보낼 수 있는 사진·영상 수
+  var MAX_SIDE = 2000;                     // 사진 긴 변 (px)
   var QUALITY = 0.85;
+  var MAX_VIDEO = 300 * 1024 * 1024;       // 영상 한 개 최대 300MB (Apps Script 코드의 값과 같아야 해요)
+  var CHUNK = 8 * 1024 * 1024;             // 영상 조각 크기 (256KB의 배수)
 
   var section = document.getElementById('snap');
   if (!section) return;
@@ -26,7 +29,7 @@
   var btnText = document.getElementById('snapBtnText');
   var fileInput = document.getElementById('snapFile');
 
-  var picked = [];   // { file, url }
+  var picked = [];   // { file, url, video }
   var sending = false;
 
   /* 안내 문구 (main.js의 토스트와 같은 자리) */
@@ -39,23 +42,42 @@
     toastTimer = setTimeout(function () { toastEl.classList.remove('is-show'); }, ms || 1800);
   }
 
+  function isVideo(f) { return /^video\//.test(f.type) || /\.(mov|mp4|m4v|3gp|webm)$/i.test(f.name || ''); }
+
+  function label() {
+    var hasVideo = picked.some(function (p) { return p.video; });
+    return hasVideo ? '사진·영상 ' + picked.length + '개 보내기' : '사진 ' + picked.length + '장 보내기';
+  }
+
   function render() {
     var has = picked.length > 0;
     frames.hidden = has;
     grid.hidden = !has;
     nameWrap.hidden = !has;
-    btnText.textContent = has ? '사진 ' + picked.length + '장 보내기' : '사진 올리기';
+    btnText.textContent = has ? label() : '사진·영상 올리기';
     moreCell.hidden = picked.length >= MAX_FILES;
 
     grid.querySelectorAll('.snap__cell').forEach(function (li) { li.remove(); });
     picked.forEach(function (p, i) {
       var li = document.createElement('li');
       li.className = 'snap__cell';
-      var img = document.createElement('img');
-      img.src = p.url; img.alt = '고른 사진 ' + (i + 1);
+      var media;
+      if (p.video) {
+        media = document.createElement('video');
+        media.src = p.url + '#t=0.1';          // 첫 장면을 미리보기로
+        media.muted = true; media.playsInline = true; media.preload = 'metadata';
+        media.setAttribute('aria-label', '고른 영상 ' + (i + 1));
+        var badge = document.createElement('span');
+        badge.className = 'snap__badge';
+        badge.innerHTML = '<svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 2l5 3-5 3z"></path></svg>';
+        li.appendChild(badge);
+      } else {
+        media = document.createElement('img');
+        media.src = p.url; media.alt = '고른 사진 ' + (i + 1);
+      }
       var rm = document.createElement('button');
       rm.type = 'button'; rm.className = 'snap__remove';
-      rm.setAttribute('aria-label', (i + 1) + '번째 사진 빼기');
+      rm.setAttribute('aria-label', (i + 1) + '번째 ' + (p.video ? '영상' : '사진') + ' 빼기');
       rm.innerHTML = '<span><svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 2l6 6M8 2L2 8"></path></svg></span>';
       rm.addEventListener('click', function () {
         if (sending) return;
@@ -63,7 +85,8 @@
         picked.splice(picked.indexOf(p), 1);
         render();
       });
-      li.appendChild(img); li.appendChild(rm);
+      li.insertBefore(media, li.firstChild);
+      li.appendChild(rm);
       grid.insertBefore(li, moreCell);
     });
   }
@@ -71,10 +94,15 @@
   function openPicker() { if (!sending) fileInput.click(); }
 
   fileInput.addEventListener('change', function () {
-    var files = Array.prototype.slice.call(fileInput.files || []).filter(function (f) { return /^image\//.test(f.type) || !f.type; });
+    var files = Array.prototype.slice.call(fileInput.files || []).filter(function (f) {
+      return /^image\//.test(f.type) || isVideo(f) || !f.type;
+    });
+    var tooBig = files.filter(function (f) { return isVideo(f) && f.size > MAX_VIDEO; });
+    files = files.filter(function (f) { return tooBig.indexOf(f) < 0; });
     var room = MAX_FILES - picked.length;
-    if (files.length > room) toast('한 번에 ' + MAX_FILES + '장까지 보낼 수 있어요');
-    files.slice(0, room).forEach(function (f) { picked.push({ file: f, url: URL.createObjectURL(f) }); });
+    if (tooBig.length) toast('영상은 한 개에 300MB까지 올릴 수 있어요', 2600);
+    else if (files.length > room) toast('한 번에 ' + MAX_FILES + '개까지 보낼 수 있어요');
+    files.slice(0, room).forEach(function (f) { picked.push({ file: f, url: URL.createObjectURL(f), video: isVideo(f) }); });
     fileInput.value = '';
     render();
   });
@@ -88,6 +116,25 @@
     if (!SNAP_UPLOAD_URL) { toast('곧 열릴 예정이에요'); return; }
     send(name);
   });
+
+  /* ---------- 보내기 ---------- */
+  function post(body) {
+    return fetch(SNAP_UPLOAD_URL, {
+      method: 'POST',
+      // text/plain이어야 브라우저가 사전 확인(CORS preflight) 없이 바로 보내요
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(body)
+    }).then(function (r) { return r.json(); }).then(function (res) {
+      if (!res || !res.ok) throw new Error((res && res.error) || 'server');
+      return res;
+    });
+  }
+  function retry(fn, times) {
+    return fn().catch(function (e) {
+      if (times <= 0) throw e;
+      return new Promise(function (r) { setTimeout(r, 1500); }).then(function () { return retry(fn, times - 1); });
+    });
+  }
 
   /* 사진 줄이기: 긴 변 MAX_SIDE 이하 JPEG → base64 */
   function shrink(file) {
@@ -110,15 +157,51 @@
     });
   }
 
-  function upload(name, index, base64) {
-    return fetch(SNAP_UPLOAD_URL, {
-      method: 'POST',
-      // text/plain이어야 브라우저가 사전 확인(CORS preflight) 없이 바로 보내요
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({ name: name, index: index, image: base64 })
-    }).then(function (r) { return r.json(); }).then(function (res) {
-      if (!res || !res.ok) throw new Error('server');
+  function blobToBase64(blob) {
+    return new Promise(function (resolve, reject) {
+      var r = new FileReader();
+      r.onload = function () { resolve(String(r.result).split(',')[1] || ''); };
+      r.onerror = function () { reject(r.error); };
+      r.readAsDataURL(blob);
     });
+  }
+
+  function sendPhoto(name, index, file) {
+    return shrink(file).then(function (b64) {
+      return retry(function () { return post({ name: name, index: index, image: b64 }); }, 1);
+    });
+  }
+
+  // 영상: 업로드 자리 만들기(start) → 8MB씩 차례로(chunk). onProgress(0~1)
+  function sendVideo(name, index, file, onProgress) {
+    var ext = ((file.name || '').split('.').pop() || 'mp4').toLowerCase();
+    var mime = file.type || (ext === 'mov' ? 'video/quicktime' : 'video/mp4');
+    var total = file.size;
+    return post({ action: 'start', name: name, index: index, size: total, mime: mime, ext: ext }).then(function (res) {
+      var session = res.session;
+      function part(start) {
+        if (start >= total) return Promise.resolve();
+        var end = Math.min(start + CHUNK, total);
+        return blobToBase64(file.slice(start, end)).then(function (b64) {
+          return retry(function () {
+            return post({ action: 'chunk', session: session, start: start, total: total, data: b64 });
+          }, 2);
+        }).then(function () {
+          onProgress(end / total);
+          return part(end);
+        });
+      }
+      return part(0);
+    });
+  }
+
+  /* 영상 보내는 동안 화면이 꺼지지 않게 (지원하는 폰에서만) */
+  var wakeLock = null;
+  function keepAwake(on) {
+    try {
+      if (on && navigator.wakeLock) navigator.wakeLock.request('screen').then(function (l) { wakeLock = l; }, function () {});
+      else if (!on && wakeLock) { wakeLock.release(); wakeLock = null; }
+    } catch (e) {}
   }
 
   function send(name) {
@@ -127,30 +210,39 @@
     var list = picked.slice();
     var done = 0, failed = [];
     var total = list.length;
+    if (list.some(function (p) { return p.video; })) keepAwake(true);
 
     function next(i) {
       if (i >= total) return finish();
-      btnText.textContent = '보내는 중 ' + (i + 1) + ' / ' + total;
       var p = list[i];
-      shrink(p.file)
-        .then(function (b64) { return upload(name, i + 1, b64); })
-        .then(function () { done++; }, function () { failed.push(p); })
+      var head = '보내는 중 ' + (i + 1) + ' / ' + total;
+      btnText.textContent = head;
+      var job = p.video
+        ? sendVideo(name, i + 1, p.file, function (r) { btnText.textContent = head + ' · ' + Math.round(r * 100) + '%'; })
+        : sendPhoto(name, i + 1, p.file);
+      job.then(function () { done++; }, function () { failed.push(p); })
         .then(function () { next(i + 1); });
     }
 
     function finish() {
       sending = false;
       btn.disabled = false;
+      keepAwake(false);
       list.forEach(function (p) { if (failed.indexOf(p) < 0) URL.revokeObjectURL(p.url); });
-      picked = failed;   // 실패한 사진만 남겨서 다시 보낼 수 있게
+      picked = failed;   // 실패한 것만 남겨서 다시 보낼 수 있게
       render();
-      if (!failed.length) toast('사진 ' + done + '장을 보냈어요. 고마워요 ♡', 2600);
-      else if (done) toast(done + '장은 보냈고 ' + failed.length + '장은 실패했어요. 다시 눌러 주세요', 3200);
+      if (!failed.length) toast(done + '개를 보냈어요. 고마워요 ♡', 2600);
+      else if (done) toast(done + '개는 보냈고 ' + failed.length + '개는 실패했어요. 다시 눌러 주세요', 3200);
       else toast('보내지 못했어요. 잠시 뒤 다시 눌러 주세요', 2600);
     }
 
     next(0);
   }
+
+  // 보내는 중에 페이지를 닫으려 하면 한 번 물어봐요
+  window.addEventListener('beforeunload', function (e) {
+    if (sending) { e.preventDefault(); e.returnValue = ''; }
+  });
 
   render();
 })();
