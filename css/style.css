@@ -30,7 +30,7 @@
   --ink: #3f3f38;
   --muted: #626358;   /* 보조 글자 — 흰 배경 대비 약 6.1:1 */
   --deep: #56653a;    /* 아이콘 · 강조 글자 (올리브 그린) — 대비 약 6.3:1 */
-  --font: 'Work Sans', 'YiSunShinDotum', -apple-system, 'Apple SD Gothic Neo', sans-serif;   /* 영문·숫자는 Work Sans, 한글은 이순신돋움체 */
+  --font: 'Work Sans', 'IBM Plex Sans KR', -apple-system, 'Apple SD Gothic Neo', sans-serif;
   --heart: polygon(50% 100%, 4% 46%, 0% 20%, 14% 4%, 34% 0%, 50% 16%, 66% 0%, 86% 4%, 100% 20%, 96% 46%);
   --heart-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 124 112'%3E%3Cpath d='M62 108C56 103 8 72 4 38 1 16 17 3 34 3c12 0 22 7 28 17 6-10 16-17 28-17 17 0 33 13 30 35-4 34-52 65-58 70z'/%3E%3C/svg%3E");
   color-scheme: light;
@@ -280,14 +280,6 @@ ul { list-style: none; }
 .greeting__hand { width: 100%; max-width: 326px; height: auto; }   /* 손글씨 인사말 이미지 */
 .greeting__text { text-align: center; font-size: 15px; line-height: 1.8; }
 /* 손글씨 폰트 — 온글잎 박다현체 (눈누 CDN, 상업적 웹 사용 가능 · 파일 재배포 금지라 CDN으로만 불러와요) */
-/* 한글 본문: 이순신돋움체 (아산시 무료 글꼴, 눈누 웹폰트). 굵기가 하나뿐이라 모든 굵기에 같은 파일을 써서
-   브라우저가 억지로 두껍게 만들지 않게 했어요 (제목·Q.처럼 굵게 지정한 곳도 적당한 두께 그대로) */
-@font-face {
-  font-family: 'YiSunShinDotum';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/YiSunShinDotumM.woff') format('woff');
-  font-weight: 100 900;
-  font-display: swap;
-}
 @font-face {
   font-family: 'OngleipParkDahyeon';
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2') format('woff2');
