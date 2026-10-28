@@ -11,18 +11,19 @@
     'cake-nose',
     'brickhouse-bouquet',
     'forest',              // ↑ 여기까지 캐러셀 6장
+    // 격자: 흰 배경 스튜디오 → 놀이공원 → 우드톤 실내
     'studio-profile',
     'studio-rings',
-    'arch-laugh',
     'studio-bouquet-kiss',
-    'bumpercar-peace',
-    'arch-lift',
-    'ferriswheel-walk',
-    'room-dance',
-    'veil-kiss',
     'studio-twirl',
+    'bumpercar-peace',
+    'bumpercar-selfie',
+    'ferriswheel-walk',
+    'arch-laugh',
+    'arch-lift',
     'arch-wall',
-    'bumpercar-selfie'
+    'room-dance',
+    'veil-kiss'
   ];
   var GALLERY = GALLERY_FILES.map(function (n) { return 'images/gallery/' + n + '.jpg?v=dev'; });
   var GALLERY_HERO = 6;             // 대표 사진 캐러셀 수
