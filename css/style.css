@@ -329,7 +329,6 @@ ul { list-style: none; }
   background: conic-gradient(from 210deg, #a9cd8a, #f1d36b, #f6a77f, #ee8fa9, #b39ae0, #86c2df, #a9cd8a);
   transition: transform var(--dur-base) var(--ease-spring);
 }
-.story-ring.is-seen .story-ring__avatar { background: #dcdcd6; }
 .story-ring:active .story-ring__avatar { transform: scale(.94); transition: transform var(--dur-fast) var(--ease-out); }
 .story-ring__gap { display: block; width: 100%; height: 100%; border-radius: 50%; padding: 3px; box-sizing: border-box; background: var(--white); }
 .story-ring__gap > span { display: block; width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: #e9e9e6; }
@@ -687,9 +686,6 @@ ul { list-style: none; }
 .story__space { flex: 1; }
 .story__btn { pointer-events: auto; width: 44px; height: 44px; padding: 0; border: 0; background: none; color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; }
 .story__btn svg { fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-.story__cross { display: none; }
-#storyMute[aria-pressed="true"] .story__waves { display: none; }
-#storyMute[aria-pressed="true"] .story__cross { display: inline; }
 .story__caption { position: absolute; left: 20px; right: 20px; bottom: calc(40px + env(safe-area-inset-bottom)); margin: 0; font-size: 14px; line-height: 1.5; text-shadow: 0 1px 3px rgba(0,0,0,.3); pointer-events: none; }
 .story__caption:empty { display: none; }
 
