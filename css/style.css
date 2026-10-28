@@ -247,26 +247,24 @@ ul { list-style: none; }
 @keyframes sealGlow { 0% { opacity: 0; transform: scale(.6); } 25% { opacity: .9; } 100% { opacity: 0; transform: scale(1.7); } }
 @keyframes sealTwinkle { 0%, 100% { opacity: 0; transform: scale(.2) rotate(0deg); } 30% { opacity: 1; transform: scale(1) rotate(45deg); } 60% { opacity: 0; transform: scale(.4) rotate(90deg); } }
 
-/* 이름 하트 스티커 — 봉투 아래 모서리에 걸쳐 흩어져 있어요. 봉투와 같이 둥둥 뜨지 않고 제자리에 */
-/* 화면이 좁으면 바깥으로 삐져나오는 폭(--spill)을 줄여서 화면 밖으로 나가지 않게 해요 */
+/* 이름 하트 스티커 — 봉투 아래쪽 양옆에 흩어져 있어요(왼쪽 MIN SEOK, 오른쪽 EHWA). 봉투와 같이 둥둥 뜨지 않고 제자리에 */
+/* 화면이 좁으면 바깥으로 나가는 폭(--spill)을 줄여서 화면 밖으로 나가지 않게 해요 */
 .initials {
-  --spill: clamp(0px, calc((100vw - 300px) / 2 - 16px), 34px);
-  position: absolute; top: 262px; width: 116px; height: 150px; z-index: 6; pointer-events: none;
+  --spill: clamp(0px, calc((100vw - 300px) / 2 - 14px), 34px);
+  position: absolute; top: 280px; width: 102px; height: 90px; z-index: 6; pointer-events: none;
 }
 .initials--groom { left: 0; transform: translateX(calc(-1 * var(--spill))); }
-.initials--bride { right: 0; transform: translateX(calc(var(--spill) + 9px)); }   /* 양쪽 끝 여백이 같아지게 */
+.initials--bride { right: 0; top: 300px; transform: translateX(var(--spill)); }
 .ini {
-  position: absolute; top: var(--y); width: 32px; height: 29px; padding-bottom: 3px; box-sizing: border-box;
+  position: absolute; left: var(--x); top: var(--y); width: 26px; height: 24px; padding-bottom: 2px; box-sizing: border-box;
   display: flex; align-items: center; justify-content: center;
-  font-style: normal; font-family: 'Work Sans', var(--font); font-size: 12px; font-weight: 600; line-height: 1;
+  font-style: normal; font-family: 'Work Sans', var(--font); font-size: 10.5px; font-weight: 400; line-height: 1;
   background: center / contain no-repeat;
-  filter: drop-shadow(0 1px 1.5px rgba(64, 60, 61, 0.14));
+  filter: drop-shadow(0 1px 2px rgba(64, 60, 61, 0.16));
   transform: rotate(var(--r));
 }
-.initials--groom .ini { left: var(--x); }
-.initials--bride .ini { right: calc(-1 * var(--x)); }
-.ini--groom { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-10 -10 144 132'%3E%3Cpath d='M62 108C56 103 8 72 4 38 1 16 17 3 34 3c12 0 22 7 28 17 6-10 16-17 28-17 17 0 33 13 30 35-4 34-52 65-58 70z' fill='%23edf3db' stroke='%23fff' stroke-width='14' stroke-linejoin='round'/%3E%3C/svg%3E"); color: #4f5e33; }
-.ini--bride { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-10 -10 144 132'%3E%3Cpath d='M62 108C56 103 8 72 4 38 1 16 17 3 34 3c12 0 22 7 28 17 6-10 16-17 28-17 17 0 33 13 30 35-4 34-52 65-58 70z' fill='%23f6d3d8' stroke='%23fff' stroke-width='14' stroke-linejoin='round'/%3E%3C/svg%3E"); color: #9b5a63; }
+.ini--groom { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 124 112'%3E%3Cpath d='M62 108C56 103 8 72 4 38 1 16 17 3 34 3c12 0 22 7 28 17 6-10 16-17 28-17 17 0 33 13 30 35-4 34-52 65-58 70z' fill='%23f0f4de'/%3E%3C/svg%3E"); color: #3f3f38; }
+.ini--bride { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 124 112'%3E%3Cpath d='M62 108C56 103 8 72 4 38 1 16 17 3 34 3c12 0 22 7 28 17 6-10 16-17 28-17 17 0 33 13 30 35-4 34-52 65-58 70z' fill='%23f5cfd5'/%3E%3C/svg%3E"); color: #3f3f38; }
 /* 봉투가 나타난 뒤 하나씩 톡톡 붙어요 */
 .js .ini { animation: iniPop 520ms var(--ease-spring) both; animation-delay: calc(var(--stagger) * 2 + 420ms + var(--i) * 55ms); }
 @keyframes iniPop { from { opacity: 0; transform: rotate(var(--r)) scale(.4); } to { opacity: 1; transform: rotate(var(--r)) scale(1); } }
