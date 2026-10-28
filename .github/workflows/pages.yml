@@ -33,7 +33,7 @@ jobs:
       - name: Cache busting
         run: |
           V=$(echo "$GITHUB_SHA" | cut -c1-8)
-          sed -i "s/?v=dev/?v=$V/g" index.html js/main.js
+          sed -i "s/?v=dev/?v=$V/g" index.html js/*.js
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .

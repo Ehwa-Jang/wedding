@@ -24,12 +24,14 @@
 - 파비콘: images/favicon.ico · favicon-32/192.png · apple-touch-icon.png (그라데이션 하트 스티커)
 - 공유 미리보기 이미지: images/og.jpg (봉투 사진은 images/cover.jpg)
 - 캘린더에 추가하기(V2, 지금은 화면에서 숨김 — index.html #addCal의 hidden만 지우면 다시 보여요): 달력 아래 버튼 하나 → wedding.ics(휴대폰 기본 캘린더, 알림 없음). 카톡 안에서는 외부 브라우저로 열기(js/main.js). 나중에 달력 이미지 오른쪽 아래에 넣는 것도 고민 중. 캔버스 `Calendar-2-2`
+- 갤러리(V2): 캐러셀 없앰 → 인스타 프로필처럼 '비하인드 스토리 동그라미(파스텔 무지개, 다 보면 회색) + 정사각형 격자(사이 2px, 모서리 각지게, 처음 12장)'. 동그라미를 누르면 js/story.js 스토리 보기(왼쪽 1/3 탭 이전 · 나머지 다음 · 꾹 누르면 멈춤 · 끝나면 자동 다음, 보는 동안 배경음악 잠깐 멈춤). 캔버스 `Gallery-5`, `Story-4`
 - 배경음악(V2): audio/bgm.m4a (원본 21분 → AAC 96kbps, 소리를 원본보다 -18dB(약 1/8)로 크게 줄임), 오른쪽 위 고정 버튼(js/main.js `bgm`). 첫 터치 때 재생 시작, 끄면 다시 안 켜짐, 앱 나가면 멈춤. 캔버스 보드 `Main-2-bgm`
 - 하객 사진·영상(V2, GUEST SNAP): 공유하기 아래 섹션, js/snap.js. Apps Script는 Drive 업로드 자리(resumable session, Origin=사이트 주소)만 만들고, 파일은 휴대폰에서 Drive로 바로 올림(사진은 2000px JPEG로 줄임, 영상은 원본, 한 개 300MB까지, 3개씩 동시에). 바로 올리기가 막히면 Apps Script 경유 8MB 조각으로 자동 전환. 코드는 docs/guest-snap-apps-script.gs, 웹 앱 주소는 js/snap.js `SNAP_UPLOAD_URL`(비어 있으면 "곧 열릴 예정이에요"). 노출 기간 제한 없음. 캔버스 `GuestSnap-2`, `GuestSnapPicked-2`
 - 푸터: 맨 아래 별도 섹션(.foot), 캔버스 `Footer-2`
 - 지도 앱 링크: 카카오맵 kko.to/nzLoHhTfSQ · 네이버 naver.me/G9UarGMu · 티맵 tmap.life/96d7bac3
 
 ## 남은 일
-- 갤러리 실제 사진 20장 (images/gallery/gallery-01~20.jpg 같은 이름으로 교체: 01~05 대표 사진 캐러셀 3:4 세로, 06~20 격자)
+- 갤러리 실제 사진 (images/gallery/gallery-01~20.jpg 같은 이름으로 교체, 3열이라 18·21장이면 마지막 줄이 꽉 차요)
+- 비하인드 영상 (videos/behind-01~12.mp4 같은 이름으로 교체, 세로 9:16 · 개수가 바뀌면 js/story.js STORY_COUNT)
 - 버전 2: ~~BGM~~(완료) · 하객 사진(Apps Script 웹 앱 연결 완료)
 - 도메인 연결(선택)
