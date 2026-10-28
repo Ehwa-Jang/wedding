@@ -315,6 +315,9 @@ ul { list-style: none; }
 .divider::before, .divider::after { content: ""; width: 40px; height: 1px; background: linear-gradient(90deg, transparent, var(--sky-2)); }
 .divider::after { transform: scaleX(-1); }
 .divider span { width: 12px; height: 11px; background: var(--grad-heart); clip-path: var(--heart); }
+/* 신랑·신부 편지 사이: 하트 선 위아래 여백이 같도록 아래쪽을 줄여요 */
+#letter-groom { padding-bottom: 0; }
+#letter-bride { padding-top: 34px; }
 
 /* ===== 5. 갤러리 ===== */
 .gallery { padding-left: 0; padding-right: 0; gap: 24px; }
