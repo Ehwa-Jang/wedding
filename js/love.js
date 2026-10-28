@@ -1,6 +1,6 @@
 /* 하트 보내기 (인사말 폴라로이드 모서리의 하트)
  * 누를 때마다 하트·반짝이가 터지고, 모든 방문자의 하트 수를 합산해요.
- * 하트와 축하 한마디는 사진 바깥(오른쪽·아래)으로만 퍼져서 인물을 가리지 않아요. */
+ * 터지는 하트는 사진 바깥(오른쪽·아래)으로만 퍼지고, 축하 한마디는 하트 바로 위에 조금씩 다른 자리로 떠요. */
 (function () {
   'use strict';
 
@@ -27,7 +27,7 @@
   var stage = document.getElementById('loveStage');
   var btn = document.getElementById('loveBtn');
   var countEl = document.getElementById('loveCount');
-  var tapHint = stage && stage.querySelector('.love__hint');   // 처음 누르면 안내 말풍선은 사라져요
+  
   if (!stage || !btn || !countEl) return;
 
   var rs = getComputedStyle(document.documentElement);
@@ -159,6 +159,14 @@
     el.className = 'love__msg';
     el.textContent = MESSAGES[idx];
     stage.appendChild(el);
+    // 하트 바로 위, 가로 ±14px · 세로 ±5px 정도 랜덤하게 (화면 밖으로 나가지 않게)
+    var w = el.offsetWidth, h = el.offsetHeight;
+    var cx = btn.offsetLeft + btn.offsetWidth / 2 + rand(-14, 14);
+    var sl = stage.getBoundingClientRect().left, vw = document.documentElement.clientWidth;
+    cx = Math.max(8 - sl + w / 2, Math.min(vw - 8 - sl - w / 2, cx));
+    el.style.left = (cx - w / 2) + 'px';
+    el.style.top = (btn.offsetTop - h - 2 + rand(-5, 5)) + 'px';
+    el.style.rotate = rand(-3, 3).toFixed(1) + 'deg';
     var item = { el: el };
     msgs.push(item);
     var done = item.done = function () {
@@ -202,7 +210,6 @@
     squish();
     burst(cx, cy, combo > 6 ? 0.7 : 1);   // 너무 빠른 연타 땐 조금 덜 화려하게
     message();
-    if (tapHint) tapHint.classList.add('is-hidden');
     if (navigator.vibrate && !reduceMotion) { try { navigator.vibrate(8); } catch (e) {} }
 
     localCount++;
