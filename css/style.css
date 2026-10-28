@@ -596,7 +596,7 @@ ul { list-style: none; }
 }
 
 /* ===== 11. 공유하기 ===== */
-.share { gap: 20px; padding-bottom: 56px; }
+.share { gap: 20px; padding-bottom: calc(28px + env(safe-area-inset-bottom)); }
 .share__btns { width: 100%; display: flex; flex-direction: column; gap: 10px; }
 .share__btn {
   min-height: 50px; border-radius: 10px; border: 1px solid var(--sky-3); background: var(--white);
@@ -720,9 +720,9 @@ ul { list-style: none; }
 
 /* ===== 14. 푸터 ===== */
 .foot {
-  background: var(--white); color: var(--muted);
+  color: var(--muted);   /* 공유하기 섹션 안에 있어서 배경이 그대로 이어져요 */
   display: flex; flex-direction: column; align-items: center; gap: 10px;
-  padding: 32px 24px calc(32px + env(safe-area-inset-bottom));
+  margin-top: 36px;
 }
 .foot svg { fill: var(--sage); }
 .foot p { margin: 0; font-size: 11px; letter-spacing: 0.12em; }
