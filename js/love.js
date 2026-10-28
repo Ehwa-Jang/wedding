@@ -49,8 +49,17 @@
     var n = FIREBASE_DB_URL ? (serverTotal === null ? null : serverTotal + pending) : localCount;
     countEl.textContent = n === null ? '···' : fmt(n);
   }
+  var countHeart = stage.querySelector('.love__heart');
   function bumpCount() {
     if (!canAnimate || reduceMotion) return;
+    // 숫자 앞 하트도 콩! 하고 왼쪽 위로 작은 하트들이 팡팡
+    if (countHeart) {
+      countHeart.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.35)', offset: .3 }, { transform: 'scale(1)' }],
+        { duration: 380, easing: EASE_SPRING });
+      var sr = stage.getBoundingClientRect(), hr = countHeart.getBoundingClientRect();
+      burst(hr.left + hr.width / 2 - sr.left, hr.top + hr.height / 2 - sr.top, 1,
+        { from: -175, to: -95, dmin: 28, dmax: 62, scale: 0.8 });
+    }
     countEl.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.16)', offset: .35 }, { transform: 'scale(1)' }],
       { duration: 320, easing: EASE_SPRING });
   }
@@ -109,13 +118,14 @@
 
   function rand(a, b) { return a + Math.random() * (b - a); }
 
-  function burst(cx, cy, power) {
+  // opt가 있으면 작은 버전: from~to 각도(도)로, dist 거리만큼, 크기는 scale배
+  function burst(cx, cy, power, opt) {
     if (!canAnimate) return;
-    var n = reduceMotion ? 3 : Math.round(rand(7, 10) * power);
+    var n = reduceMotion ? 3 : Math.round((opt ? rand(5, 7) : rand(7, 10)) * power);
     for (var i = 0; i < n && active < MAX_ACTIVE; i++) {
       var isStar = Math.random() < 0.35;
       var el = document.createElement('span');
-      var size = isStar ? rand(8, 14) : rand(11, 20);
+      var size = (isStar ? rand(8, 14) : rand(11, 20)) * (opt ? opt.scale : 1);
       el.className = 'love__fx ' + (isStar ? 'love__fx--star' : 'love__fx--heart');
       el.style.width = size + 'px';
       el.style.height = (isStar ? size : size * 0.92) + 'px';
@@ -125,18 +135,21 @@
       active++;
 
       // 사진이 왼쪽 위에 있어서, 위(-90°)에서 시계 방향으로 왼쪽(180°)까지만 퍼져요
-      var ang = (-90 + (i + 0.5) / n * 270 + rand(-12, 12)) * Math.PI / 180;
-      var dist = reduceMotion ? 0 : rand(44, 96);
+      var from = opt ? opt.from : -90, span = opt ? opt.to - opt.from : 270;
+      var ang = (from + (i + 0.5) / n * span + rand(-12, 12)) * Math.PI / 180;
+      var dist = reduceMotion ? 0 : (opt ? rand(opt.dmin, opt.dmax) : rand(44, 96));
       var dx = Math.cos(ang) * dist, dy = Math.sin(ang) * dist;
-      if (dx < 0) dy = Math.max(dy, 4);   // 왼쪽으로 가는 건 사진 아래 여백으로
-      if (dy < 0) dx = Math.max(dx, 6);   // 위로 가는 건 사진 오른쪽 바깥으로
+      if (!opt) {
+        if (dx < 0) dy = Math.max(dy, 4);   // 왼쪽으로 가는 건 사진 아래 여백으로
+        if (dy < 0) dx = Math.max(dx, 6);   // 위로 가는 건 사진 오른쪽 바깥으로
+      }
       var rot = rand(-50, 50);
       var dur = reduceMotion ? 500 : rand(650, 1000);
       var a = el.animate([
-        { transform: 'translate(-50%,-50%) scale(.3) rotate(0deg)', opacity: 0 },
-        { transform: 'translate(calc(-50% + ' + dx * 0.55 + 'px), calc(-50% + ' + dy * 0.55 + 'px)) scale(1.1) rotate(' + rot * 0.6 + 'deg)', opacity: 1, offset: 0.35 },
+        { transform: 'translate(-50%,-50%) scale(.3) rotate(0deg)', opacity: 0, easing: EASE_OUT },
+        { transform: 'translate(calc(-50% + ' + dx * 0.55 + 'px), calc(-50% + ' + dy * 0.55 + 'px)) scale(1.1) rotate(' + rot * 0.6 + 'deg)', opacity: 1, offset: 0.35, easing: 'ease-in' },
         { transform: 'translate(calc(-50% + ' + dx + 'px), calc(-50% + ' + (dy + 8) + 'px)) scale(.6) rotate(' + rot + 'deg)', opacity: 0 }
-      ], { duration: dur, easing: EASE_OUT });
+      ], { duration: dur });   // 구간마다 easing을 따로 줘서 팡! 하고 잠깐 머물렀다 사라져요
       a.onfinish = (function (node) { return function () { node.remove(); active--; }; })(el);
     }
   }
