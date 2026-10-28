@@ -289,7 +289,7 @@ ul { list-style: none; }
 .greeting__text--hand p + p { margin-top: 0.9em; }
 /* 인사말 강조 — 글자 아래쪽에 얇게 칠한 형광펜 */
 .hl { color: inherit; background: linear-gradient(transparent 62%, rgba(200, 216, 160, 0.75) 62%, rgba(200, 216, 160, 0.75) 92%, transparent 92%); padding: 0 2px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
-.greeting__sign { margin-top: 1.3em !important; }
+.thanks__from { display: block; margin-top: 1.3em; }   /* 인사말에 있던 서명을 감사 인사 끝으로 */
 .greeting__text p + p { margin-top: 1em; }   /* 문단 사이 한 줄 정도 */
 .greeting__art { position: relative; width: 100%; display: flex; justify-content: center; padding-top: 18px; }
 .greeting__card {
