@@ -354,6 +354,7 @@ ul { list-style: none; }
 .story-ring--bubble .story-ring__avatar { width: 76px; height: 76px; margin-bottom: 8px; }
 .story-ring--bubble .story-ring__gap { background: var(--sage-soft); }
 .story-ring--bubble .story-ring__badge { width: 24px; height: 24px; right: -3px; bottom: -1px; }
+.story-ring--bubble .story-ring__badge svg { width: 13px; height: 13px; }
 .story-ring--bubble .story-ring__name { font-weight: 600; }
 .story-ring--bubble .story-ring__sub { color: var(--deep); }
 /* 대표 사진 캐러셀: 화면 폭 스크롤 + 칸 맞춤(scroll-snap). 그림자가 잘리지 않게 위아래 여백을 살짝 둬요 */
@@ -475,7 +476,6 @@ ul { list-style: none; }
 .bubble { padding: 11px 15px; max-width: 100%; white-space: nowrap; font-size: min(14px, 3.6vw); }   /* 캔버스에서 정한 줄바꿈(<br>)만 쓰고, 좁은 폰에선 글자를 살짝 줄여요 */
 .bubble--q { align-self: flex-start; background: var(--white); border: 1px solid var(--sky-1); border-radius: 18px 18px 18px 4px; }
 .bubble--q:not(:first-child) { margin-top: 12px; }
-.bubble--q b { font-weight: 600; color: var(--deep); }
 .bubble--a { align-self: flex-end; background: var(--sage-soft); border-radius: 18px 18px 4px 18px; text-align: end; }
 .bubble--left { text-align: start; }
 .bubble__gap { display: block; height: 10px; }
@@ -527,10 +527,17 @@ ul { list-style: none; }
   flex-shrink: 0; height: 34px; padding: 0 14px; border: 0; border-radius: 999px;
   background: var(--sky); font-size: 12px; cursor: pointer;
 }
-.account__note {
-  margin-top: 12px; padding: 12px 10px; border-radius: 10px; background: var(--white); border: 1px solid var(--sky-1);
-  text-align: center; font-size: min(13px, 3.4vw); line-height: 1.5; color: var(--deep); white-space: nowrap;
+.account__note {   /* 화환 안내: 테두리 없이 담백한 한 줄 */
+  margin-top: 16px; text-align: center; font-size: min(13px, 3.4vw); line-height: 1.5; color: var(--muted); white-space: nowrap;
 }
+/* 신부측은 핑크 톤 (신랑측은 연두 그대로) */
+.acc--bride { border-color: #f4d3d8; }
+.acc--bride .mini-heart { background: #efb6c0; }
+.acc--bride .acc__toggle svg { stroke: #c98793; }
+.acc--bride .person { border-top-color: #f4d3d8; }
+.acc--bride .person__role { color: #b06a78; }
+.acc--bride .person__info .ico { stroke: #c98793; }
+.acc--bride .icon-btn, .acc--bride .copy-btn { background: #fbecee; }
 
 /* ===== 10. 감사 인사 ===== */
 .thanks { padding-bottom: 56px; }
