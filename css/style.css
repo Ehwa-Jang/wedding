@@ -554,7 +554,7 @@ ul { list-style: none; }
 @keyframes loveBeat { 0%, 70%, 100% { transform: scale(1); } 78% { transform: scale(1.07); } 86% { transform: scale(.98); } 92% { transform: scale(1.04); } }
 
 /* 터지는 작은 하트 · 반짝이 · 축하 문구 */
-.love__fx { position: absolute; left: 50%; top: 50%; pointer-events: none; will-change: transform, opacity; }
+.love__fx { position: absolute; left: 50%; top: 50%; z-index: 4; pointer-events: none; will-change: transform, opacity; }
 .love__fx--heart {
   -webkit-mask: var(--heart-svg) center / contain no-repeat; mask: var(--heart-svg) center / contain no-repeat;
 }

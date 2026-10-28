@@ -143,11 +143,14 @@
         if (dx < 0) dy = Math.max(dy, 4);   // 왼쪽으로 가는 건 사진 아래 여백으로
         if (dy < 0) dx = Math.max(dx, 6);   // 위로 가는 건 사진 오른쪽 바깥으로
       }
+      // 큰 하트 밑에 숨어서 늦게 보이지 않도록, 하트 가장자리에서 바로 튀어나와요
+      var r0 = opt || reduceMotion ? 0 : 24, sx = Math.cos(ang) * r0, sy = Math.sin(ang) * r0;
       var rot = rand(-50, 50);
       var dur = reduceMotion ? 500 : rand(650, 1000);
       var a = el.animate([
-        { transform: 'translate(-50%,-50%) scale(.3) rotate(0deg)', opacity: 0, easing: EASE_OUT },
-        { transform: 'translate(calc(-50% + ' + dx * 0.55 + 'px), calc(-50% + ' + dy * 0.55 + 'px)) scale(1.1) rotate(' + rot * 0.6 + 'deg)', opacity: 1, offset: 0.35, easing: 'ease-in' },
+        { transform: 'translate(calc(-50% + ' + sx + 'px), calc(-50% + ' + sy + 'px)) scale(.5) rotate(0deg)', opacity: 0, easing: 'linear' },
+        { transform: 'translate(calc(-50% + ' + (sx + (dx - sx) * 0.12) + 'px), calc(-50% + ' + (sy + (dy - sy) * 0.12) + 'px)) scale(.9) rotate(' + rot * 0.2 + 'deg)', opacity: 1, offset: 0.06, easing: EASE_OUT },
+        { transform: 'translate(calc(-50% + ' + (sx + (dx - sx) * 0.6) + 'px), calc(-50% + ' + (sy + (dy - sy) * 0.6) + 'px)) scale(1.1) rotate(' + rot * 0.6 + 'deg)', opacity: 1, offset: 0.35, easing: 'ease-in' },
         { transform: 'translate(calc(-50% + ' + dx + 'px), calc(-50% + ' + (dy + 8) + 'px)) scale(.6) rotate(' + rot + 'deg)', opacity: 0 }
       ], { duration: dur });   // 구간마다 easing을 따로 줘서 팡! 하고 잠깐 머물렀다 사라져요
       a.onfinish = (function (node) { return function () { node.remove(); active--; }; })(el);
@@ -189,8 +192,8 @@
     };
     if (!canAnimate) { setTimeout(done, 1500); return; }
     el.animate([
-      { transform: 'translateY(10px) scale(.9)', opacity: 0 },
-      { transform: 'translateY(0) scale(1)', opacity: 1, offset: 0.15 },
+      { transform: 'translateY(8px) scale(.9)', opacity: 0 },
+      { transform: 'translateY(0) scale(1)', opacity: 1, offset: 0.06 },
       { transform: 'translateY(0) scale(1)', opacity: 1, offset: 0.75 },
       { transform: 'translateY(6px) scale(.98)', opacity: 0 }
     ], { duration: reduceMotion ? 1200 : 1700, easing: EASE_OUT, fill: 'forwards' }).onfinish = done;
@@ -203,8 +206,8 @@
     idleTimer = setTimeout(function () { btn.classList.remove('is-tapped'); }, 2500);
     if (!canAnimate || reduceMotion) return;
     btn.animate([
-      { transform: 'scale(1)' }, { transform: 'scale(.9)', offset: 0.25 }, { transform: 'scale(1)' }
-    ], { duration: 360, easing: EASE_SPRING });
+      { transform: 'scale(1)', easing: 'ease-out' }, { transform: 'scale(.88)', offset: 0.18, easing: EASE_SPRING }, { transform: 'scale(1)' }
+    ], { duration: 380 });   // 누르는 순간 바로 쏙 들어가요
   }
 
   /* ---------- 누르기 ---------- */
