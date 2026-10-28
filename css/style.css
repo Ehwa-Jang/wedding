@@ -290,11 +290,7 @@ ul { list-style: none; }
 .hl { color: inherit; background: linear-gradient(transparent 62%, rgba(200, 216, 160, 0.75) 62%, rgba(200, 216, 160, 0.75) 92%, transparent 92%); padding: 0 2px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 .greeting__sign { margin-top: 1.3em !important; }
 .greeting__text p + p { margin-top: 1em; }   /* 문단 사이 한 줄 정도 */
-.greeting__art { position: relative; width: 100%; display: flex; justify-content: center; padding-top: 54px; }
-.deco-heart { position: absolute; background: var(--blush); clip-path: var(--heart); }
-.deco-heart--lg { background: var(--sage); }
-.deco-heart--lg { width: 48px; height: 44px; right: 24px; top: -4px; transform: rotate(12deg); }
-.deco-heart--sm { width: 22px; height: 20px; left: 24px; top: 18px; transform: rotate(-17deg); }
+.greeting__art { position: relative; width: 100%; display: flex; justify-content: center; padding-top: 18px; }
 .greeting__card {
   width: 236px; padding: 12px 12px 44px;   /* 네모 폴라로이드 — 아래 여백을 넉넉하게 */
   rotate: -2deg;   /* transform과 따로라 등장 모션과 겹치지 않아요 */

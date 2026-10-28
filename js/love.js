@@ -159,13 +159,13 @@
     el.className = 'love__msg';
     el.textContent = MESSAGES[idx];
     stage.appendChild(el);
-    // 하트 바로 위, 가로 ±14px · 세로 ±5px 정도 랜덤하게 (화면 밖으로 나가지 않게)
+    // 하트 위, 가로 ±14px · 세로 ±4px 정도 랜덤하게 (화면 밖으로 나가지 않게)
     var w = el.offsetWidth, h = el.offsetHeight;
     var cx = btn.offsetLeft + btn.offsetWidth / 2 + rand(-14, 14);
     var sl = stage.getBoundingClientRect().left, vw = document.documentElement.clientWidth;
     cx = Math.max(8 - sl + w / 2, Math.min(vw - 8 - sl - w / 2, cx));
     el.style.left = (cx - w / 2) + 'px';
-    el.style.top = (btn.offsetTop - h - 2 + rand(-5, 5)) + 'px';
+    el.style.top = (btn.offsetTop - h - 14 + rand(-4, 4)) + 'px';   // 하트와 안 겹치게 살짝 위
     el.style.rotate = rand(-3, 3).toFixed(1) + 'deg';
     var item = { el: el };
     msgs.push(item);
