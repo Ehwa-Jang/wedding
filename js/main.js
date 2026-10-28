@@ -316,9 +316,10 @@
 
   /* ---------- 스크롤 등장 ---------- */
   // 섹션 안 요소를 하나씩 등록해 두고, 화면 아래쪽 10% 지점에 닿으면 한 번만 재생해요.
+  // 푸터는 페이지 맨 끝이라 PC처럼 화면이 넓으면 '화면 아래 10%' 지점까지 올라오지 못해서 등장 연출에서 빼요
   (function reveal() {
     var targets = document.querySelectorAll(
-      '.sec:not(.cover) > :not(.gallery__grid):not(.chat):not(.location__guide):not(.calendar__board):not(.snap__grid),' +
+      '.sec:not(.cover) > :not(.gallery__grid):not(.foot):not(.chat):not(.location__guide):not(.calendar__board):not(.snap__grid),' +
       '.gallery__grid > li, .chat > *, .location__guide > .guide, .calendar__board'
     );
     if (!('IntersectionObserver' in window)) return;   // 지원 안 하면 처음부터 다 보여요(.reveal을 안 붙임)
