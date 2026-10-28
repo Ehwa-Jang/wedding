@@ -663,7 +663,7 @@ ul { list-style: none; }
 .snap__note { margin: 0; font-size: 12px; line-height: 1.6; color: var(--muted); text-align: center; }
 
 /* ===== 촬영 비하인드 스토리 보기 ===== */
-.story { position: fixed; inset: 0; z-index: 70; background: #000; display: flex; justify-content: center; }
+.story { position: fixed; inset: 0; z-index: 70; background: #000; display: flex; justify-content: center; touch-action: manipulation; }   /* 두 번 톡톡 눌러도 확대되지 않게 (두 손가락 확대는 그대로) */
 .story[hidden] { display: none; }
 .story.is-open .story__frame { animation: storyIn var(--dur-base) var(--ease-out); }
 @keyframes storyIn { from { opacity: 0; transform: scale(.96); } }
@@ -675,7 +675,7 @@ ul { list-style: none; }
 .story__shade { position: absolute; left: 0; right: 0; pointer-events: none; }
 .story__shade--top { top: 0; height: 140px; background: linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,0)); }
 .story__shade--bottom { bottom: 0; height: 160px; background: linear-gradient(0deg, rgba(0,0,0,.5), rgba(0,0,0,0)); }
-.story__tap { position: absolute; top: 0; bottom: 0; padding: 0; border: 0; background: none; cursor: pointer; -webkit-tap-highlight-color: transparent; -webkit-touch-callout: none; user-select: none; }
+.story__tap { position: absolute; top: 0; bottom: 0; padding: 0; border: 0; background: none; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; -webkit-touch-callout: none; user-select: none; }
 .story__tap--prev { left: 0; width: 33%; }
 .story__tap--next { right: 0; width: 67%; }
 .story__bars { position: absolute; left: 10px; right: 10px; top: calc(14px + env(safe-area-inset-top)); display: flex; gap: 3px; pointer-events: none; }

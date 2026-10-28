@@ -134,6 +134,19 @@
       go();
     });
   }
+  // 빠르게 두 번 눌러도 화면이 확대되지 않게 (iOS가 touch-action을 무시하는 경우 대비)
+  var lastTouchEnd = 0;
+  box.addEventListener('touchend', function (e) {
+    var now = Date.now();
+    if (now - lastTouchEnd < 350 && e.touches.length === 0 && e.changedTouches.length === 1) {
+      e.preventDefault();                       // 확대는 막고
+      var b = e.target.closest && e.target.closest('button');
+      if (b) b.click();                         // 넘기기·닫기는 그대로 되게 직접 눌러 줘요
+    }
+    lastTouchEnd = now;
+  }, { passive: false });
+  box.addEventListener('dblclick', function (e) { e.preventDefault(); });
+
   bindTap(prevBtn, prev);
   bindTap(nextBtn, next);
 
