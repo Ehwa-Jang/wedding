@@ -355,59 +355,6 @@
     });
   })();
 
-  /* ---------- 배경음악 ---------- */
-  // 휴대폰은 소리 자동 재생을 막아서, 처음 화면을 터치하는 순간 재생을 시작해요.
-  // 버튼으로 끄면 그 뒤로는 저절로 다시 켜지지 않아요. 다른 앱/탭으로 나가면 잠시 멈췄다가 돌아오면 이어서 재생해요.
-  (function bgm() {
-    var audio = document.getElementById('bgm');
-    var btn = document.getElementById('bgmBtn');
-    var wanted = true;          // 사용자가 끄지 않은 동안은 true
-    var started = false;
-    var held = false;           // 비하인드 영상을 보는 동안 잠깐 멈춤 (js/story.js)
-
-    function setUI(on) {
-      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-      btn.setAttribute('aria-label', on ? '배경음악 끄기' : '배경음악 켜기');
-    }
-    function play() {
-      audio.volume = 0.6;
-      var p = audio.play();
-      if (p && p.then) p.then(function () { setUI(true); }, function () { setUI(false); });
-      else setUI(true);
-    }
-    audio.addEventListener('pause', function () { if (!document.hidden) setUI(false); });
-    audio.addEventListener('play', function () { setUI(true); });
-
-    btn.addEventListener('click', function () {
-      started = true;
-      if (audio.paused) { wanted = true; play(); }
-      else { wanted = false; audio.pause(); }
-    });
-
-    function firstTouch(e) {
-      if (started || e.target.closest('#bgmBtn')) return;
-      started = true;
-      remove();
-      if (wanted && !held) play();
-    }
-    var evs = ['pointerdown', 'touchend', 'keydown'];
-    function remove() { evs.forEach(function (n) { document.removeEventListener(n, firstTouch, true); }); }
-    evs.forEach(function (n) { document.addEventListener(n, firstTouch, true); });
-
-    document.addEventListener('visibilitychange', function () {
-      if (document.hidden) { if (!audio.paused) audio.pause(); }
-      else if (started && wanted && !held) play();
-    });
-
-    window.weddingBgm = {
-      hold: function (on) {
-        held = on;
-        if (on) { if (!audio.paused) audio.pause(); }
-        else if (started && wanted && !document.hidden) play();
-      }
-    };
-  })();
-
   /* ---------- 10. 공유 ---------- */
   document.getElementById('shareLink').addEventListener('click', function () {
     copy(location.href.split('#')[0], '청첩장 링크를 복사했어요');
