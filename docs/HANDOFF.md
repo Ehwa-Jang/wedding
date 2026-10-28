@@ -31,7 +31,7 @@
 - 지도 앱 링크: 카카오맵 kko.to/nzLoHhTfSQ · 네이버 naver.me/G9UarGMu · 티맵 tmap.life/96d7bac3
 
 ## 남은 일
-- 갤러리: 실제 사진 18장 반영 (1~6 캐러셀, 7~18 격자). 보정본 추가로 받으면 gallery-19… 로 넣고 js/main.js 사진 수 수정 (격자가 3의 배수면 줄이 꽉 차요)
+- 갤러리: 실제 사진 18장 (캐러셀 6 + 격자 12). 순서는 js/main.js의 GALLERY_FILES 목록 순서. 새 사진은 images/gallery/에 넣고 목록에 이름 추가 (격자가 3의 배수면 줄이 꽉 차요)
 - 비하인드 영상 (videos/behind-01~12.mp4 같은 이름으로 교체, 세로 9:16 · 개수가 바뀌면 js/story.js STORY_COUNT)
 - 버전 2: ~~BGM~~(완료) · 하객 사진(Apps Script 웹 앱 연결 완료)
 - 도메인 연결(선택)

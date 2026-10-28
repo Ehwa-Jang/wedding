@@ -2,12 +2,29 @@
   'use strict';
 
   /* ---------- 설정 ---------- */
-  // 갤러리 사진: images/gallery/ 안의 같은 이름 파일을 실제 사진으로 바꾸면 됩니다.
-  // 1~6번은 위 대표 사진 캐러셀(세로 사진 추천), 7번부터는 아래 격자(정사각형으로 잘려 보여요). 누르면 원본 비율로 크게 보여요
-  var GALLERY = [];
-  for (var i = 1; i <= 18; i++) {   // 사진 수를 바꾸면 이 숫자도 같이
-    GALLERY.push('images/gallery/gallery-' + (i < 10 ? '0' + i : i) + '.jpg?v=dev');
-  }
+  // 갤러리 사진 (images/gallery/ 안의 파일 이름) — 이 목록 순서대로 보여요. 줄을 위아래로 옮기면 순서가 바뀌어요.
+  // 맨 위 GALLERY_HERO장은 대표 사진 캐러셀(세로 사진 추천), 나머지는 아래 격자(정사각형으로 잘려 보여요). 누르면 원본 비율로 크게 보여요
+  var GALLERY_FILES = [
+    'studio-front',
+    'ferriswheel-nose',
+    'arch-veil',
+    'cake-nose',
+    'brickhouse-bouquet',
+    'forest',              // ↑ 여기까지 캐러셀 6장
+    'studio-profile',
+    'studio-rings',
+    'arch-laugh',
+    'studio-bouquet-kiss',
+    'bumpercar-peace',
+    'arch-lift',
+    'ferriswheel-walk',
+    'room-dance',
+    'veil-kiss',
+    'studio-twirl',
+    'arch-wall',
+    'bumpercar-selfie'
+  ];
+  var GALLERY = GALLERY_FILES.map(function (n) { return 'images/gallery/' + n + '.jpg?v=dev'; });
   var GALLERY_HERO = 6;             // 대표 사진 캐러셀 수
   var GALLERY_PREVIEW = 9;          // 격자에 처음 보이는 사진 수 (3열 × 3줄)
   var WEDDING = { year: 2027, month: 3, day: 13 };
