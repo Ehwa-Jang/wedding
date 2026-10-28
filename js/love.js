@@ -1,4 +1,6 @@
-/* 하트 보내기: 누를 때마다 하트·반짝이가 터지고, 모든 방문자의 하트 수를 합산해요. */
+/* 하트 보내기 (인사말 폴라로이드 모서리의 하트)
+ * 누를 때마다 하트·반짝이가 터지고, 모든 방문자의 하트 수를 합산해요.
+ * 하트와 축하 한마디는 사진 바깥(오른쪽·아래)으로만 퍼져서 인물을 가리지 않아요. */
 (function () {
   'use strict';
 
@@ -20,12 +22,12 @@
     '사랑 듬뿍 행복 가득!',
     '매일매일 신혼처럼!'
   ];
-  var COLORS = ['#c8d8a0', '#b7c98a', '#dbe5c0', '#a9bd78', '#c8d8a0', '#f2c4cb'];   // 세이지 하트 위주 + 연분홍 조금
+  var COLORS = ['#eda7ae', '#f2c4cb', '#efb6c0', '#c8d8a0', '#a9bd78', '#f2c4cb'];   // 핑크 하트 위주 + 세이지 조금
 
   var stage = document.getElementById('loveStage');
   var btn = document.getElementById('loveBtn');
   var countEl = document.getElementById('loveCount');
-  var tapHint = stage && stage.querySelector('.love__tap');
+  var tapHint = stage && stage.querySelector('.love__hint');   // 처음 누르면 안내 말풍선은 사라져요
   if (!stage || !btn || !countEl) return;
 
   var rs = getComputedStyle(document.documentElement);
@@ -122,15 +124,18 @@
       stage.appendChild(el);
       active++;
 
-      var ang = (i / n) * Math.PI * 2 + rand(-0.4, 0.4);
-      var dist = reduceMotion ? 0 : rand(64, 138);
-      var dx = Math.cos(ang) * dist, dy = Math.sin(ang) * dist - rand(10, 30);
+      // 사진이 왼쪽 위에 있어서, 위(-90°)에서 시계 방향으로 왼쪽(180°)까지만 퍼져요
+      var ang = (-90 + (i + 0.5) / n * 270 + rand(-12, 12)) * Math.PI / 180;
+      var dist = reduceMotion ? 0 : rand(44, 96);
+      var dx = Math.cos(ang) * dist, dy = Math.sin(ang) * dist;
+      if (dx < 0) dy = Math.max(dy, 4);   // 왼쪽으로 가는 건 사진 아래 여백으로
+      if (dy < 0) dx = Math.max(dx, 6);   // 위로 가는 건 사진 오른쪽 바깥으로
       var rot = rand(-50, 50);
       var dur = reduceMotion ? 500 : rand(650, 1000);
       var a = el.animate([
         { transform: 'translate(-50%,-50%) scale(.3) rotate(0deg)', opacity: 0 },
         { transform: 'translate(calc(-50% + ' + dx * 0.55 + 'px), calc(-50% + ' + dy * 0.55 + 'px)) scale(1.1) rotate(' + rot * 0.6 + 'deg)', opacity: 1, offset: 0.35 },
-        { transform: 'translate(calc(-50% + ' + dx + 'px), calc(-50% + ' + (dy + 18) + 'px)) scale(.6) rotate(' + rot + 'deg)', opacity: 0 }
+        { transform: 'translate(calc(-50% + ' + dx + 'px), calc(-50% + ' + (dy + 8) + 'px)) scale(.6) rotate(' + rot + 'deg)', opacity: 0 }
       ], { duration: dur, easing: EASE_OUT });
       a.onfinish = (function (node) { return function () { node.remove(); active--; }; })(el);
     }
@@ -156,18 +161,17 @@
     stage.appendChild(el);
     var item = { el: el };
     msgs.push(item);
-    var x = rand(-28, 28);
     var done = item.done = function () {
       var k = msgs.indexOf(item);
       if (k < 0) return;          // 이미 정리됨
       msgs.splice(k, 1); el.remove();
     };
-    if (!canAnimate) { el.style.transform = 'translateX(-50%)'; setTimeout(done, 1500); return; }
+    if (!canAnimate) { setTimeout(done, 1500); return; }
     el.animate([
-      { transform: 'translate(calc(-50% + ' + x + 'px), 14px) scale(.85)', opacity: 0 },
-      { transform: 'translate(calc(-50% + ' + x + 'px), 0) scale(1)', opacity: 1, offset: 0.15 },
-      { transform: 'translate(calc(-50% + ' + x + 'px), -6px) scale(1)', opacity: 1, offset: 0.75 },
-      { transform: 'translate(calc(-50% + ' + x + 'px), -22px) scale(.98)', opacity: 0 }
+      { transform: 'translateY(10px) scale(.9)', opacity: 0 },
+      { transform: 'translateY(0) scale(1)', opacity: 1, offset: 0.15 },
+      { transform: 'translateY(0) scale(1)', opacity: 1, offset: 0.75 },
+      { transform: 'translateY(6px) scale(.98)', opacity: 0 }
     ], { duration: reduceMotion ? 1200 : 1700, easing: EASE_OUT, fill: 'forwards' }).onfinish = done;
   }
 

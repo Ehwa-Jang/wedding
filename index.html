@@ -89,9 +89,24 @@
     <div class="greeting__art">
       <span class="deco-heart deco-heart--lg" aria-hidden="true"></span>
       <span class="deco-heart deco-heart--sm" aria-hidden="true"></span>
-      <figure class="greeting__card">
-        <img class="polaroid__photo" src="images/greeting.jpg?v=dev" width="600" height="800" loading="lazy" alt="케이크를 든 민석의 입을 꽃으로 막고 이화가 장난스럽게 웃는 모습">
-      </figure>
+      <!-- 하트 보내기 (js/love.js): 폴라로이드 모서리 하트를 누르면 하트가 터지고 축하 한마디가 사진 아래에 떠요 -->
+      <div class="love__stage" id="loveStage">
+        <figure class="greeting__card">
+          <img class="polaroid__photo" src="images/greeting.jpg?v=dev" width="600" height="800" loading="lazy" alt="케이크를 든 민석의 입을 꽃으로 막고 이화가 장난스럽게 웃는 모습">
+          <figcaption class="love__count" aria-live="polite">
+            <span class="love__heart" aria-hidden="true">♥</span>
+            <b id="loveCount">···</b><span class="sr-only">개의 축하 하트</span>
+          </figcaption>
+        </figure>
+        <p class="love__hint">마음을 담아<br>하트를 눌러주세요!</p>
+        <button type="button" class="love__btn" id="loveBtn" aria-label="축하 하트 보내기">
+          <svg class="love__shape" viewBox="0 0 124 112" aria-hidden="true">
+            <defs><linearGradient id="loveGrad" x1="0" y1="0" x2="0.6" y2="1"><stop offset="0" stop-color="#fbd9da"></stop><stop offset="1" stop-color="#eda7ae"></stop></linearGradient></defs>
+            <path d="M62 108C56 103 8 72 4 38 1 16 17 3 34 3c12 0 22 7 28 17 6-10 16-17 28-17 17 0 33 13 30 35-4 34-52 65-58 70z" fill="url(#loveGrad)" stroke="#fff" stroke-width="3" stroke-linejoin="round"></path>
+            <path d="M30 22c-8 2-13 9-12 18" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="5" stroke-linecap="round"></path>
+          </svg>
+        </button>
+      </div>
     </div>
   </section>
 
@@ -343,28 +358,7 @@
     </div>
   </section>
 
-  <!-- 10. 하트 보내기 -->
-  <section class="sec sec--sky love" id="love">
-    <header class="sec__title"><h2>SEND LOVE</h2></header>
-    <p class="love__intro">축하하는 마음을 담아<br>하트를 마음껏 눌러주세요 ♡</p>
-    <div class="love__stage" id="loveStage">
-      <button type="button" class="love__btn" id="loveBtn" aria-label="축하 하트 보내기">
-        <svg class="love__shape" viewBox="0 0 124 112" aria-hidden="true">
-          <defs><linearGradient id="loveGrad" x1="0" y1="0" x2="0.6" y2="1"><stop offset="0" stop-color="#c8d8a0"></stop><stop offset="1" stop-color="#c8d8a0"></stop></linearGradient></defs>
-          <path d="M62 108C56 103 8 72 4 38 1 16 17 3 34 3c12 0 22 7 28 17 6-10 16-17 28-17 17 0 33 13 30 35-4 34-52 65-58 70z" fill="url(#loveGrad)"></path>
-          
-        </svg>
-      </button>
-      <p class="love__tap" aria-hidden="true">TAP!</p>
-    </div>
-    <p class="love__count" aria-live="polite">
-      <span>지금까지 받은 사랑</span>
-      <span class="love__heart" aria-hidden="true">♡</span>
-      <b id="loveCount">···</b><span>개</span>
-    </p>
-  </section>
-
-  <!-- 11. 하객 사진 (GUEST SNAP): 고른 사진을 Google Drive(신랑·신부 전용 폴더)로 보내요 — js/snap.js -->
+  <!-- 10. 하객 사진 (GUEST SNAP): 고른 사진을 Google Drive(신랑·신부 전용 폴더)로 보내요 — js/snap.js -->
   <section class="sec sec--white snap" id="snap">
     <header class="sec__title"><h2>GUEST SNAP</h2></header>
     <p class="snap__text">저희의 스냅 작가가 되어주세요!</p>
@@ -400,7 +394,7 @@
     <input type="file" id="snapFile" accept="image/*,video/*" multiple hidden>
   </section>
 
-  <!-- 12. 감사 인사 -->
+  <!-- 11. 감사 인사 -->
   <section class="sec sec--sky thanks" id="thanks">
     <header class="sec__title"><h2>THANK YOU</h2></header>
     <figure class="thanks__photo">
@@ -409,7 +403,7 @@
     <p class="thanks__text">축하해 주시는 따뜻한 마음과<br>귀한 시간 내어 함께해 주시는 발걸음에<br>진심으로 감사드립니다!</p>
   </section>
 
-  <!-- 13. 공유하기 -->
+  <!-- 12. 공유하기 -->
   <section class="sec sec--white share" id="share">
     <header class="sec__title"><h2>SHARE</h2></header>
     <div class="share__btns">
@@ -425,7 +419,7 @@
     </div>
   </section>
 
-  <!-- 14. 푸터 -->
+  <!-- 13. 푸터 -->
   <footer class="foot">
     <svg width="16" height="15" viewBox="0 0 124 112" aria-hidden="true"><path d="M62 108C56 103 8 72 4 38 1 16 17 3 34 3c12 0 22 7 28 17 6-10 16-17 28-17 17 0 33 13 30 35-4 34-52 65-58 70z"></path></svg>
     <p>Made with love by Ehwa Jang · 2026</p>

@@ -102,7 +102,6 @@ ul { list-style: none; }
 .greeting { --b1: 80% 32% at 10% 0%;  --b2: 75% 30% at 100% 62%; }
 .calendar { --b1: 75% 40% at 0% 0%;   --b2: 60% 30% at 100% 6%; }
 .account  { --b1: 70% 35% at 100% 0%; --b2: 70% 40% at 0% 100%; }
-.love     { --b1: 75% 45% at 50% 38%; --b2: 80% 35% at 50% 100%; }
 .thanks   { --b1: 70% 30% at 100% 0%; --b2: 75% 30% at 0% 100%; }
 /* 흰 섹션은 숨 쉬는 공간으로 비워 두고, 커버만 위쪽 모서리에 아주 옅게 */
 .cover {
@@ -516,32 +515,45 @@ ul { list-style: none; }
 .thanks__text { text-align: center; font-family: 'OngleipParkDahyeon', var(--font); font-size: min(18px, 4.6vw); line-height: 1.7; }   /* 손글씨 폰트 */
 .thanks__sign { display: flex; align-items: center; gap: 8px; font-family: 'OngleipParkDahyeon', var(--font); font-size: min(18px, 4.6vw); color: var(--muted); margin-top: -14px; }   /* 인사말 서명과 같은 크기 */
 
-/* ===== 10-1. 하트 보내기 ===== */
-.love { gap: 20px; padding-top: 64px; }
-.love__intro { text-align: center; font-size: 14px; color: var(--muted); }
+/* ===== 2-1. 하트 보내기 (인사말 폴라로이드에 붙어 있어요) ===== */
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .love__stage {
-  position: relative; width: 100%; max-width: 342px; height: 260px;
-  display: flex; align-items: center; justify-content: center;
+  position: relative; width: 236px; padding-bottom: 52px;   /* 아래 여백: 축하 한마디가 뜨는 자리 */
   -webkit-user-select: none; user-select: none;
 }
-/* 하트 뒤로 핑크·그린이 섞인 부드러운 빛 */
-.love__stage::before {
-  content: ""; position: absolute; left: 50%; top: 52%; width: 240px; height: 200px; transform: translate(-50%, -50%);
-  background: radial-gradient(closest-side, rgba(200, 216, 160, 0.42), rgba(255, 255, 255, 0) 70%);
-  filter: blur(6px); pointer-events: none;
+.greeting__card { position: relative; }
+/* 폴라로이드 아래 여백에 손글씨로 적은 하트 수 */
+.love__count {
+  position: absolute; left: 14px; bottom: 9px;
+  display: flex; align-items: baseline; gap: 5px;
+  font-family: 'OngleipParkDahyeon', var(--font); font-size: 17px; line-height: 1.4; color: var(--muted);
 }
+.love__heart { color: #e59aa6; }
+.love__count b { font-weight: normal; font-variant-numeric: tabular-nums; display: inline-block; min-width: 1ch; }
+/* 사진 속 신부가 말하는 것 같은 말풍선 (꼬리가 신부 얼굴 쪽) */
+.love__hint {
+  position: absolute; left: clamp(128px, calc(159px - (390px - 100vw)), 159px); top: -4px; z-index: 2; white-space: nowrap; text-align: center;
+  padding: 8px 13px 9px; border-radius: 16px; background: var(--white); border: 1px solid #dbe5c0;
+  box-shadow: 0 4px 14px rgba(90, 104, 56, 0.12);
+  font-size: 13px; line-height: 1.45; font-weight: 500; color: var(--deep);
+}
+.love__hint { transition: opacity var(--dur-base) var(--ease-out), translate var(--dur-base) var(--ease-out); }
+.love__hint.is-hidden { opacity: 0; translate: 0 -4px; pointer-events: none; }
+.love__hint::after {
+  content: ""; position: absolute; left: 22px; bottom: -6px; width: 10px; height: 10px;
+  background: var(--white); border-right: 1px solid #dbe5c0; border-bottom: 1px solid #dbe5c0; transform: rotate(45deg);
+}
+/* 누르는 하트: 폴라로이드 오른쪽 아래 모서리에 붙은 스티커 */
 .love__btn {
-  position: relative; width: 124px; height: 112px; margin-top: 10px;
+  position: absolute; left: 197px; top: 290px; z-index: 3; width: 72px; height: 66px;
   padding: 0; border: 0; background: none; cursor: pointer;
-  touch-action: manipulation;
-  filter: none;
+  touch-action: manipulation; rotate: 10deg;
+  filter: drop-shadow(0 3px 6px rgba(150, 90, 100, 0.22));
   animation: loveBeat 2.4s ease-in-out infinite;
 }
 .love__btn.is-tapped { animation: none; }
 .love__shape { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .love__btn:focus-visible { outline-offset: 6px; }
-.love__tap { position: absolute; left: 0; right: 0; bottom: 4px; text-align: center; font-size: 12px; color: var(--muted); letter-spacing: .04em; transition: opacity var(--dur-base) var(--ease-out); }
-.love__tap.is-hidden { opacity: 0; }
 @keyframes loveBeat { 0%, 70%, 100% { transform: scale(1); } 78% { transform: scale(1.07); } 86% { transform: scale(.98); } 92% { transform: scale(1.04); } }
 
 /* 터지는 작은 하트 · 반짝이 · 축하 문구 */
@@ -550,15 +562,17 @@ ul { list-style: none; }
   -webkit-mask: var(--heart-svg) center / contain no-repeat; mask: var(--heart-svg) center / contain no-repeat;
 }
 .love__fx--star { clip-path: polygon(50% 0%, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0% 50%, 39% 39%); }
+/* 축하 한마디: 사진 아래, 하트 왼쪽에 떠서 인물을 가리지 않아요 */
 .love__msg {
-  position: absolute; left: 50%; top: 22px; z-index: 2; pointer-events: none; white-space: nowrap;
-  padding: 8px 14px; border-radius: 999px; background: var(--white); border: 1px solid var(--sky-1);
-  box-shadow: 0 4px 12px rgba(90, 104, 56, 0.08);
-  font-size: 13px; font-weight: 500; color: var(--deep);
+  position: absolute; right: 52px; top: 354px; z-index: 4; pointer-events: none; white-space: nowrap;
+  padding: 8px 14px; border-radius: 999px; background: var(--white); border: 1px solid #f2c4cb;
+  box-shadow: 0 4px 14px rgba(190, 110, 125, 0.14);
+  font-size: 13px; font-weight: 500; color: #b06a78;
 }
-.love__count { display: flex; align-items: baseline; gap: 6px; font-size: 14px; color: var(--muted); }
-.love__heart { color: var(--accent); }
-.love__count b { font-size: 18px; font-weight: 600; color: var(--deep); font-variant-numeric: tabular-nums; display: inline-block; min-width: 1ch; }
+.love__msg::after {
+  content: ""; position: absolute; right: -6px; top: 12px; width: 10px; height: 10px;
+  background: var(--white); border-right: 1px solid #f2c4cb; border-top: 1px solid #f2c4cb; transform: rotate(45deg);
+}
 
 /* ===== 11. 공유하기 ===== */
 .share { gap: 20px; padding-bottom: 56px; }
