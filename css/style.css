@@ -343,6 +343,34 @@ ul { list-style: none; }
 .story-ring__badge svg { fill: var(--deep); }
 .story-ring__name { font-size: 13px; font-weight: 500; letter-spacing: 0.02em; }
 .story-ring__sub { font-size: 12px; color: var(--muted); }
+/* OUR STORY 답변 자리: 다른 답변처럼 연두색 말풍선 */
+.story-ring--bubble {
+  align-self: flex-end; width: 196px; box-sizing: border-box; margin: 0; padding: 18px 16px 16px; gap: 2px;
+  background: var(--sage-soft); border-radius: 18px 18px 4px 18px; font: inherit;
+}
+.story-ring--bubble .story-ring__avatar { width: 76px; height: 76px; margin-bottom: 8px; }
+.story-ring--bubble .story-ring__gap { background: var(--sage-soft); }
+.story-ring--bubble .story-ring__badge { width: 24px; height: 24px; right: -3px; bottom: -1px; }
+.story-ring--bubble .story-ring__name { font-weight: 600; }
+.story-ring--bubble .story-ring__sub { color: var(--deep); }
+/* 대표 사진 캐러셀: 화면 폭 스크롤 + 칸 맞춤(scroll-snap). 그림자가 잘리지 않게 위아래 여백을 살짝 둬요 */
+.gallery__top { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.gallery__hero {
+  width: 100%; box-sizing: border-box; margin: -6px 0 -18px; padding: 6px 0 18px 24px;
+  display: flex; gap: 10px; overflow-x: auto; overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory; scroll-padding-left: 24px; scrollbar-width: none;
+}
+.gallery__hero::-webkit-scrollbar { display: none; }
+.gallery__hero::after { content: ""; flex: 0 0 14px; }   /* 마지막 사진 오른쪽 여백 24px (간격 10 + 14) */
+.gallery__hero li {
+  flex: 0 0 min(312px, calc(100% - 78px)); aspect-ratio: 3 / 4; scroll-snap-align: start;
+  border-radius: 14px; overflow: hidden; background: #e9e9e6; box-shadow: 0 6px 18px rgba(90, 104, 56, 0.10);
+}
+.gallery__hero button { display: block; width: 100%; height: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; }
+.gallery__hero img { width: 100%; height: 100%; object-fit: cover; }
+.gallery__dots { display: flex; align-items: center; gap: 6px; }
+.gallery__dots span { width: 6px; height: 6px; border-radius: 3px; background: var(--sky-1); transition: width var(--dur-base) var(--ease-out), background-color var(--dur-base) var(--ease-out); }
+.gallery__dots span.is-on { width: 18px; background: var(--sage-strong); }
 /* 사진 격자 — 인스타 프로필처럼 촘촘하게(사이 2px), 모서리는 뾰족하게 */
 .gallery__grid { width: 100%; box-sizing: border-box; padding: 0 24px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2px; }
 .gallery__grid li { aspect-ratio: 1 / 1; overflow: hidden; background: #ecece9; }
