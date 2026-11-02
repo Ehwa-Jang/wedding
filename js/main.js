@@ -15,13 +15,12 @@
     'studio-profile',
     'studio-rings',
     'studio-bouquet-kiss',
-    'bumpercar-peace',
     'bumpercar-selfie',
     'ferriswheel-walk',
     'forest',
     'arch-laugh',
-    'arch-lift',
     'arch-wall',
+    'arch-lift',
     'room-dance',
     'veil-kiss'
   ];
