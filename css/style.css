@@ -269,21 +269,10 @@ ul { list-style: none; }
 @keyframes iniPop { from { opacity: 0; transform: rotate(var(--r)) scale(.4); } to { opacity: 1; transform: rotate(var(--r)) scale(1); } }
 
 /* 처음 들어왔을 때: 제목 → 날짜 → 봉투 → 안내 문구 순서로 은은하게 */
-.js .cover__meta, .js .envelope {
+.js .cover__title, .js .cover__meta, .js .envelope {
   animation: introUp var(--dur-slow) var(--ease-out) both;
 }
-.js .cover__meta { animation-delay: 1.9s; }   /* 제목이 다 써진 뒤에 */
-/* 제목: 펜으로 쓰듯 왼쪽→오른쪽으로 한 줄씩 (하트도 글자와 함께). 가장자리를 부드럽게 번진 마스크가 지나가요 */
-.write { display: inline-block; padding: 0 2px; }
-.js .write {
-  -webkit-mask-image: linear-gradient(90deg, #000 40%, transparent 47%); mask-image: linear-gradient(90deg, #000 40%, transparent 47%);
-  -webkit-mask-size: 300% 100%; mask-size: 300% 100%;
-  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
-  -webkit-mask-position: 100% 0; mask-position: 100% 0;
-  animation: penWrite 1.05s cubic-bezier(.45, .05, .55, .95) .25s forwards;
-}
-.js .write--2 { animation-duration: 1.15s; animation-delay: 1.25s; }
-@keyframes penWrite { to { -webkit-mask-position: 0 0; mask-position: 0 0; } }
+.js .cover__meta { animation-delay: calc(var(--stagger) * 1); }
 .js .envelope { animation-delay: calc(var(--stagger) * 2 + 40ms); }
 @keyframes introUp { from { opacity: 0; transform: translate3d(0, var(--reveal-y), 0); } to { opacity: 1; transform: none; } }
 
