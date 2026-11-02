@@ -5,20 +5,20 @@
   // 갤러리 사진 (images/gallery/ 안의 파일 이름) — 이 목록 순서대로 보여요. 줄을 위아래로 옮기면 순서가 바뀌어요.
   // 맨 위 GALLERY_HERO장은 대표 사진 캐러셀(세로 사진 추천), 나머지는 아래 격자(정사각형으로 잘려 보여요). 누르면 원본 비율로 크게 보여요
   var GALLERY_FILES = [
+    'studio-twirl',
     'studio-front',
     'ferriswheel-nose',
     'arch-veil',
     'cake-nose',
-    'brickhouse-bouquet',
-    'forest',              // ↑ 여기까지 캐러셀 6장
-    // 격자: 흰 배경 스튜디오 → 놀이공원 → 우드톤 실내
+    'brickhouse-bouquet',  // ↑ 여기까지 캐러셀 6장
+    // 격자: 흰 배경 스튜디오 → 야외(놀이공원·숲) → 우드톤 실내
     'studio-profile',
     'studio-rings',
     'studio-bouquet-kiss',
-    'studio-twirl',
     'bumpercar-peace',
     'bumpercar-selfie',
     'ferriswheel-walk',
+    'forest',
     'arch-laugh',
     'arch-lift',
     'arch-wall',
