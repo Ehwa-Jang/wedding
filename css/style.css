@@ -30,7 +30,7 @@
   --ink: #3f3f38;
   --muted: #626358;   /* 보조 글자 — 흰 배경 대비 약 6.1:1 */
   --deep: #56653a;    /* 아이콘 · 강조 글자 (올리브 그린) — 대비 약 6.3:1 */
-  --font: 'SUIT Variable', 'SUIT', -apple-system, 'Apple SD Gothic Neo', sans-serif;   /* 손글씨 외 모든 글자: SUIT (sun.fo/suit) */
+  --font: 'NoonnuBasicGothic', -apple-system, 'Apple SD Gothic Neo', sans-serif;   /* 손글씨 외 모든 글자: 눈누 기초고딕 */
   --heart: polygon(50% 100%, 4% 46%, 0% 20%, 14% 4%, 34% 0%, 50% 16%, 66% 0%, 86% 4%, 100% 20%, 96% 46%);
   --heart-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 124 112'%3E%3Cpath d='M62 108C56 103 8 72 4 38 1 16 17 3 34 3c12 0 22 7 28 17 6-10 16-17 28-17 17 0 33 13 30 35-4 34-52 65-58 70z'/%3E%3C/svg%3E");
   color-scheme: light;
@@ -51,11 +51,19 @@
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 html { -webkit-text-size-adjust: 100%; }
 @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+/* 눈누 기초고딕 (프로젝트눈누 × 토끼네활자공장, 무료·상업 사용 가능). 굵기가 Regular 하나뿐이라
+   브라우저가 억지로 굵게 만들지 않게 하고(font-synthesis), 제목만 같은 색 얇은 외곽선으로 살짝 도톰하게 해요 */
+@font-face {
+  font-family: 'NoonnuBasicGothic';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noon-2410@1.0/NoonnuBasicGothicRegular.woff2') format('woff2');
+  font-weight: normal; font-display: swap;
+}
 body {
   margin: 0;
   background: var(--sky);
   color: var(--ink);
   font-family: var(--font);
+  font-synthesis: none;
   font-size: 15px;
   line-height: 1.6;
   word-break: keep-all;
@@ -156,7 +164,7 @@ ul { list-style: none; }
 @keyframes scrollNudge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
 @media (prefers-reduced-motion: reduce) { .envelope.is-open ~ .cover__scroll svg { animation: none; } }
 .cover__head { text-align: center; display: flex; flex-direction: column; gap: 14px; }
-.cover__title { font-family: 'Gowun Dodum', var(--font); font-size: 26px; font-weight: 400; line-height: 1.35; letter-spacing: 0.02em; -webkit-text-stroke: 0.4px currentColor; }   /* 첫 화면 제목만 부드러운 고운돋움. 굵기가 하나뿐이라 같은 색 얇은 외곽선으로 아주 살짝 도톰하게 */
+.cover__title { font-size: 26px; font-weight: 400; line-height: 1.35; letter-spacing: 0.01em; }
 .heart-text { color: var(--accent); margin: 0 2px; }
 .cover__meta { font-size: 17px; letter-spacing: 0.06em; line-height: 1.5; }
 
@@ -816,3 +824,8 @@ ul { list-style: none; }
 }
 
 .guide__lots { font-weight: 600; color: var(--ink); }   /* 실제 주차장 3줄 */
+
+/* 제목·이름은 조금 굵게 (외곽선으로), 본문은 Regular 그대로 얇게 */
+.cover__title { -webkit-text-stroke: 0.55px currentColor; }
+.sec__title h2, .letter__name, .location__venue, .acc__title, .person__name, .guide__label, .guide__lots,
+.note__head, .story__name, .story-ring--bubble .story-ring__name, .note__cell.is-day { -webkit-text-stroke: 0.4px currentColor; }
