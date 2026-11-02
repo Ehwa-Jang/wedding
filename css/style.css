@@ -828,7 +828,6 @@ ul { list-style: none; }
 .guide__lots { font-weight: 600; color: var(--ink); }   /* 실제 주차장 3줄 */
 
 /* 제목·이름은 조금 굵게 (외곽선으로), 본문은 Regular 그대로 얇게 */
-.cover__title { -webkit-text-stroke: 0.55px currentColor; }
 .letter__name, .location__venue, .acc__title, .person__name, .guide__label, .guide__lots,
 .note__head, .story__name, .story-ring--bubble .story-ring__name, .note__cell.is-day { -webkit-text-stroke: 0.4px currentColor; }
 /* 제목·이름은 진한 글자색, 본문은 라이트한 글자색 */
