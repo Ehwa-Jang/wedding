@@ -156,7 +156,7 @@ ul { list-style: none; }
 @keyframes scrollNudge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
 @media (prefers-reduced-motion: reduce) { .envelope.is-open ~ .cover__scroll svg { animation: none; } }
 .cover__head { text-align: center; display: flex; flex-direction: column; gap: 14px; }
-.cover__title { font-family: 'Gowun Dodum', var(--font); font-size: 26px; font-weight: 400; line-height: 1.35; letter-spacing: 0.01em; }   /* 첫 화면 제목만 부드러운 고운돋움 (굵기는 하나뿐이라 400) */
+.cover__title { font-family: 'Gowun Dodum', var(--font); font-size: 26px; font-weight: 400; line-height: 1.35; letter-spacing: 0.02em; -webkit-text-stroke: 0.4px currentColor; }   /* 첫 화면 제목만 부드러운 고운돋움. 굵기가 하나뿐이라 같은 색 얇은 외곽선으로 아주 살짝 도톰하게 */
 .heart-text { color: var(--accent); margin: 0 2px; }
 .cover__meta { font-size: 17px; letter-spacing: 0.06em; line-height: 1.5; }
 
