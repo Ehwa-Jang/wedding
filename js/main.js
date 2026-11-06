@@ -18,7 +18,6 @@
     'bumpercar-selfie',
     'ferriswheel-walk',
     'forest',
-    'arch-laugh',
     'arch-wall',
     'arch-lift',
     'room-dance',
