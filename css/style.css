@@ -1,37 +1,37 @@
 /* ===== 색상 · 글꼴 ===== */
 :root {
   --white: #ffffff;
-  /* 2안 · 봄꽃 팔레트: 세이지(피스타치오) 그린 90% + 화이트 + 연분홍 포인트 (변수 이름은 예전 그대로) */
-  --sky: #eef2df;     /* 연한 세이지 — 연락처 버튼 · 지도 배경 */
-  --sky-1: #dbe5c0;   /* 테두리 · 구분선 */
-  --sky-2: #dbe5c0;   /* 구분선 */
-  --sky-3: #c2d199;   /* 버튼 테두리 */
+  /* 하늘색 팔레트(1안 하늘색) + 화이트 + 연분홍 포인트 (변수 이름은 예전 그대로) */
+  --sky: #eef4f9;     /* 연한 세이지 — 연락처 버튼 · 지도 배경 */
+  --sky-1: #dbe8f2;   /* 테두리 · 구분선 */
+  --sky-2: #dbe8f2;   /* 구분선 */
+  --sky-3: #b3c9db;   /* 버튼 테두리 */
   --accent: #efb6c0;  /* 연분홍 포인트 (커버 ♥ · 하트 수 ♡) */
   --blush: #f2c4cb;   /* 연분홍 스티커 · 실링 */
-  --sage: #c8d8a0;    /* 세이지 — 봉투 · 하트 · 주요 면 */
-  --sage-soft: #e6edcf; /* 답변 말풍선 */
-  --sage-strong: #a9bd78; /* 작은 하트 아이콘 */
+  --sage: #c6d8e6;    /* 세이지 — 봉투 · 하트 · 주요 면 */
+  --sage-soft: #e3edf5; /* 답변 말풍선 */
+  --sage-strong: #a9c2d6; /* 작은 하트 아이콘 */
   --grad-heart: var(--sage-strong);  /* 작은 그린 하트 (평면) */
   --grad-heart-pink: var(--blush);
-  --green: #b9dca4;   /* 제목 아래 선 */
-  --green-soft: #d6eac8;  /* 봉투 안쪽 */
-  --green-heart: #d9eecb; /* 달력 큰 하트 */
-  --seal: #a9cd96;    /* 봉투 실링 */
-  --wash: linear-gradient(170deg, #fdeeee 0%, #fdf6f3 48%, #eff8e9 100%);  /* 색 배경 섹션: 핑크→그린 */
-  --bubble: #e3f2d8;
+  --green: #a9c2d6;   /* 제목 아래 선 */
+  --green-soft: #d4e4f0;  /* 봉투 안쪽 */
+  --green-heart: #d9e7f2; /* 달력 큰 하트 */
+  --seal: #a9c2d6;    /* 봉투 실링 */
+  --wash: linear-gradient(170deg, #fdeeee 0%, #fdf6f3 48%, #eaf3fa 100%);  /* 색 배경 섹션: 핑크→그린 */
+  --bubble: #dfebf5;
   /* 그라데이션 — 포스터처럼 흐릿하게 번지는 핑크·그린 덩어리(블롭)를 겹쳐서 써요 */
   --blob-pink: rgba(255, 255, 255, 0.9);   /* 흰빛 번짐 */
-  --blob-green: rgba(200, 216, 160, 0.45);
-  --blob-base: #f4f6ea;
+  --blob-green: rgba(198, 216, 230, 0.45);
+  --blob-base: #f1f6fa;
   --grad-pink: linear-gradient(150deg, #fbe2e2 0%, #f5c9cc 100%);
-  --grad-green: linear-gradient(150deg, #e4f2d9 0%, #c9e3b8 100%);
-  --grad-line: linear-gradient(90deg, #b9cb8a, #b9cb8a);
+  --grad-green: linear-gradient(150deg, #e2edf6 0%, #c6d8e6 100%);
+  --grad-line: linear-gradient(90deg, #a9c2d6, #a9c2d6);
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .4 0 0 0 0 .35 0 0 0 0 .36 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  --ink: #3f3f38;
-  --muted: #626358;   /* 보조 글자 — 흰 배경 대비 약 6.1:1 */
-  --text: #5a5b52;    /* 본문: 라이트하게 (흰 배경 대비 약 6.7:1) */
-  --deep: #56653a;    /* 아이콘 · 강조 글자 (올리브 그린) — 대비 약 6.3:1 */
-  --font: 'NoonnuBasicGothic', -apple-system, 'Apple SD Gothic Neo', sans-serif;   /* 손글씨 외 모든 글자: 눈누 기초고딕 */
+  --ink: #353d45;
+  --muted: #5f6a74;   /* 보조 글자 — 흰 배경 대비 약 6.1:1 */
+  --text: #545c64;    /* 본문: 라이트하게 (흰 배경 대비 약 6.7:1) */
+  --deep: #4f6f88;    /* 아이콘 · 강조 글자 (올리브 그린) — 대비 약 6.3:1 */
+  --font: 'BusanDandiGothic', -apple-system, 'Apple SD Gothic Neo', sans-serif;   /* 손글씨 외 모든 글자: 부산단디고딕 */
   --heart: polygon(50% 100%, 4% 46%, 0% 20%, 14% 4%, 34% 0%, 50% 16%, 66% 0%, 86% 4%, 100% 20%, 96% 46%);
   --heart-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 124 112'%3E%3Cpath d='M62 108C56 103 8 72 4 38 1 16 17 3 34 3c12 0 22 7 28 17 6-10 16-17 28-17 17 0 33 13 30 35-4 34-52 65-58 70z'/%3E%3C/svg%3E");
   color-scheme: light;
@@ -52,18 +52,17 @@
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 html { -webkit-text-size-adjust: 100%; }
 @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
-/* 눈누 기초고딕 (프로젝트눈누 × 토끼네활자공장, 무료·상업 사용 가능). 굵기가 Regular 하나뿐이라
-   브라우저가 억지로 굵게 만들지 않게 하고(font-synthesis), 제목만 같은 색 얇은 외곽선으로 살짝 도톰하게 해요 */
-@font-face {
-  font-family: 'NoonnuBasicGothic';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noon-2410@1.0/NoonnuBasicGothicRegular.woff2') format('woff2');
-  font-weight: normal; font-display: swap;
-}
+/* 부산단디고딕 (부산광역시, 공공누리 제1유형 — 웹·상업 사용 가능). Light 300 · Medium 500 · Bold 700 진짜 굵기가 있어요.
+   본문은 Light, 제목·이름은 Medium */
+@font-face { font-family: 'BusanDandiGothic'; src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/2610132210@l/l/%EB%B6%80%EC%82%B0%EB%8B%A8%EB%94%94%EA%B3%A0%EB%94%95L.woff2') format('woff2'); font-weight: 300; font-display: swap; }
+@font-face { font-family: 'BusanDandiGothic'; src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/2610132210@l/l/%EB%B6%80%EC%82%B0%EB%8B%A8%EB%94%94%EA%B3%A0%EB%94%95M.woff2') format('woff2'); font-weight: 500; font-display: swap; }
+@font-face { font-family: 'BusanDandiGothic'; src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/2610132210@l/l/%EB%B6%80%EC%82%B0%EB%8B%A8%EB%94%94%EA%B3%A0%EB%94%95B.woff2') format('woff2'); font-weight: 700; font-display: swap; }
 body {
   margin: 0;
   background: var(--sky);
   font-family: var(--font);
   font-synthesis: none;
+  font-weight: 300;
   color: var(--text);
   font-size: 15px;
   line-height: 1.6;
@@ -116,15 +115,15 @@ ul { list-style: none; }
 /* 흰 섹션은 숨 쉬는 공간으로 비워 두고, 커버만 위쪽 모서리에 아주 옅게 */
 .cover {
   background:
-    radial-gradient(55% 28% at 0% 0%, rgba(200, 216, 160, 0.22), transparent 72%),
-    radial-gradient(50% 26% at 100% 4%, rgba(200, 216, 160, 0.32), transparent 72%),
+    radial-gradient(55% 28% at 0% 0%, rgba(198, 216, 230, 0.22), transparent 72%),
+    radial-gradient(50% 26% at 100% 4%, rgba(198, 216, 230, 0.32), transparent 72%),
     var(--white);
 }
 
 .sec__title { display: flex; flex-direction: column; align-items: center; gap: 12px; }
 .sec__title h2 {   /* '장영기 & 이미진의 첫째 딸'과 같은 크기·색 */
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 300;
   color: var(--muted);
   line-height: 1.3;
   letter-spacing: 0.22em;
@@ -156,7 +155,7 @@ ul { list-style: none; }
   opacity: 0; pointer-events: none;
   transition: opacity var(--dur-fast) var(--ease-in);
 }
-.cover__scroll svg { display: block; fill: none; stroke: #aeb29c; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.cover__scroll svg { display: block; fill: none; stroke: #a3adb6; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .cover__scroll svg + svg { margin-top: -5px; opacity: .45; }
 .envelope.is-open ~ .cover__scroll {
   opacity: 1; pointer-events: auto;
@@ -166,7 +165,7 @@ ul { list-style: none; }
 @keyframes scrollNudge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
 @media (prefers-reduced-motion: reduce) { .envelope.is-open ~ .cover__scroll svg { animation: none; } }
 .cover__head { text-align: center; display: flex; flex-direction: column; gap: 14px; }
-.cover__title { font-size: 26px; font-weight: 400; line-height: 1.35; letter-spacing: 0.01em; }
+.cover__title { font-size: 26px; font-weight: 500; line-height: 1.35; letter-spacing: 0.01em; }
 .heart-text { color: var(--accent); margin: 0 2px; }
 .cover__meta { font-size: 17px; letter-spacing: 0.06em; line-height: 1.5; }
 
@@ -183,11 +182,11 @@ ul { list-style: none; }
 .envelope__body.is-floating { will-change: transform; }
 .envelope__shadow {
   position: absolute; left: 12%; right: 12%; bottom: -18px; height: 16px; border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(90, 104, 56, 0.16), rgba(90, 104, 56, 0));
+  background: radial-gradient(closest-side, rgba(79, 111, 136, 0.16), rgba(79, 111, 136, 0));
 }
 .envelope__back {
   position: absolute; left: 0; right: 0; bottom: 0; height: 200px;
-  background: linear-gradient(180deg, #b4c682 0%, #c0d090 100%); border-radius: 3px;
+  background: linear-gradient(180deg, #b8cee0 0%, #c6d8e6 100%); border-radius: 3px;
 }
 /* 사진 자리는 처음부터 다 열어 두고(높이 고정), 사진만 transform으로 올려요 — 레이아웃 계산이 없어 끊기지 않아요 */
 .envelope__holder {
@@ -272,7 +271,7 @@ ul { list-style: none; }
   background: center / contain no-repeat;
   transform: rotate(var(--r));
 }
-.ini--groom { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 124 112'%3E%3Cpath d='M62 108C56 103 8 72 4 38 1 16 17 3 34 3c12 0 22 7 28 17 6-10 16-17 28-17 17 0 33 13 30 35-4 34-52 65-58 70z' fill='%237f9150'/%3E%3C/svg%3E"); color: #ffffff; }
+.ini--groom { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 124 112'%3E%3Cpath d='M62 108C56 103 8 72 4 38 1 16 17 3 34 3c12 0 22 7 28 17 6-10 16-17 28-17 17 0 33 13 30 35-4 34-52 65-58 70z' fill='%237b9bb5'/%3E%3C/svg%3E"); color: #ffffff; }
 .ini--bride { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 124 112'%3E%3Cpath d='M62 108C56 103 8 72 4 38 1 16 17 3 34 3c12 0 22 7 28 17 6-10 16-17 28-17 17 0 33 13 30 35-4 34-52 65-58 70z' fill='%23bf7482'/%3E%3C/svg%3E"); color: #ffffff; }
 /* 봉투가 나타난 뒤 하나씩 톡톡 붙어요 */
 .js .ini { animation: iniPop 520ms var(--ease-spring) both; animation-delay: calc(var(--stagger) * 2 + 420ms + var(--i) * 55ms); }
@@ -298,7 +297,7 @@ ul { list-style: none; }
 .greeting__text--hand { font-family: 'OngleipParkDahyeon', var(--font); font-size: min(18px, 4.6vw); line-height: 1.7; color: var(--ink); }
 .greeting__text--hand p + p { margin-top: 0.9em; }
 /* 인사말 강조 — 글자 아래쪽에 얇게 칠한 형광펜 */
-.hl { color: inherit; background: linear-gradient(transparent 62%, rgba(200, 216, 160, 0.75) 62%, rgba(200, 216, 160, 0.75) 92%, transparent 92%); padding: 0 2px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.hl { color: inherit; background: linear-gradient(transparent 62%, rgba(198, 216, 230, 0.75) 62%, rgba(198, 216, 230, 0.75) 92%, transparent 92%); padding: 0 2px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 .thanks__from { display: block; margin-top: 1.3em; }   /* 인사말에 있던 서명을 감사 인사 끝으로 */
 .greeting__text p + p { margin-top: 1em; }   /* 문단 사이 한 줄 정도 */
 .greeting__art { position: relative; width: 100%; display: flex; justify-content: center; padding-top: 18px; }
@@ -315,9 +314,9 @@ ul { list-style: none; }
 /* ===== 3·4. 부모님 편지 ===== */
 .letter__head { text-align: center; display: flex; flex-direction: column; gap: 4px; }
 .letter__parents { font-size: 16px; color: var(--muted); }
-.letter__name { font-size: 20px; font-weight: 600; letter-spacing: -0.01em; }
+.letter__name { font-size: 20px; font-weight: 500; letter-spacing: -0.01em; }
 .letter__role { font-size: 16px; margin-right: 2px; }   /* 이름보다 작게 */
-.letter__role--groom { color: #6b7d44; }   /* 신랑: 그린 (흰 바탕 대비 4.5:1) */
+.letter__role--groom { color: #4f6f88; }   /* 신랑: 그린 (흰 바탕 대비 4.5:1) */
 .letter__role--bride { color: #a5606a; }   /* 신부: 핑크 (4.7:1) */
 .letter__img { width: 100%; height: auto; }
 /* 부모님 편지와 갤러리 사이 구분 장식 */
@@ -365,7 +364,7 @@ ul { list-style: none; }
 .story-ring--bubble .story-ring__gap { background: var(--sage-soft); }
 .story-ring--bubble .story-ring__badge { width: 24px; height: 24px; right: -3px; bottom: -1px; }
 .story-ring--bubble .story-ring__badge svg { width: 13px; height: 13px; }
-.story-ring--bubble .story-ring__name { font-weight: 600; }
+.story-ring--bubble .story-ring__name { font-weight: 500; }
 .story-ring--bubble .story-ring__sub { color: var(--deep); }
 /* 대표 사진 캐러셀: 화면 폭 스크롤 + 칸 맞춤(scroll-snap). 그림자가 잘리지 않게 위아래 여백을 살짝 둬요 */
 .gallery__top { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 16px; }
@@ -378,7 +377,7 @@ ul { list-style: none; }
 .gallery__hero::after { content: ""; flex: 0 0 14px; }   /* 마지막 사진 오른쪽 여백 24px (간격 10 + 14) */
 .gallery__hero li {
   flex: 0 0 min(312px, calc(100% - 78px)); aspect-ratio: 3 / 4; scroll-snap-align: start;
-  border-radius: 14px; overflow: hidden; background: #e9e9e6; box-shadow: 0 6px 18px rgba(90, 104, 56, 0.10);
+  border-radius: 14px; overflow: hidden; background: #e9e9e6; box-shadow: 0 6px 18px rgba(79, 111, 136, 0.10);
 }
 .gallery__hero button { display: block; width: 100%; height: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; }
 .gallery__hero img { width: 100%; height: 100%; object-fit: cover; }
@@ -408,25 +407,25 @@ ul { list-style: none; }
 .note__paper {
   position: absolute; left: 0; right: 0; top: 16px; bottom: 0;
   background: #ffffff; border-radius: 4px 4px 12px 12px;
-  box-shadow: 0 10px 28px rgba(90, 104, 56, 0.10), 0 2px 6px rgba(64, 60, 61, 0.06);
+  box-shadow: 0 10px 28px rgba(79, 111, 136, 0.10), 0 2px 6px rgba(64, 60, 61, 0.06);
 }
 .note__rings { position: absolute; left: 8px; right: 8px; top: 0; display: flex; justify-content: space-between; }
 .note__rings svg { width: 12px; height: 34px; display: block; }
-.note__rings path { fill: none; stroke: #45463d; stroke-width: 2.2; stroke-linecap: round; }
-.note__rings .hole { fill: #e3e6d6; }
-.note__head { position: absolute; left: 22px; right: 22px; top: 40px; display: flex; justify-content: space-between; font-size: 19px; font-weight: 700; letter-spacing: .14em; }
+.note__rings path { fill: none; stroke: #3e454c; stroke-width: 2.2; stroke-linecap: round; }
+.note__rings .hole { fill: #e1e7ec; }
+.note__head { position: absolute; left: 22px; right: 22px; top: 40px; display: flex; justify-content: space-between; font-size: 19px; font-weight: 500; letter-spacing: .14em; }
 .note__week { position: absolute; left: 0; right: 0; top: 90px; display: grid; grid-template-columns: repeat(3, 1fr); font-size: 11px; font-weight: 500; letter-spacing: .1em; color: var(--muted); }
 .note__week span { padding-left: 12px; }
 .note__week .is-sun, .note__cell.is-sun span { color: #a8666f; }
-.note__grid { position: absolute; left: 0; right: 0; top: 120px; display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 104px; border-top: 1px solid #e8ebdb; }
-.note__cell { position: relative; padding: 9px 12px; font-size: 15px; font-variant-numeric: tabular-nums; border-bottom: 1px solid #e8ebdb; }
+.note__grid { position: absolute; left: 0; right: 0; top: 120px; display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 104px; border-top: 1px solid #e3ebf2; }
+.note__cell { position: relative; padding: 9px 12px; font-size: 15px; font-variant-numeric: tabular-nums; border-bottom: 1px solid #e3ebf2; }
 .note__cell:nth-child(n+7) { border-bottom: 0; }
-.note__cell:not(:nth-child(3n)) { border-right: 1px solid #e8ebdb; }
-.note__cell.is-day { background: #dbe5c0; font-weight: 600; }
+.note__cell:not(:nth-child(3n)) { border-right: 1px solid #e3ebf2; }
+.note__cell.is-day { background: #dbe8f2; font-weight: 500; }
 /* 다이어리에 손으로 적은 메모 */
 .note__memo {
   position: absolute; left: 9px; top: 38px; width: 102px; white-space: nowrap; text-align: center;
-  font-family: var(--font); font-size: 12px; font-weight: 500; line-height: 1.5; letter-spacing: -0.02em; color: #45532a;
+  font-family: var(--font); font-size: 12px; font-weight: 500; line-height: 1.5; letter-spacing: -0.02em; color: #3a536a;
 }
 /* 하트 모양으로 오려낸 스티커 */
 .note__heart { position: absolute; overflow: visible; filter: drop-shadow(0 1px 1.5px rgba(64, 60, 61, 0.12)); }
@@ -449,7 +448,7 @@ ul { list-style: none; }
 .location .sec__title { align-self: center; }
 .location__info, .location__guide { padding: 0 28px; display: flex; flex-direction: column; }
 .location__info { gap: 6px; align-items: flex-start; }
-.location__venue { font-size: 17px; font-weight: 600; }
+.location__venue { font-size: 17px; font-weight: 500; }
 .location__addr { font-size: 15px; color: var(--muted); }
 .location__info .pill-btn { margin-top: 8px; }
 .location__map {
@@ -474,9 +473,9 @@ ul { list-style: none; }
 .maplink__ico--tmap  { background: #2d6bff; color: #2d6bff; }
 .location__guide { gap: 24px; }
 .guide { display: flex; flex-direction: column; gap: 6px; font-size: 14px; color: var(--muted); }
-.guide__label { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 700; color: var(--ink); }
+.guide__label { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500; color: var(--ink); }
 .guide__label svg { stroke: var(--deep); stroke-width: 1.3; }
-.guide__sub { font-weight: 400; }
+.guide__sub { font-weight: 300; }
 .guide__label .dot { fill: var(--deep); stroke: none; }
 .guide__gap { margin-top: 4px; }
 
@@ -505,7 +504,7 @@ ul { list-style: none; }
   display: flex; align-items: center; justify-content: space-between;
   background: var(--white); border: 0; cursor: pointer;
 }
-.acc__title { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; }
+.acc__title { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500; }
 .acc__toggle svg { stroke: var(--deep); transition: transform var(--dur-base) var(--ease-out); }
 .acc__toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
 /* 펼침/접힘: 0fr → 1fr 로 높이를 자연스럽게 (JS가 높이를 재지 않아도 돼요) */
@@ -522,7 +521,7 @@ ul { list-style: none; }
   transition-delay: calc(60ms + var(--i, 0) * 50ms);
 }
 .person { border-top: 1px solid var(--sky-1); padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; }
-.person__name { font-size: 15px; font-weight: 600; display: flex; align-items: baseline; gap: 8px; }
+.person__name { font-size: 15px; font-weight: 500; display: flex; align-items: baseline; gap: 8px; }
 .person__role { font-size: 12px; font-weight: 500; color: var(--deep); }
 .person__row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .person__info { display: flex; align-items: center; gap: 8px; min-width: 0; font-size: 14px; font-variant-numeric: tabular-nums; }
@@ -554,7 +553,7 @@ ul { list-style: none; }
 /* overflow: hidden — 없으면 사진 원본 비율(2:3)대로 액자가 늘어나요 */
 .thanks__photo { width: 280px; max-width: 100%; aspect-ratio: 3 / 4; overflow: hidden; padding: 8px; background: var(--white);
   /* 사진 아래로 핑크, 위로 그린 빛이 아주 은은하게 번져요 */
-  box-shadow: 0 2px 12px rgba(64, 60, 61, 0.10), 0 22px 44px -22px rgba(169, 189, 120, 0.32); }
+  box-shadow: 0 2px 12px rgba(64, 60, 61, 0.10), 0 22px 44px -22px rgba(150, 180, 205, 0.32); }
 .thanks__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; }
 .thanks__text { text-align: center; font-family: 'OngleipParkDahyeon', var(--font); font-size: min(18px, 4.6vw); line-height: 1.7; }   /* 손글씨 폰트 */
 .thanks__sign { display: flex; align-items: center; gap: 8px; font-family: 'OngleipParkDahyeon', var(--font); font-size: min(18px, 4.6vw); color: var(--muted); margin-top: -14px; }   /* 인사말 서명과 같은 크기 */
@@ -632,12 +631,12 @@ ul { list-style: none; }
 .snap__polaroid { position: absolute; box-sizing: border-box; background: var(--white); box-shadow: 0 2px 10px rgba(64, 60, 61, 0.10); }
 .snap__polaroid span { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; }
 .snap__polaroid--l { left: 22px; top: 26px; width: 112px; height: 136px; padding: 8px 8px 26px; transform: rotate(-9deg); }
-.snap__polaroid--l span { background: #f1f4e4; }
+.snap__polaroid--l span { background: #edf3f8; }
 .snap__polaroid--r { right: 22px; top: 30px; width: 112px; height: 136px; padding: 8px 8px 26px; transform: rotate(8deg); }
 .snap__polaroid--r span { background: #fbeef0; }
 .snap__polaroid--c { left: 88px; top: 8px; width: 124px; height: 150px; padding: 8px 8px 30px; transform: rotate(-1deg); box-shadow: 0 4px 14px rgba(64, 60, 61, 0.12); }
 .snap__polaroid--c span { background: var(--sage-soft); }
-.snap__polaroid svg { fill: none; stroke: #7f9150; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
+.snap__polaroid svg { fill: none; stroke: #7b9bb5; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
 .snap__heart { position: absolute; overflow: visible; filter: drop-shadow(0 1px 1.5px rgba(64, 60, 61, 0.12)); }
 .snap__heart--a { left: 196px; top: 0; width: 30px; transform: rotate(14deg); }
 .snap__heart--b { left: 30px; top: 150px; width: 24px; transform: rotate(-12deg); }
@@ -701,7 +700,7 @@ ul { list-style: none; }
 .story__head { position: absolute; left: 14px; right: 6px; top: calc(28px + env(safe-area-inset-top)); display: flex; align-items: center; gap: 8px; pointer-events: none; }
 .story__avatar { width: 32px; height: 32px; border-radius: 50%; overflow: hidden; background: #e9e9e6; flex-shrink: 0; }
 .story__avatar img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 14%; transform: scale(1.7); transform-origin: 50% 22%; }
-.story__name { font-size: 13px; font-weight: 600; }
+.story__name { font-size: 13px; font-weight: 500; }
 .story__count { font-size: 13px; color: rgba(255,255,255,.7); font-variant-numeric: tabular-nums; }
 .story__space { flex: 1; }
 .story__btn { pointer-events: auto; width: 44px; height: 44px; padding: 0; border: 0; background: none; color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; }
@@ -825,10 +824,7 @@ ul { list-style: none; }
   font: inherit !important; -webkit-text-decoration: none !important;
 }
 
-.guide__lots { font-weight: 600; color: var(--ink); }   /* 실제 주차장 3줄 */
+.guide__lots { font-weight: 500; color: var(--ink); }   /* 실제 주차장 3줄 */
 
-/* 제목·이름은 조금 굵게 (외곽선으로), 본문은 Regular 그대로 얇게 */
-.letter__name, .location__venue, .acc__title, .person__name, .guide__label, .guide__lots,
-.note__head, .story__name, .story-ring--bubble .story-ring__name, .note__cell.is-day { -webkit-text-stroke: 0.4px currentColor; }
 /* 제목·이름은 진한 글자색, 본문은 라이트한 글자색 */
 .cover__title, .letter__name, .location__venue, .acc__title, .person__name, .guide__label { color: var(--ink); }

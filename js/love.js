@@ -22,7 +22,7 @@
     '사랑 듬뿍 행복 가득!',
     '매일매일 신혼처럼!'
   ];
-  var COLORS = ['#e2768e', '#f2a3b4', '#f2c4cb', '#eda7ae', '#c8d8a0', '#a9bd78'];   // 핑크 하트 위주 + 세이지 조금
+  var COLORS = ['#e2768e', '#f2a3b4', '#f2c4cb', '#eda7ae', '#c6d8e6', '#a9c2d6'];   // 핑크 하트 위주 + 세이지 조금
 
   var stage = document.getElementById('loveStage');
   var btn = document.getElementById('loveBtn');
@@ -129,7 +129,7 @@
       el.className = 'love__fx ' + (isStar ? 'love__fx--star' : 'love__fx--heart');
       el.style.width = size + 'px';
       el.style.height = (isStar ? size : size * 0.92) + 'px';
-      el.style.background = isStar && Math.random() < 0.4 ? '#56653a' : COLORS[(Math.random() * COLORS.length) | 0];
+      el.style.background = isStar && Math.random() < 0.4 ? '#4f6f88' : COLORS[(Math.random() * COLORS.length) | 0];
       el.style.left = cx + 'px'; el.style.top = cy + 'px';
       stage.appendChild(el);
       active++;
