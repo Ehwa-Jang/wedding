@@ -11,7 +11,7 @@
     'arch-veil',
     'cake-nose',
     'brickhouse-bouquet',  // ↑ 여기까지 캐러셀 6장
-    // 격자: 흰 배경 스튜디오 → 야외(놀이공원·숲) → 우드톤 실내
+    // 격자: 흰 배경 스튜디오 → 야외(놀이공원·숲) → 우드톤 실내 → 공원 야외 → 공원 캐주얼 → 한강 야경
     'studio-profile',
     'studio-rings',
     'studio-bouquet-kiss',
@@ -21,7 +21,27 @@
     'arch-wall',
     'arch-lift',
     'room-dance',
-    'veil-kiss'
+    'veil-kiss',
+    // 공원 야외 촬영 (정장·드레스)
+    'park-willow-bouquet',
+    'park-willow-smile',
+    'park-bubbles',
+    'park-sunglasses',
+    'park-sunglasses-kiss',
+    'park-hill-hands',
+    'park-sky-lift',
+    // 공원 캐주얼 (흰 셔츠·미니 드레스)
+    'casual-gerbera',
+    'casual-rings',
+    'casual-road-laugh',
+    'casual-field-hands',
+    'casual-sunset-bouquet',
+    // 한강 다리 야경 (블랙)
+    'night-bridge-arm',
+    'night-bridge-nose',
+    'night-bridge-crouch',
+    'night-skyline',
+    'night-sparklers'
   ];
   var GALLERY = GALLERY_FILES.map(function (n) { return 'images/gallery/' + n + '.jpg?v=dev'; });
   var GALLERY_HERO = 6;             // 대표 사진 캐러셀 수
