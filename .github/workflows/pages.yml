@@ -19,11 +19,9 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  # 1) 사이트 파일을 묶어서 올리기
+  build:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
@@ -35,5 +33,15 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .
+
+  # 2) 올린 묶음을 사이트에 반영하기 — 작업을 나눠 두면 사이에 몇 초 간격이 생겨서,
+  #    GitHub가 방금 올린 묶음을 못 찾는 문제(2026년 11월)를 피할 수 있어요
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - id: deployment
         uses: actions/deploy-pages@v4
