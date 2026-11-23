@@ -13,7 +13,6 @@
     'brickhouse-bouquet',  // ↑ 여기까지 캐러셀 6장
     // 격자: 흰 배경 스튜디오 → 야외(놀이공원·숲) → 우드톤 실내 → 공원 야외 → 공원 캐주얼 → 한강 야경
     'studio-profile',
-    'studio-rings',
     'bumpercar-selfie',
     'ferriswheel-walk',
     'arch-wall',
