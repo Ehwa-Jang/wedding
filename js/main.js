@@ -6,27 +6,26 @@
   // 맨 위 GALLERY_HERO장은 대표 사진 캐러셀(세로 사진 추천), 나머지는 아래 격자(정사각형으로 잘려 보여요). 누르면 원본 비율로 크게 보여요
   var GALLERY_FILES = [
     'veil-kiss',
-    'ferriswheel-nose',
     'arch-veil',
+    'ferriswheel-nose',
     'cake-nose',
     'brickhouse-bouquet',
     'park-sunglasses-kiss',
     'park-hill-hands',     // ↑ 여기까지 캐러셀 7장
-    // 격자: 흰 배경 스튜디오 → 야외(놀이공원) → 우드톤 실내 → 공원 야외 → 공원 캐주얼 → 한강 야경
+    // 격자: 흰 배경 스튜디오 → 야외(놀이공원·하늘) → 우드톤 실내 → 공원 야외 → 공원 캐주얼 → 한강 야경
     'studio-twirl',
     'studio-front',
     'studio-profile',
     'bumpercar-selfie',
     'ferriswheel-walk',
+    'park-sky-lift',
     'arch-wall',
     'arch-lift',
     'room-dance',
     // 공원 야외 촬영 (정장·드레스)
     'park-willow-bouquet',
-    'park-willow-smile',
     'park-bubbles',
     'park-sunglasses',
-    'park-sky-lift',
     // 공원 캐주얼 (흰 셔츠·미니 드레스)
     'casual-gerbera',
     'casual-rings',
@@ -37,7 +36,6 @@
     'night-bridge-arm',
     'night-bridge-nose',
     'night-bridge-crouch',
-    'night-skyline',
     'night-sparklers'
   ];
   var GALLERY = GALLERY_FILES.map(function (n) { return 'images/gallery/' + n + '.jpg?v=dev'; });
