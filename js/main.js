@@ -5,27 +5,27 @@
   // 갤러리 사진 (images/gallery/ 안의 파일 이름) — 이 목록 순서대로 보여요. 줄을 위아래로 옮기면 순서가 바뀌어요.
   // 맨 위 GALLERY_HERO장은 대표 사진 캐러셀(세로 사진 추천), 나머지는 아래 격자(정사각형으로 잘려 보여요). 누르면 원본 비율로 크게 보여요
   var GALLERY_FILES = [
-    'studio-twirl',
-    'studio-front',
+    'veil-kiss',
     'ferriswheel-nose',
     'arch-veil',
     'cake-nose',
-    'brickhouse-bouquet',  // ↑ 여기까지 캐러셀 6장
-    // 격자: 흰 배경 스튜디오 → 야외(놀이공원·숲) → 우드톤 실내 → 공원 야외 → 공원 캐주얼 → 한강 야경
+    'brickhouse-bouquet',
+    'park-sunglasses-kiss',
+    'park-hill-hands',     // ↑ 여기까지 캐러셀 7장
+    // 격자: 흰 배경 스튜디오 → 야외(놀이공원) → 우드톤 실내 → 공원 야외 → 공원 캐주얼 → 한강 야경
+    'studio-twirl',
+    'studio-front',
     'studio-profile',
     'bumpercar-selfie',
     'ferriswheel-walk',
     'arch-wall',
     'arch-lift',
     'room-dance',
-    'veil-kiss',
     // 공원 야외 촬영 (정장·드레스)
     'park-willow-bouquet',
     'park-willow-smile',
     'park-bubbles',
     'park-sunglasses',
-    'park-sunglasses-kiss',
-    'park-hill-hands',
     'park-sky-lift',
     // 공원 캐주얼 (흰 셔츠·미니 드레스)
     'casual-gerbera',
@@ -41,7 +41,7 @@
     'night-sparklers'
   ];
   var GALLERY = GALLERY_FILES.map(function (n) { return 'images/gallery/' + n + '.jpg?v=dev'; });
-  var GALLERY_HERO = 6;             // 대표 사진 캐러셀 수
+  var GALLERY_HERO = 7;             // 대표 사진 캐러셀 수
   var GALLERY_PREVIEW = 9;          // 격자에 처음 보이는 사진 수 (3열 × 3줄)
   var WEDDING = { year: 2027, month: 3, day: 13 };
   // 카카오 JavaScript 키 — 웹페이지에 공개되는 키예요. 카카오 디벨로퍼스에 등록한 도메인에서만 동작해요.
