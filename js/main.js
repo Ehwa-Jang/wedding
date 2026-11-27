@@ -39,6 +39,8 @@
     'night-sparklers'
   ];
   var GALLERY = GALLERY_FILES.map(function (n) { return 'images/gallery/' + n + '.jpg?v=dev'; });
+  // 격자 미리보기에서 가운데가 아니라 사진 맨 위부터 정사각형으로 보여줄 사진
+  var GRID_TOP = ['studio-twirl', 'studio-front', 'studio-profile'];
   var GALLERY_HERO = 7;             // 대표 사진 캐러셀 수
   var GALLERY_PREVIEW = 9;          // 격자에 처음 보이는 사진 수 (3열 × 3줄)
   var WEDDING = { year: 2027, month: 3, day: 13 };
@@ -212,7 +214,7 @@
       var n = i + GALLERY_HERO;
       html += '<li' + (i >= GALLERY_PREVIEW ? ' class="is-extra" style="--i:' + (i - GALLERY_PREVIEW) + '"' : '') + '>' +
         '<button type="button" data-index="' + n + '" aria-label="사진 ' + (n + 1) + ' 크게 보기">' +
-        '<img src="' + GRID[i] + '" alt="" loading="lazy"></button></li>';
+        '<img src="' + GRID[i] + '" alt="" loading="lazy"' + (GRID_TOP.indexOf(GALLERY_FILES[n]) > -1 ? ' class="is-top"' : '') + '></button></li>';
     }
     grid.innerHTML = html;
     moreBtn.hidden = GRID.length <= GALLERY_PREVIEW;
